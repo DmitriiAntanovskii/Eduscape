@@ -20,11 +20,18 @@
             Job Code
         </th>
         <th>
-            Avg. Pre/Post
+            Avg. Pre
         </th>
         <th>
-            Avg. Score
+            Avg. Post
         </th>
+        <th>
+            Avg. Change
+        </th>
+        <th>
+            Avg. Change %
+        </th>
+
     </tr>
 
     @foreach (var item in Model)
@@ -40,11 +47,18 @@
                 @Html.DisplayFor(modelItem => item.jobcode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.prepost)
+                @Html.DisplayFor(modelItem => item.Pre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.score)
+                @Html.DisplayFor(modelItem => item.Post)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Change)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChangePercent)
+            </td>
+
         </tr>
     }
 

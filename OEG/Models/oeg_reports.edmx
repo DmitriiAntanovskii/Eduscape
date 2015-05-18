@@ -153,6 +153,8 @@
           <Property Type="String" Name="jobcode" Nullable="false" MaxLength="50" />
           <Property Type="Double" Name="Pre" Nullable="true" />
           <Property Type="Double" Name="Post" Nullable="true" />
+          <Property Type="Double" Name="Change" Nullable="true" />
+          <Property Type="Double" Name="ChangePercent" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -217,6 +219,8 @@
                 <ScalarProperty Name="jobcode" ColumnName="jobcode" />
                 <ScalarProperty Name="Pre" ColumnName="Pre" />
                 <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="Change" ColumnName="Change" />
+                <ScalarProperty Name="ChangePercent" ColumnName="ChangePercent" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

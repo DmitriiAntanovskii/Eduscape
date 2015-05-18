@@ -18,5 +18,7 @@ namespace OEG.Models
         public string jobcode { get; set; }
         public Nullable<double> Pre { get; set; }
         public Nullable<double> Post { get; set; }
+        public Nullable<double> Change { get; set; }
+        public Nullable<double> ChangePercent { get; set; }
     }
 }
