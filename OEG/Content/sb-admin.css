@@ -1,0 +1,289 @@
+/* 
+Author: Start Bootstrap - http://startbootstrap.com
+'SB Admin' HTML Template by Start Bootstrap
+
+All Start Bootstrap themes are licensed under Apache 2.0. 
+For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap.com!
+*/
+
+/* ATTN: This is mobile first CSS - to update 786px and up screen width use the media query near the bottom of the document! */
+
+/* Global Styles */
+
+body {
+  margin-top: 100px;
+}
+
+.form-control {
+    max-width:280px;
+}
+
+
+#wrapper {
+  padding-left: 0;
+}
+
+#page-wrapper {
+  width: 100%;
+  padding: 5px 15px;
+}
+
+  .dl-horizontal dt {
+    float: left;
+    width: 140px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+
+.dl-horizontal dd {
+    margin-left: 150px;
+  }
+/* Nav Messages */
+
+.messages-dropdown .dropdown-menu .message-preview .avatar,
+.messages-dropdown .dropdown-menu .message-preview .name,
+.messages-dropdown .dropdown-menu .message-preview .message,
+.messages-dropdown .dropdown-menu .message-preview .time {
+  display: block;
+}
+
+.messages-dropdown .dropdown-menu .message-preview .avatar {
+  float: left;
+  margin-right: 15px;
+}
+
+.messages-dropdown .dropdown-menu .message-preview .name {
+  font-weight: bold;
+}
+
+.messages-dropdown .dropdown-menu .message-preview .message {
+  font-size: 12px;
+}
+
+.messages-dropdown .dropdown-menu .message-preview .time {
+  font-size: 12px;
+}
+
+
+/* Nav Announcements */
+
+.announcement-heading {
+  font-size: 30px;
+  margin: 0;
+}
+
+.announcement-text {
+  margin: 0;
+}
+
+/* Table Headers */
+
+table.tablesorter thead {
+  cursor: pointer;
+}
+
+table.tablesorter thead tr th:hover {
+  background-color: #f5f5f5;
+}
+
+/* Flot Chart Containers */
+
+.flot-chart {
+  display: block;
+  height: 400px;
+}
+
+.flot-chart-content {
+  width: 100%;
+  height: 100%;
+}
+
+/* Edit Below to Customize Widths > 768px */
+@media (min-width:768px) {
+
+    /* Wrappers */
+
+    #wrapper {
+        padding-left: 225px;
+    }
+
+    #page-wrapper {
+        padding: 15px 25px;
+    }
+
+    /* Side Nav */
+
+    .side-nav {
+        margin-left: -225px;
+        left: 225px;
+        width: 225px;
+        position: fixed;
+        top: 100px;
+        height: 100%;
+        background-color: #f8f8f8;
+        border-right: solid 1px #e7e7e7;
+        overflow-y: auto;
+    }
+
+    .navbar-user {
+        background-color: #999;
+    }
+
+    /* Bootstrap Default Overrides - Customized Dropdowns for the Side Nav */
+
+    .side-nav > li.dropdown > ul.dropdown-menu {
+        position: relative;
+        min-width: 225px;
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+    }
+
+    .side-nav > li.dropdown > ul.dropdown-menu > li > a {
+        color: #999999;
+        padding: 15px 15px 15px 25px;
+    }
+
+    .side-nav > li.dropdown > ul.dropdown-menu > li > a:hover,
+    .side-nav > li.dropdown > ul.dropdown-menu > li > a.active,
+    .side-nav > li.dropdown > ul.dropdown-menu > li > a:focus {
+        color: #fff;
+        background-color: #080808;
+    }
+
+
+
+    .side-nav > li > a {
+        width: 225px;
+        background-color: #999;
+        margin-top: 2px;
+    }
+
+    .side-nav > li > a.blue {
+        width: 225px;
+        background-color: #428bca;
+        margin-top: 2px;
+    }
+
+    .side-nav > li > a.green {
+        width: 225px;
+        background-color: #468847;
+        margin-top: 2px;
+    }
+
+        
+
+
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #fff;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover,
+        .navbar-inverse .navbar-nav > li > a:focus {
+            background-color: #428bca;
+        }
+
+    .navbar-inverse .navbar-brand-member {
+        color: #fff;
+    }
+
+    .navbar-inverse {
+        background-color: #f8f8f8;
+        border-color: #e7e7e7;
+    }
+
+    .section {
+        color: #000;
+        padding-left: 5px;
+        font-size: 12px;
+        margin-top: 2px;
+    }
+
+    /* Nav Messages */
+
+    .messages-dropdown .dropdown-menu {
+        min-width: 300px;
+    }
+
+        .messages-dropdown .dropdown-menu li a {
+            white-space: normal;
+        }
+
+    .navbar-collapse {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+}
+
+  .category-wrap{
+    background: #ddd;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 300px;
+    padding: 12px;
+    height: 300px;
+    min-height: 400px;
+    float:left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 1px 1px 0 #a7a7a7;
+    -moz-box-shadow: inset 0 1px 1px 0 #a7a7a7;
+    box-shadow: inset 0 1px 1px 0 #a7a7a7;
+    position: relative;
+}
+.category-wrap img {
+    width: 100%;
+    margin-top: 15px;
+}
+
+
+ .category-wrap p{ 
+    margin-top: 15px;
+    text-align: justify;
+}
+
+ .category-wrap h1{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px; 
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+a .category-wrap {
+    text-decoration: none;
+    /*color: #4A4A4A !important;*/
+    color: #000000 !important;
+}
+
+a:hover .category-wrap {
+    text-decoration: none;
+    /*color: #6B6B6B !important ;*/
+    color: #000000 !important ;
+    /*background-image: url(../img/ribbon.png);
+   background-position: right top; Positioning
+   background-repeat: no-repeat;*/
+   
+}
+
+ .yesno
+ {
+     position: absolute; 
+     bottom: 10px; 
+     text-align: center; 
+     padding:5px 0; 
+     background-color:#222;
+     color:#fff; 
+     border-radius: 5px;
+     width: 276px;
+
+ }
+
+

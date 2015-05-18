@@ -1,0 +1,25 @@
+﻿@model OEG.Models.UserGroup
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<h1><i class="fa fa-users fa-2x"></i> Details <small>User group details</small></h1><hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserGroupName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserGroupName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserGroupID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

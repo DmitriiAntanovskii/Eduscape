@@ -1,0 +1,379 @@
+body, html {
+	height: 100%;
+	width: 100%;
+}
+
+body, h1, h2, h3, h4, h5, h6 {
+	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 700;
+}
+
+.lead {
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.body-content {
+    padding-top: 100px;
+}
+
+
+.intro-header {
+	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 50px;
+	color: #f8f8f8;
+	background: url(../img/bg.jpg) no-repeat center center;
+	background-size: cover;
+	text-align: center;
+}
+
+.intro-header2 {
+	padding-top: 100px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 50px;
+	color: #f8f8f8;
+	background: url(../img/blue-bg.jpg) no-repeat center center;
+	background-size: cover;
+	text-align: center;
+}
+
+.intro-header-white {
+	padding-top: 100px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+}
+
+
+.landing-header-fight {
+	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 50px;
+	color: #f8f8f8;
+    /*background: url(../img/jointhefight2.png) no-repeat center top;*/
+    background: url(../img/creditcardcut.jpg) no-repeat center top;
+	background-size: cover;
+    margin-top:50px;
+}
+
+.landing-header-alone {
+	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 50px;
+	color: #f8f8f8;
+    background: url(../img/alone2.jpg) no-repeat center top;
+	background-size: cover;
+    margin-top:50px;
+}
+
+.landing-header-alone2 {
+	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 50px;
+	color: #f8f8f8;
+    background: url(../img/alone3.jpg) no-repeat center top;
+	background-size: cover;
+    margin-top:50px;
+}
+
+
+.landing-header-free {
+	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 50px;
+	color: #f8f8f8;
+    background: url(../img/livefree.png) no-repeat center top;
+	background-size: cover;
+    margin-top:50px;
+}
+
+.landing-header-taxtime {
+	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 50px;
+	color: #f8f8f8;
+    background: url(../img/taxtime.png) no-repeat center top;
+	background-size: cover;
+    margin-top:50px;
+}
+
+.landing-header-catchyou {
+	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 50px;
+	color: #f8f8f8;
+    background: url(../img/tightrope.png) no-repeat center top;
+	background-size: cover;
+    margin-top:50px;
+}
+
+.landing-header-drowning {
+	padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+	padding-bottom: 50px;
+	color: #f8f8f8;
+    background: url(../img/drowning.png) no-repeat center top;
+	background-size: cover;
+    margin-top:50px;
+}
+
+
+.landing-message {
+    text-align: center;
+    /*padding-bottom:10%;*/
+}
+
+.landing-message > h1 {
+	margin: 0;
+	font-size: 4em;
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.landing-divider {
+	width: 400px;
+	border-top: 1px solid #f8f8f8;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.landing-message > h3 {
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 767px) {
+	.landing-message {
+		/*padding-bottom: 15%;*/
+	}
+
+	.landing-message > h1 {
+		font-size: 3em;
+	}
+
+	.landing-divider {
+		width: 100%;
+	}
+}
+
+
+
+.intro-message {
+	position: relative;
+	padding-top: 20%;
+	padding-bottom: 20%;
+}
+
+.intro-message > h1 {
+	margin: 0;
+	font-size: 5em;
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.intro-divider {
+	width: 400px;
+	border-top: 1px solid #f8f8f8;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.intro-message > h3 {
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 767px) {
+	.intro-message {
+		padding-bottom: 15%;
+	}
+
+	.intro-message > h1 {
+		font-size: 3em;
+	}
+
+	ul.intro-social-buttons > li {
+		display: block;
+		margin-bottom: 20px;
+		padding: 0;
+	}
+
+	ul.intro-social-buttons > li:last-child {
+		margin-bottom: 0;
+	}
+
+	.intro-divider {
+		width: 100%;
+	}
+}
+
+.gray {
+    color:grey;
+}
+
+.field-validation-error {
+color: #b94a48;
+}
+
+.network-name {
+	text-transform: uppercase;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: 2px;
+}
+
+.content-section-a {
+	background-color: #f8f8f8;
+	padding: 50px 0;
+}
+
+.content-section-b {
+	border-top: 1px solid #e7e7e7;
+	border-bottom: 1px solid #e7e7e7;
+	padding: 50px 0;
+}
+
+.section-heading {
+	margin-bottom: 30px;
+}
+
+.section-heading-spacer {
+	border-top: 3px solid #e7e7e7;
+	width: 200px;
+	float: left;
+}
+
+.banner {
+	padding: 100px 0;
+	color: #f8f8f8;
+	background-size: cover;
+}
+
+.banner h2 {
+	margin: 0;
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+	font-size: 3em;
+}
+
+.banner ul {
+	margin-bottom: 0;
+}
+
+.banner-social-buttons {
+	float: right;
+	margin-top: 0;
+}
+
+.banner-social
+{
+	background: url(../img/banner2.png) no-repeat center center;
+}
+
+.banner-privacy
+{
+	background: url(../img/privacy.png) no-repeat center center;
+}
+
+.banner-tac
+{
+	background: url(../img/TAC.png) no-repeat center center;
+}
+
+
+.banner-blog
+{
+	background: url(../img/blog.png) no-repeat center center;
+}
+
+
+.banner-program
+{
+	background: url(../img/freedom.jpg) no-repeat center center;
+}
+
+.banner-about
+{
+	background: url(../img/about.png) no-repeat center center;
+}
+
+.banner-contact
+{
+	background: url(../img/contact.png) no-repeat center center;
+}
+
+.banner-signup
+{
+	background: url(../img/signup.png) no-repeat center center;
+}
+
+.banner-login
+{
+	background: url(../img/login.png) no-repeat center center;
+}
+
+.banner-forgotpassword
+{
+	background: url(../img/forgotpassword.png) no-repeat center center;
+}
+
+.banner-activate
+{
+	background: url(../img/activate.png) no-repeat center center;
+}
+
+.banner-pricing
+{
+	background: url(../img/cash.jpg) no-repeat center center;
+}
+
+.banner-different
+{
+	background: url(../img/different.png) no-repeat center center;
+}
+
+
+@media (max-width: 1199px) {
+	ul.banner-social-buttons {
+		float: left;
+		margin-top: 15px;
+	}	
+}
+
+@media (max-width: 767px) {
+	.banner h2 {
+		margin: 0;
+		text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+		font-size: 3em;
+	}
+
+	ul.banner-social-buttons > li {
+		display: block;
+		margin-bottom: 20px;
+		padding: 0;
+	}
+
+	ul.banner-social-buttons > li:last-child {
+		margin-bottom: 0;
+	}	
+}
+
+footer {
+	background-color: #f8f8f8;
+	padding: 50px 0;
+}
+
+p.copyright {
+	margin: 15px 0 0;
+}
+
+.jumbotron
+{
+    background-color: #222222;
+    color: #fff;
+}
+
+.jumbotron h1
+{
+    font-size: 100px;
+}
+
+.btn-xlg {
+  padding: 15px 24px;
+  font-size: 27px;
+  line-height: 1.33;
+  border-radius: 9px;
+}
+
+.testimonial { margin: 0; background: #B7EDFF;     padding: 10px 50px;     position: relative;     font-family: Georgia, serif;     color: #666;     border-radius: 5px;     font-style: italic;     text-shadow: 0 1px 0 #ECFBFF;     background-image: linear-gradient(#CEF3FF, #B7EDFF); } 
+.testimonial:before, .testimonial:after {     content: "\201C";     position: absolute;     font-size: 80px;     line-height: 1;     color: #999;     font-style: normal; } 
+.testimonial:before {     top: 0;     left: 10px; } 
+.testimonial:after {     content: "\201D";     right: 10px;     bottom: -0.5em; } 
+.arrow-down {     width: 0;     height: 0;     border-left: 15px solid transparent;     border-right: 15px solid transparent;     border-top: 15px solid #B7EDFF;     margin: 0 0 0 25px; } 
+.testimonial-author {     margin: 0 0 0 25px;     font-family: Arial, Helvetica, sans-serif;     color: #999;     text-align:left; } 
+.testimonial-author span {     font-size: 12px;     color: #666; }
+
+
+

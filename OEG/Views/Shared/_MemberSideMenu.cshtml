@@ -1,0 +1,14 @@
+﻿<ul class="nav navbar-nav side-nav">
+    <li class="section hidden-xs">Reports</li>
+    <li><a href="/Reports/AllData/"><i class="fa fa-dashboard"></i> All Data (BIG!)</a></li>
+    <li><a href="/Reports/SchoolsReport"><i class="fa fa-dashboard"></i> Schools Report</a></li>
+    <li><a href="#"><i class="fa fa-dashboard"></i> Report 3</a></li>
+    <li><a href="#"><i class="fa fa-dashboard"></i> Report 4</a></li>
+    @*@if (User.IsInRole("admin"))
+    {*@
+        <li class="section hidden-xs">System Admin</li>
+        <li><a href="/Users"><i class="fa fa-user"></i> Users</a></li>
+        <li><a href="/UserGroups"><i class="fa fa-users"></i> User Groups</a></li>
+    @*}*@
+
+</ul>

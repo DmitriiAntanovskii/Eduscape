@@ -1,0 +1,57 @@
+﻿
+@model PasswordSignUp
+@{
+    ViewBag.Title = "Log In";
+}
+<div class="body-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-6">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Log In</h2>
+                @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="form-horizontal">
+                        @Html.Partial("_Message", ViewData["Message"])
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.email, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.password, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.password, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.rememberme)
+                                    @Html.LabelFor(m => m.rememberme)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Log In" class="btn btn-primary" /><br />
+                                @Html.ActionLink("Forgot your password?", "ForgotPassword", "Users")
+                            </div>
+                        </div>
+
+
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")

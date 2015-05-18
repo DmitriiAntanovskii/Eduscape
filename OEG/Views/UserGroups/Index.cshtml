@@ -1,0 +1,34 @@
+﻿@model IEnumerable<OEG.Models.UserGroup>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<h1><i class="fa fa-users fa-2x"></i> User Groups <small>Maintain user groups</small></h1><hr />
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserGroupName)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.UserGroupID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.UserGroupID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.UserGroupID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserGroupName)
+        </td>
+    </tr>
+}
+
+</table>

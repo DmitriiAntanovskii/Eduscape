@@ -1,0 +1,26 @@
+﻿@using OEG.Models
+@if (ViewData["Message"] != null)
+{
+    MyMessage m = new MyMessage();
+    m = (MyMessage)ViewData["Message"];
+    string type;
+    switch (m.Im)
+    {
+        case Importance.Success:
+            type = "success";
+            break;
+        case Importance.Error:
+            type = "danger";
+            break;
+        case Importance.Warning:
+            type = "warning";
+            break;
+        default:
+            type = "info";
+            break;
+    }
+
+    <div class="alert alert-@type">@Html.Raw(m.Message)</div>
+
+}
+

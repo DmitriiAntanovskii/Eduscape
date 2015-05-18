@@ -1,0 +1,54 @@
+﻿@model IEnumerable<OEG.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<h1><i class="fa fa-user fa-2x"></i> Users <small>Maintain users</small></h1><hr />
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.UserGroup.UserGroupName)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.UserID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.UserID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.UserID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Surname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserGroup.UserGroupName)
+        </td>
+    </tr>
+}
+
+</table>

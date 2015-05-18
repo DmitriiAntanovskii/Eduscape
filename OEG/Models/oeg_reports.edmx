@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="oeg_reportsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ReportData">
+          <Key>
+            <PropertyRef Name="ReportDataID" />
+          </Key>
+          <Property Name="ReportDataID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Group" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="QuestionID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PrePost" Type="int" Nullable="false" />
+          <Property Name="Score" Type="int" Nullable="false" />
+          <Property Name="QualResponse" Type="varchar(max)" />
+          <Property Name="PQA1" Type="varchar(max)" />
+          <Property Name="PQA2" Type="varchar(max)" />
+          <Property Name="PQA3" Type="varchar(max)" />
+          <Property Name="Factor" Type="varchar" MaxLength="50" />
+          <Property Name="School" Type="varchar" MaxLength="50" />
+          <Property Name="YearLevel" Type="int" />
+          <Property Name="Days" Type="int" />
+          <Property Name="Venue" Type="varchar" MaxLength="50" />
+          <Property Name="Year" Type="int" />
+          <Property Name="ProgramStartDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserGroups">
+          <Key>
+            <PropertyRef Name="UserGroupID" />
+          </Key>
+          <Property Name="UserGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserGroupName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserGroupID" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PWD" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifedBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedDate" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Users_UserGroups">
+          <End Role="UserGroups" Type="Self.UserGroups" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserGroups">
+              <PropertyRef Name="UserGroupID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SchoolReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="oeg_reportsModelStoreContainer">
+          <EntitySet Name="ReportData" EntityType="Self.ReportData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserGroups" EntityType="Self.UserGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Users_UserGroups" Association="Self.FK_Users_UserGroups">
+            <End Role="UserGroups" EntitySet="UserGroups" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="oeg_reportsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ReportData">
+          <Key>
+            <PropertyRef Name="ReportDataID" />
+          </Key>
+          <Property Name="ReportDataID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Group" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QuestionID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PrePost" Type="Int32" Nullable="false" />
+          <Property Name="Score" Type="Int32" Nullable="false" />
+          <Property Name="QualResponse" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PQA1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PQA2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PQA3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Factor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="School" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="YearLevel" Type="Int32" />
+          <Property Name="Days" Type="Int32" />
+          <Property Name="Venue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="ProgramStartDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserGroup">
+          <Key>
+            <PropertyRef Name="UserGroupID" />
+          </Key>
+          <Property Name="UserGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserGroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_UserGroups" FromRole="UserGroups" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserGUID" Type="Guid" Nullable="false" />
+          <Property Name="UserGroupID" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PWD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="UserGroup" Relationship="Self.FK_Users_UserGroups" FromRole="Users" ToRole="UserGroups" />
+        </EntityType>
+        <Association Name="FK_Users_UserGroups">
+          <End Role="UserGroups" Type="Self.UserGroup" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserGroups">
+              <PropertyRef Name="UserGroupID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="oeg_reportsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ReportDatas" EntityType="Self.ReportData" />
+          <EntitySet Name="UserGroups" EntityType="Self.UserGroup" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Users_UserGroups" Association="Self.FK_Users_UserGroups">
+            <End Role="UserGroups" EntitySet="UserGroups" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="SchoolReport" ReturnType="Collection(oeg_reportsModel.SchoolReport_Result)" />
+        </EntityContainer>
+        <ComplexType Name="SchoolReport_Result">
+          <Property Type="Int32" Name="year" Nullable="true" />
+          <Property Type="String" Name="school" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="jobcode" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="prepost" Nullable="true" />
+          <Property Type="Double" Name="score" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="oeg_reportsModelStoreContainer" CdmEntityContainer="oeg_reportsEntities">
+          <EntitySetMapping Name="ReportDatas">
+            <EntityTypeMapping TypeName="oeg_reportsModel.ReportData">
+              <MappingFragment StoreEntitySet="ReportData">
+                <ScalarProperty Name="ReportDataID" ColumnName="ReportDataID" />
+                <ScalarProperty Name="JobCode" ColumnName="JobCode" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="PrePost" ColumnName="PrePost" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="QualResponse" ColumnName="QualResponse" />
+                <ScalarProperty Name="PQA1" ColumnName="PQA1" />
+                <ScalarProperty Name="PQA2" ColumnName="PQA2" />
+                <ScalarProperty Name="PQA3" ColumnName="PQA3" />
+                <ScalarProperty Name="Factor" ColumnName="Factor" />
+                <ScalarProperty Name="School" ColumnName="School" />
+                <ScalarProperty Name="YearLevel" ColumnName="YearLevel" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ProgramStartDate" ColumnName="ProgramStartDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserGroups">
+            <EntityTypeMapping TypeName="oeg_reportsModel.UserGroup">
+              <MappingFragment StoreEntitySet="UserGroups">
+                <ScalarProperty Name="UserGroupID" ColumnName="UserGroupID" />
+                <ScalarProperty Name="UserGroupName" ColumnName="UserGroupName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="oeg_reportsModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
+                <ScalarProperty Name="UserGroupID" ColumnName="UserGroupID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PWD" ColumnName="PWD" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifedBy" ColumnName="ModifedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SchoolReport" FunctionName="oeg_reportsModel.Store.SchoolReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="oeg_reportsModel.SchoolReport_Result">
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="school" ColumnName="school" />
+                <ScalarProperty Name="jobcode" ColumnName="jobcode" />
+                <ScalarProperty Name="prepost" ColumnName="prepost" />
+                <ScalarProperty Name="score" ColumnName="score" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
