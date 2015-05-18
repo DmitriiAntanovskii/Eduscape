@@ -16,7 +16,7 @@ namespace OEG.Models
         public Nullable<int> year { get; set; }
         public string school { get; set; }
         public string jobcode { get; set; }
-        public Nullable<double> prepost { get; set; }
-        public Nullable<double> score { get; set; }
+        public Nullable<double> Pre { get; set; }
+        public Nullable<double> Post { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="oeg_reportsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="oeg_reportsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ReportData">
           <Key>
             <PropertyRef Name="ReportDataID" />
@@ -22,7 +22,7 @@
           <Property Name="PQA3" Type="varchar(max)" />
           <Property Name="Factor" Type="varchar" MaxLength="50" />
           <Property Name="School" Type="varchar" MaxLength="50" />
-          <Property Name="YearLevel" Type="int" />
+          <Property Name="YearLevel" Type="varchar" MaxLength="50" />
           <Property Name="Days" Type="int" />
           <Property Name="Venue" Type="varchar" MaxLength="50" />
           <Property Name="Year" Type="int" />
@@ -73,8 +73,7 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="oeg_reportsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -95,7 +94,7 @@
           <Property Name="PQA3" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Factor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="School" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="YearLevel" Type="Int32" />
+          <Property Name="YearLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Days" Type="Int32" />
           <Property Name="Venue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Year" Type="Int32" />
@@ -152,8 +151,8 @@
           <Property Type="Int32" Name="year" Nullable="true" />
           <Property Type="String" Name="school" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="jobcode" Nullable="false" MaxLength="50" />
-          <Property Type="Double" Name="prepost" Nullable="true" />
-          <Property Type="Double" Name="score" Nullable="true" />
+          <Property Type="Double" Name="Pre" Nullable="true" />
+          <Property Type="Double" Name="Post" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -216,8 +215,8 @@
                 <ScalarProperty Name="year" ColumnName="year" />
                 <ScalarProperty Name="school" ColumnName="school" />
                 <ScalarProperty Name="jobcode" ColumnName="jobcode" />
-                <ScalarProperty Name="prepost" ColumnName="prepost" />
-                <ScalarProperty Name="score" ColumnName="score" />
+                <ScalarProperty Name="Pre" ColumnName="Pre" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
