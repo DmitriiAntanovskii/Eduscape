@@ -32,6 +32,17 @@ namespace OEG.Controllers
         {
             return View(db.DurationBenchmark().ToList());
         }
+        public ActionResult StandardDeviation()
+        {
+            List<StdDevByFactor_Result> Factor = db.StdDevByFactor().ToList();
+            List<StdDevByQuestionID_Result> Question = db.StdDevByQuestionID().ToList();
+
+            StdDevViewModel vm = new StdDevViewModel();
+            vm.Factor = Factor;
+            vm.Question = Question;
+
+            return View(vm);
+        }
 
 
     }

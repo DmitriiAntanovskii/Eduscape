@@ -1,0 +1,77 @@
+﻿@model OEG.Models.StdDevViewModel
+@{
+    ViewBag.Title = "Standard Deviation";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>By Factor</h3>
+<table class="table">
+    <tr>
+        <th>
+            Factor
+        </th>
+        <th>
+            Total
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Factor)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.factor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stddev)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<h3>By Question</h3>
+<table class="table">
+    <tr>
+        <th>
+            Factor
+        </th>
+        <th>
+            QuestionID
+        </th>
+        <th>
+            Pre
+        </th>
+        <th>
+            Post
+        </th>
+        <th>
+            Combined
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.Question)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Factor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Combined)
+            </td>
+        </tr>
+    }
+
+</table>
+

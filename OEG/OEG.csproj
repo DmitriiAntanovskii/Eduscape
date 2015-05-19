@@ -202,6 +202,13 @@
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SignUp.cs" />
+    <Compile Include="Models\StdDevByFactor_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StdDevByQuestionID_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StdDevViewModel.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
@@ -293,6 +300,7 @@
     <Content Include="Views\Reports\SchoolsReport.cshtml" />
     <Content Include="Views\Reports\DurationBenchmark.cshtml" />
     <Content Include="Views\Reports\ProgramsBenchmark.cshtml" />
+    <Content Include="Views\Reports\StandardDeviation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

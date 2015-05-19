@@ -66,6 +66,8 @@
         <Function Name="DurationBenchmark" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ProgramsBenchmark" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SchoolReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="StdDevByFactor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="StdDevByQuestionID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="oeg_reportsModelStoreContainer">
           <EntitySet Name="ReportData" EntityType="Self.ReportData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserGroups" EntityType="Self.UserGroups" Schema="dbo" store:Type="Tables" />
@@ -150,6 +152,8 @@
           <FunctionImport Name="SchoolReport" ReturnType="Collection(oeg_reportsModel.SchoolReport_Result)" />
           <FunctionImport Name="ProgramsBenchmark" ReturnType="Collection(oeg_reportsModel.ProgramsBenchmark_Result)" />
           <FunctionImport Name="DurationBenchmark" ReturnType="Collection(oeg_reportsModel.DurationBenchmark_Result)" />
+          <FunctionImport Name="StdDevByFactor" ReturnType="Collection(oeg_reportsModel.StdDevByFactor_Result)" />
+          <FunctionImport Name="StdDevByQuestionID" ReturnType="Collection(oeg_reportsModel.StdDevByQuestionID_Result)" />
         </EntityContainer>
         <ComplexType Name="SchoolReport_Result">
           <Property Type="Int32" Name="year" Nullable="true" />
@@ -180,6 +184,17 @@
           <Property Type="Double" Name="Change" Nullable="true" />
           <Property Type="Double" Name="ChangePercent" Nullable="true" />
           <Property Type="Double" Name="EffectSize" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="StdDevByFactor_Result">
+          <Property Type="String" Name="factor" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="stddev" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="StdDevByQuestionID_Result">
+          <Property Type="String" Name="Factor" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QuestionID" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="Pre" Nullable="true" />
+          <Property Type="Double" Name="Post" Nullable="true" />
+          <Property Type="Double" Name="Combined" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -275,6 +290,25 @@
                 <ScalarProperty Name="Change" ColumnName="Change" />
                 <ScalarProperty Name="ChangePercent" ColumnName="ChangePercent" />
                 <ScalarProperty Name="EffectSize" ColumnName="EffectSize" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="StdDevByFactor" FunctionName="oeg_reportsModel.Store.StdDevByFactor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="oeg_reportsModel.StdDevByFactor_Result">
+                <ScalarProperty Name="factor" ColumnName="factor" />
+                <ScalarProperty Name="stddev" ColumnName="stddev" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="StdDevByQuestionID" FunctionName="oeg_reportsModel.Store.StdDevByQuestionID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="oeg_reportsModel.StdDevByQuestionID_Result">
+                <ScalarProperty Name="Factor" ColumnName="Factor" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="Pre" ColumnName="Pre" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="Combined" ColumnName="Combined" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

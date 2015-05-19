@@ -45,5 +45,15 @@ namespace OEG.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DurationBenchmark_Result>("DurationBenchmark");
         }
+    
+        public virtual ObjectResult<StdDevByFactor_Result> StdDevByFactor()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StdDevByFactor_Result>("StdDevByFactor");
+        }
+    
+        public virtual ObjectResult<StdDevByQuestionID_Result> StdDevByQuestionID()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StdDevByQuestionID_Result>("StdDevByQuestionID");
+        }
     }
 }
