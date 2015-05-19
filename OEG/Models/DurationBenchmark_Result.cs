@@ -21,5 +21,6 @@ namespace OEG.Models
         public Nullable<double> Post { get; set; }
         public Nullable<double> Change { get; set; }
         public Nullable<double> ChangePercent { get; set; }
+        public Nullable<double> EffectSize { get; set; }
     }
 }

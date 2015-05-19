@@ -34,6 +34,9 @@
         <th>
             Avg. Change %
         </th>
+        <th>
+            Effect Size
+        </th>
 
     </tr>
 
@@ -63,6 +66,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ChangePercent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectSize)
             </td>
         </tr>
     }

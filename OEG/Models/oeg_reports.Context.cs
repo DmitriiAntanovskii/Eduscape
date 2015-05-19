@@ -36,14 +36,14 @@ namespace OEG.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolReport_Result>("SchoolReport");
         }
     
-        public virtual ObjectResult<DurationBenchmark_Result> DurationBenchmark()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DurationBenchmark_Result>("DurationBenchmark");
-        }
-    
         public virtual ObjectResult<ProgramsBenchmark_Result> ProgramsBenchmark()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramsBenchmark_Result>("ProgramsBenchmark");
+        }
+    
+        public virtual ObjectResult<DurationBenchmark_Result> DurationBenchmark()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DurationBenchmark_Result>("DurationBenchmark");
         }
     }
 }
