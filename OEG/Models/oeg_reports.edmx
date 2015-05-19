@@ -63,6 +63,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DurationBenchmark" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SchoolReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="oeg_reportsModelStoreContainer">
           <EntitySet Name="ReportData" EntityType="Self.ReportData" Schema="dbo" store:Type="Tables" />
@@ -146,11 +147,22 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <FunctionImport Name="SchoolReport" ReturnType="Collection(oeg_reportsModel.SchoolReport_Result)" />
+          <FunctionImport Name="DurationBenchmark" ReturnType="Collection(oeg_reportsModel.DurationBenchmark_Result)" />
         </EntityContainer>
         <ComplexType Name="SchoolReport_Result">
           <Property Type="Int32" Name="year" Nullable="true" />
           <Property Type="String" Name="school" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="jobcode" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="Pre" Nullable="true" />
+          <Property Type="Double" Name="Post" Nullable="true" />
+          <Property Type="Double" Name="Change" Nullable="true" />
+          <Property Type="Double" Name="ChangePercent" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="DurationBenchmark_Result">
+          <Property Type="String" Name="jobcode" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="venue" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="yearlevel" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="year" Nullable="true" />
           <Property Type="Double" Name="Pre" Nullable="true" />
           <Property Type="Double" Name="Post" Nullable="true" />
           <Property Type="Double" Name="Change" Nullable="true" />
@@ -217,6 +229,20 @@
                 <ScalarProperty Name="year" ColumnName="year" />
                 <ScalarProperty Name="school" ColumnName="school" />
                 <ScalarProperty Name="jobcode" ColumnName="jobcode" />
+                <ScalarProperty Name="Pre" ColumnName="Pre" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="Change" ColumnName="Change" />
+                <ScalarProperty Name="ChangePercent" ColumnName="ChangePercent" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DurationBenchmark" FunctionName="oeg_reportsModel.Store.DurationBenchmark">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="oeg_reportsModel.DurationBenchmark_Result">
+                <ScalarProperty Name="jobcode" ColumnName="jobcode" />
+                <ScalarProperty Name="venue" ColumnName="venue" />
+                <ScalarProperty Name="yearlevel" ColumnName="yearlevel" />
+                <ScalarProperty Name="year" ColumnName="year" />
                 <ScalarProperty Name="Pre" ColumnName="Pre" />
                 <ScalarProperty Name="Post" ColumnName="Post" />
                 <ScalarProperty Name="Change" ColumnName="Change" />
