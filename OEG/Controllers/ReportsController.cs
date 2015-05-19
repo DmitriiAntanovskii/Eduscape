@@ -23,10 +23,16 @@ namespace OEG.Controllers
             return View(db.ReportDatas.ToList());
         }
 
-        public ActionResult SchoolsReport()
+        public ActionResult ProgramsBenchmark()
         {
-            return View(db.SchoolReport().ToList());
+            return View(db.ProgramsBenchmark().ToList());
         }
+
+        public ActionResult DurationBenchmark()
+        {
+            return View(db.DurationBenchmark().ToList());
+        }
+
 
     }
 }

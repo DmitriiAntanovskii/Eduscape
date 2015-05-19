@@ -1,8 +1,8 @@
-﻿@model IEnumerable<OEG.Models.SchoolReport_Result>
+﻿@model IEnumerable<OEG.Models.DurationBenchmark_Result>
 
 
 @{
-    ViewBag.Title = "Programs Benchmark";
+    ViewBag.Title = "Duration Benchmark";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
@@ -11,13 +11,16 @@
 <table class="table">
     <tr>
         <th>
+            Job Code
+        </th>
+        <th>
+            Venue
+        </th>
+        <th>
             Year
         </th>
         <th>
-            School
-        </th>
-        <th>
-            Job Code
+            Year Level
         </th>
         <th>
             Avg. Pre
@@ -38,13 +41,16 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.jobcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.venue)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.year)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.school)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.jobcode)
+                @Html.DisplayFor(modelItem => item.yearlevel)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pre)
@@ -58,7 +64,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ChangePercent)
             </td>
-
         </tr>
     }
 
