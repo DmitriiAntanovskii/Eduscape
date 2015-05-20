@@ -170,6 +170,9 @@
     <Compile Include="Helpers\Email.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Helpers\Security.cs" />
+    <Compile Include="Models\AllCoursesBenchmark_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BuddyClasses\UserGroup_Validation.cs" />
     <Compile Include="Models\BuddyClasses\User_Validation.cs" />
     <Compile Include="Models\ChangePassword.cs" />
@@ -195,7 +198,16 @@
     <Compile Include="Models\ProgramsBenchmark_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\QuantativeByGroup_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ReportData.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SchoolQualative_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SchoolQuantativeByGroup_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SchoolReport_Result.cs">
@@ -213,6 +225,9 @@
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserGroup.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\YearLevelBenchmark_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -301,6 +316,11 @@
     <Content Include="Views\Reports\DurationBenchmark.cshtml" />
     <Content Include="Views\Reports\ProgramsBenchmark.cshtml" />
     <Content Include="Views\Reports\StandardDeviation.cshtml" />
+    <Content Include="Views\Reports\QuantativeByGroup.cshtml" />
+    <Content Include="Views\Reports\AllCoursesBenchmark.cshtml" />
+    <Content Include="Views\Reports\YearLevelBenchmark.cshtml" />
+    <Content Include="Views\Reports\SchoolQuantativeByGroup.cshtml" />
+    <Content Include="Views\Reports\SchoolQualative.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -55,5 +55,30 @@ namespace OEG.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StdDevByQuestionID_Result>("StdDevByQuestionID");
         }
+    
+        public virtual ObjectResult<QuantativeByGroup_Result> QuantativeByGroup()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QuantativeByGroup_Result>("QuantativeByGroup");
+        }
+    
+        public virtual ObjectResult<AllCoursesBenchmark_Result> AllCoursesBenchmark()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AllCoursesBenchmark_Result>("AllCoursesBenchmark");
+        }
+    
+        public virtual ObjectResult<YearLevelBenchmark_Result> YearLevelBenchmark()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<YearLevelBenchmark_Result>("YearLevelBenchmark");
+        }
+    
+        public virtual ObjectResult<SchoolQuantativeByGroup_Result> SchoolQuantativeByGroup()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQuantativeByGroup_Result>("SchoolQuantativeByGroup");
+        }
+    
+        public virtual ObjectResult<SchoolQualative_Result> SchoolQualative()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQualative_Result>("SchoolQualative");
+        }
     }
 }

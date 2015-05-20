@@ -1,0 +1,59 @@
+﻿@model IEnumerable<OEG.Models.SchoolQualative_Result>
+
+
+@{
+    ViewBag.Title = "School Qualative";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Year Level
+        </th>
+        <th>
+            Venue
+        </th>
+        <th>
+            Program Start Date
+        </th>
+        <th>
+            ID
+        </th>
+        <th>
+            Question ID
+        </th>
+        <th>
+            Qualative Response
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.yearlevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Venue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgramStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QualResponse)
+            </td>
+        </tr>
+    }
+
+</table>
+
+

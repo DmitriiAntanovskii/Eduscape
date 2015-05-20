@@ -1,0 +1,84 @@
+﻿@model IEnumerable<OEG.Models.YearLevelBenchmark_Result>
+
+
+@{
+    ViewBag.Title = "Year Level Benchmark";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Year Level
+        </th>
+        <th>
+            Year
+        </th>
+        <th>
+            Duration (Days)
+        </th>
+        <th>
+            Venue
+        </th>
+        <th>
+            factor
+        </th>
+        <th>
+            Avg. Pre
+        </th>
+        <th>
+            Avg. Post
+        </th>
+        <th>
+            Avg. Change
+        </th>
+        <th>
+            Avg. Change %
+        </th>
+        <th>
+            Effect Size
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.yearlevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Days)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Venue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Factor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Change)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChangePercent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectSize)
+            </td>
+        </tr>
+    }
+
+</table>
+
+

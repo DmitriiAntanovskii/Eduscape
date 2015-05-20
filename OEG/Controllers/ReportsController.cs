@@ -44,6 +44,33 @@ namespace OEG.Controllers
             return View(vm);
         }
 
+        public ActionResult QuantativeByGroup()
+        {
+            return View(db.QuantativeByGroup().ToList());
+        }
+
+        public ActionResult AllCoursesBenchmark()
+        {
+            return View(db.AllCoursesBenchmark().ToList());
+        }
+
+        public ActionResult YearLevelBenchmark()
+        {
+            return View(db.YearLevelBenchmark().ToList());
+        }
+
+        public ActionResult SchoolQuantativeByGroup()
+        {
+            return View(db.SchoolQuantativeByGroup().ToList());
+        }
+
+        public ActionResult SchoolQualative()
+        {
+            return View(db.SchoolQualative().ToList());
+        }
+
+
+        
 
     }
 }
