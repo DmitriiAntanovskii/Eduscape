@@ -36,16 +36,6 @@ namespace OEG.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolReport_Result>("SchoolReport");
         }
     
-        public virtual ObjectResult<ProgramsBenchmark_Result> ProgramsBenchmark()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramsBenchmark_Result>("ProgramsBenchmark");
-        }
-    
-        public virtual ObjectResult<DurationBenchmark_Result> DurationBenchmark()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DurationBenchmark_Result>("DurationBenchmark");
-        }
-    
         public virtual ObjectResult<StdDevByFactor_Result> StdDevByFactor()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StdDevByFactor_Result>("StdDevByFactor");
@@ -54,11 +44,6 @@ namespace OEG.Models
         public virtual ObjectResult<StdDevByQuestionID_Result> StdDevByQuestionID()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StdDevByQuestionID_Result>("StdDevByQuestionID");
-        }
-    
-        public virtual ObjectResult<QuantativeByGroup_Result> QuantativeByGroup()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QuantativeByGroup_Result>("QuantativeByGroup");
         }
     
         public virtual ObjectResult<AllCoursesBenchmark_Result> AllCoursesBenchmark()
@@ -79,6 +64,33 @@ namespace OEG.Models
         public virtual ObjectResult<SchoolQualative_Result> SchoolQualative()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQualative_Result>("SchoolQualative");
+        }
+    
+        public virtual ObjectResult<ProgramsBenchmark_Result> ProgramsBenchmark(string factors)
+        {
+            var factorsParameter = factors != null ?
+                new ObjectParameter("Factors", factors) :
+                new ObjectParameter("Factors", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramsBenchmark_Result>("ProgramsBenchmark", factorsParameter);
+        }
+    
+        public virtual ObjectResult<QuantativeByGroup_Result> QuantativeByGroup(string jobCodes)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QuantativeByGroup_Result>("QuantativeByGroup", jobCodesParameter);
+        }
+    
+        public virtual ObjectResult<DurationBenchmark_Result> DurationBenchmark(string days)
+        {
+            var daysParameter = days != null ?
+                new ObjectParameter("Days", days) :
+                new ObjectParameter("Days", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DurationBenchmark_Result>("DurationBenchmark", daysParameter);
         }
     }
 }

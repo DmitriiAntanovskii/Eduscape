@@ -8,6 +8,17 @@
 
 <h2>@ViewBag.Title</h2>
 
+<div>
+
+    <form action="/Reports/QuantativeByGroup" method="post">
+        <input type="hidden" id="Hidden_JobCodes" name="Hidden_JobCodes" value="@ViewBag.Hidden_JobCodes" />
+        <label>Job Code:</label>
+        @Html.DropDownList("JobCodes", (SelectList)ViewBag.JobCodes, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+        <input type="submit" class="btn btn-primary" value="Refresh" />
+    </form>
+</div>
+<br />
+
 <table class="table">
     <tr>
         <th>
@@ -87,4 +98,27 @@
 
 </table>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#JobCodes').multiselect({
+            onChange: function (option, checked) {
+                //get all of the selected tiems
+                var values = $('#JobCodes option:selected');
+                var selected = "";
+                $(values).each(function (index, value) {
+                    selected += $(value).prop('value') + ",";
+                });
+                selected = selected.substring(0, selected.length - 1);
+                //update hidden field with comma delimited string for state persistance
+                $("#Hidden_JobCodes").val(selected);
+            },
+            includeSelectAllOption: true
+        });
 
+        var optCol = $("#Hidden_JobCodes").val().split(',');
+        //set them as checked
+        $("#JobCodes").val(optCol);
+        //refresh the control
+        $("#JobCodes").multiselect("refresh");
+    });
+</script>

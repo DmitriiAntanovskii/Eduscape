@@ -8,6 +8,16 @@
 
 <h2>@ViewBag.Title</h2>
 
+<div>
+    <form action="/Reports/DurationBenchmark" method="post">
+        <input type="hidden" id="Hidden_Days" name="Hidden_Days" value="@ViewBag.Hidden_Days" />
+        <label>Days:</label>
+        @Html.DropDownList("Days", (SelectList)ViewBag.Days, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+        <input type="submit" class="btn btn-primary" value="Refresh" />
+    </form>
+</div>
+<br />
+
 <table class="table">
     <tr>
         <th>
@@ -74,5 +84,29 @@
     }
 
 </table>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#Days').multiselect({
+            onChange: function (option, checked) {
+                //get all of the selected tiems
+                var values = $('#Days option:selected');
+                var selected = "";
+                $(values).each(function (index, value) {
+                    selected += $(value).prop('value') + ",";
+                });
+                selected = selected.substring(0, selected.length - 1);
+                //update hidden field with comma delimited string for state persistance
+                $("#Hidden_Days").val(selected);
+            },
+            includeSelectAllOption: true
+        });
+
+        var optCol = $("#Hidden_Days").val().split(',');
+        //set them as checked
+        $("#Days").val(optCol);
+        //refresh the control
+        $("#Days").multiselect("refresh");
+    });
+</script>
 
 

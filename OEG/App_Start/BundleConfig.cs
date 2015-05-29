@@ -10,12 +10,8 @@ namespace OEG
         {
             bundles.Add(new ScriptBundle("~/bundles/jqueryMember").Include(
                          "~/Scripts/jquery-{version}.js",
-                         "~/Scripts/googleMembers.js",
-                         "~/Scripts/member_page_functions.js",
-                         "~/Scripts/globalize.js",
-                         "~/Scripts/cultures/globalize.culture.en-AU.js",
-                         "~/Scripts/Highcharts-4.0.1/js/highcharts.js",
                          "~/Scripts/CSVExport.js",
+                         "~/Scripts/bootstrap-multiselect.js",
                          "~/Scripts/datepicker/js/bootstrap-datepicker.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -43,6 +39,7 @@ namespace OEG
 
             bundles.Add(new StyleBundle("~/Content/Membercss").Include(
                         "~/Content/bootstrap.css",
+                        "~/Content/bootstrap-multiselect.css",
                         "~/Content/sb-admin.css",
                         "~/Scripts/datepicker/css/datepicker.css"));
             //).Include("~/font-awesome/css/font-awesome.min.css", new CssRewriteUrlTransform()));

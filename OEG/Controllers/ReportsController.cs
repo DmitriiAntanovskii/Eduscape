@@ -25,13 +25,47 @@ namespace OEG.Controllers
 
         public ActionResult ProgramsBenchmark()
         {
-            return View(db.ProgramsBenchmark().ToList());
+            var factors = (from f in db.ReportDatas
+                           select new { Factor = f.Factor }).Distinct();
+
+            ViewBag.Factors = new SelectList(factors.OrderBy(x=>x.Factor), "Factor", "Factor");
+            return View(db.ProgramsBenchmark(null).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult ProgramsBenchmark(string Hidden_Factors)
+        {
+            var factors = (from f in db.ReportDatas
+                           select new { Factor = f.Factor }).Distinct();
+
+            ViewBag.Factors = new SelectList(factors.OrderBy(x => x.Factor), "Factor", "Factor");
+            ViewBag.Hidden_Factors = Hidden_Factors;
+            return View(db.ProgramsBenchmark(Hidden_Factors.Length > 0 ? Hidden_Factors : null ).ToList());
         }
 
         public ActionResult DurationBenchmark()
         {
-            return View(db.DurationBenchmark().ToList());
+            var days = (from f in db.ReportDatas
+                           select new { Days = f.Days }).Distinct();
+
+            ViewBag.Days = new SelectList(days.OrderBy(x => x.Days), "Days", "Days");
+
+            return View(db.DurationBenchmark(null).ToList());
         }
+
+        [HttpPost]
+        public ActionResult DurationBenchmark(string Hidden_Days)
+        {
+            var days = (from f in db.ReportDatas
+                        select new { Days = f.Days }).Distinct();
+
+            ViewBag.Days = new SelectList(days.OrderBy(x => x.Days), "Days", "Days");
+            ViewBag.Hidden_Days = Hidden_Days;
+            return View(db.DurationBenchmark(Hidden_Days.Length > 0 ? Hidden_Days : null).ToList());
+        }
+
+
+
         public ActionResult StandardDeviation()
         {
             List<StdDevByFactor_Result> Factor = db.StdDevByFactor().ToList();
@@ -46,7 +80,23 @@ namespace OEG.Controllers
 
         public ActionResult QuantativeByGroup()
         {
-            return View(db.QuantativeByGroup().ToList());
+            var jobcodes = (from f in db.ReportDatas
+                           select new { JobCode = f.JobCode}).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            return View(db.QuantativeByGroup(null).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult QuantativeByGroup(string Hidden_JobCodes)
+        {
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+            ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+            return View(db.QuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
         }
 
         public ActionResult AllCoursesBenchmark()
