@@ -12,8 +12,18 @@
     
     <form action="/Reports/ProgramsBenchmark" method="post">
         <input type="hidden" id="Hidden_Factors" name="Hidden_Factors" value="@ViewBag.Hidden_Factors" />
-        <label>Factor:</label>    
-        @Html.DropDownList("Factors", (SelectList)ViewBag.Factors,  htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label col-md-6 col-lg-4">Factor:</label>
+                        <div class="col-md-6 col-lg-8">
+                            @Html.DropDownList("Factors", (SelectList)ViewBag.Factors, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <input type="submit" class="btn btn-primary" value="Refresh" />
     </form>
 </div>

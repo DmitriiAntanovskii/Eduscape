@@ -101,24 +101,111 @@ namespace OEG.Controllers
 
         public ActionResult AllCoursesBenchmark()
         {
-            return View(db.AllCoursesBenchmark().ToList());
+
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            return View(db.AllCoursesBenchmark(null).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult AllCoursesBenchmark(string Hidden_JobCodes)
+        {
+
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+            ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+            return View(db.AllCoursesBenchmark(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
         }
 
         public ActionResult YearLevelBenchmark()
         {
-            return View(db.YearLevelBenchmark().ToList());
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            return View(db.YearLevelBenchmark(null).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult YearLevelBenchmark(string Hidden_JobCodes)
+        {
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+            ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+            return View(db.YearLevelBenchmark(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
         }
 
         public ActionResult SchoolQuantativeByGroup()
         {
-            return View(db.SchoolQuantativeByGroup().ToList());
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            return View(db.SchoolQuantativeByGroup(null).ToList());
         }
+
+        [HttpPost]
+        public ActionResult SchoolQuantativeByGroup(string Hidden_JobCodes)
+        {
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+            ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+
+            return View(db.SchoolQuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
+        }
+
 
         public ActionResult SchoolQualative()
         {
-            return View(db.SchoolQualative().ToList());
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            var schools = (from f in db.ReportDatas
+                            select new { School = f.School }).Distinct();
+
+            ViewBag.Schools = new SelectList(schools.OrderBy(x => x.School), "School", "School");
+
+            var years = (from f in db.ReportDatas
+                            select new { Year = f.Year}).Distinct();
+
+            ViewBag.Years = new SelectList(years.OrderBy(x => x.Year), "Year", "Year");
+
+            return View(db.SchoolQualative(null,null,null).ToList());
         }
 
+        [HttpPost]
+        public ActionResult SchoolQualative(string Hidden_Years, string Hidden_Schools, string Hidden_JobCodes)
+        {
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+            ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+            var schools = (from f in db.ReportDatas
+                           select new { School = f.School }).Distinct();
+
+            ViewBag.Schools = new SelectList(schools.OrderBy(x => x.School), "School", "School");
+            ViewBag.Hidden_Schools = Hidden_Schools;
+            var years = (from f in db.ReportDatas
+                         select new { Year = f.Year }).Distinct();
+
+            ViewBag.Years = new SelectList(years.OrderBy(x => x.Year), "Year", "Year");
+            ViewBag.Hidden_Years = Hidden_Years;
+            return View(db.SchoolQualative(Hidden_Years.Length > 0 ? Hidden_Years : null, Hidden_Schools.Length > 0 ? Hidden_Schools : null, Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
+        }
 
         
 

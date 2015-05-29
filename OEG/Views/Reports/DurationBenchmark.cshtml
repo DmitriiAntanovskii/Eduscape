@@ -11,8 +11,18 @@
 <div>
     <form action="/Reports/DurationBenchmark" method="post">
         <input type="hidden" id="Hidden_Days" name="Hidden_Days" value="@ViewBag.Hidden_Days" />
-        <label>Days:</label>
-        @Html.DropDownList("Days", (SelectList)ViewBag.Days, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label col-md-6 col-lg-4">Days:</label>
+                        <div class="col-md-6 col-lg-8">
+                            @Html.DropDownList("Days", (SelectList)ViewBag.Days, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <input type="submit" class="btn btn-primary" value="Refresh" />
     </form>
 </div>

@@ -46,26 +46,6 @@ namespace OEG.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StdDevByQuestionID_Result>("StdDevByQuestionID");
         }
     
-        public virtual ObjectResult<AllCoursesBenchmark_Result> AllCoursesBenchmark()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AllCoursesBenchmark_Result>("AllCoursesBenchmark");
-        }
-    
-        public virtual ObjectResult<YearLevelBenchmark_Result> YearLevelBenchmark()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<YearLevelBenchmark_Result>("YearLevelBenchmark");
-        }
-    
-        public virtual ObjectResult<SchoolQuantativeByGroup_Result> SchoolQuantativeByGroup()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQuantativeByGroup_Result>("SchoolQuantativeByGroup");
-        }
-    
-        public virtual ObjectResult<SchoolQualative_Result> SchoolQualative()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQualative_Result>("SchoolQualative");
-        }
-    
         public virtual ObjectResult<ProgramsBenchmark_Result> ProgramsBenchmark(string factors)
         {
             var factorsParameter = factors != null ?
@@ -91,6 +71,50 @@ namespace OEG.Models
                 new ObjectParameter("Days", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DurationBenchmark_Result>("DurationBenchmark", daysParameter);
+        }
+    
+        public virtual ObjectResult<AllCoursesBenchmark_Result> AllCoursesBenchmark(string jobCodes)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AllCoursesBenchmark_Result>("AllCoursesBenchmark", jobCodesParameter);
+        }
+    
+        public virtual ObjectResult<YearLevelBenchmark_Result> YearLevelBenchmark(string jobCodes)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<YearLevelBenchmark_Result>("YearLevelBenchmark", jobCodesParameter);
+        }
+    
+        public virtual ObjectResult<SchoolQuantativeByGroup_Result> SchoolQuantativeByGroup(string jobCodes)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQuantativeByGroup_Result>("SchoolQuantativeByGroup", jobCodesParameter);
+        }
+    
+        public virtual ObjectResult<SchoolQualative_Result> SchoolQualative(string years, string schools, string jobCodes)
+        {
+            var yearsParameter = years != null ?
+                new ObjectParameter("Years", years) :
+                new ObjectParameter("Years", typeof(string));
+    
+            var schoolsParameter = schools != null ?
+                new ObjectParameter("Schools", schools) :
+                new ObjectParameter("Schools", typeof(string));
+    
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQualative_Result>("SchoolQualative", yearsParameter, schoolsParameter, jobCodesParameter);
         }
     }
 }
