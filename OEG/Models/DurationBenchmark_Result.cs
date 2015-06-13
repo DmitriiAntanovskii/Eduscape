@@ -17,6 +17,7 @@ namespace OEG.Models
         public string venue { get; set; }
         public string yearlevel { get; set; }
         public Nullable<int> year { get; set; }
+        public string School { get; set; }
         public Nullable<double> Pre { get; set; }
         public Nullable<double> Post { get; set; }
         public Nullable<double> Change { get; set; }

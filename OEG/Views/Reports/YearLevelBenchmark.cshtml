@@ -87,13 +87,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Post)
             </td>
-            <td>
+            <td class="@(item.Change < 0 ? "negative" : "")">
                 @Html.DisplayFor(modelItem => item.Change)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChangePercent)
+            <td class="@(item.Change < 0 ? "negative" : "")">
+                @Html.DisplayFor(modelItem => item.ChangePercent)%
             </td>
-            <td>
+            <td class="@(item.Change < 0 ? "negative" : "")">
                 @Html.DisplayFor(modelItem => item.EffectSize)
             </td>
         </tr>

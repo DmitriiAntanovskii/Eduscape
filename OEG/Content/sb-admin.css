@@ -17,6 +17,10 @@ body {
 .form-control {
     max-width:280px;
 }
+.negative
+{
+    color: Red;
+}
 
 
 #wrapper {

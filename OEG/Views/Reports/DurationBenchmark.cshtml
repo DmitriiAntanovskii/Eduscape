@@ -43,6 +43,9 @@
             Year Level
         </th>
         <th>
+            School
+        </th>
+        <th>
             Avg. Pre
         </th>
         <th>
@@ -76,18 +79,21 @@
                 @Html.DisplayFor(modelItem => item.yearlevel)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.School)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Pre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Post)
             </td>
-            <td>
+            <td class="@(item.Change < 0 ? "negative" : "")">
                 @Html.DisplayFor(modelItem => item.Change)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChangePercent)
+            <td class="@(item.Change < 0 ? "negative" : "")">
+                @Html.DisplayFor(modelItem => item.ChangePercent)%
             </td>
-            <td>
+            <td class="@(item.Change < 0 ? "negative" : "")">
                 @Html.DisplayFor(modelItem => item.EffectSize)
             </td>
         </tr>

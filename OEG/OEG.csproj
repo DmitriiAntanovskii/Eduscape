@@ -322,7 +322,7 @@
     <Content Include="Views\Reports\AllCoursesBenchmark.cshtml" />
     <Content Include="Views\Reports\YearLevelBenchmark.cshtml" />
     <Content Include="Views\Reports\SchoolQuantativeByGroup.cshtml" />
-    <Content Include="Views\Reports\SchoolQualative.cshtml" />
+    <Content Include="Views\Reports\SchoolQualitative.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

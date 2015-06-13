@@ -44,7 +44,10 @@
             Venue
         </th>
         <th>
-            factor
+            School
+        </th>
+        <th>
+            Job Code
         </th>
         <th>
             Avg. Pre
@@ -80,7 +83,10 @@
                 @Html.DisplayFor(modelItem => item.Venue)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Factor)
+                @Html.DisplayFor(modelItem => item.School)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobCode)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pre)
@@ -88,16 +94,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Post)
             </td>
-            <td>
+            <td class="@(item.Change < 0 ? "negative" : "")">
                 @Html.DisplayFor(modelItem => item.Change)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChangePercent)
+            <td class ="@(item.Change < 0 ? "negative" : "")">
+                @Html.DisplayFor(modelItem => item.ChangePercent)%
             </td>
-            <td>
+            <td class="@(item.Change < 0 ? "negative" : "")">
                 @Html.DisplayFor(modelItem => item.EffectSize)
             </td>
-        </tr>
+</tr>
     }
 
 </table>

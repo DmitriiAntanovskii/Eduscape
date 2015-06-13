@@ -2,17 +2,19 @@
 
 
 @{
-    ViewBag.Title = "School Qualative";
+    ViewBag.Title = "School Qualitative";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <div>
-    <form action="/Reports/SchoolQualative" method="post">
+    <form action="/Reports/SchoolQualitative" method="post">
         <input type="hidden" id="Hidden_Years" name="Hidden_Years" value="@ViewBag.Hidden_Years" />
         <input type="hidden" id="Hidden_Schools" name="Hidden_Schools" value="@ViewBag.Hidden_Schools" />
         <input type="hidden" id="Hidden_JobCodes" name="Hidden_JobCodes" value="@ViewBag.Hidden_JobCodes" />
+        <input type="hidden" id="Hidden_Venues" name="Hidden_Venues" value="@ViewBag.Hidden_Venues" />
+        <input type="hidden" id="Hidden_StartDates" name="Hidden_StartDates" value="@ViewBag.Hidden_StartDates" />
         <div class="form-horizontal">
             <div class="row">
                 <div class="col-md-6 col-lg-4">
@@ -44,6 +46,27 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label col-md-6 col-lg-4">Venue:</label>
+                        <div class="col-md-6 col-lg-8">
+                            @Html.DropDownList("Venues", (SelectList)ViewBag.Venues, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label col-md-6 col-lg-4">Start Date:</label>
+                        <div class="col-md-6 col-lg-8">
+                            @Html.DropDownList("StartDates", (SelectList)ViewBag.StartDates, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <input type="submit" class="btn btn-primary" value="Refresh" />
     </form>
@@ -82,9 +105,11 @@
                 @Html.DisplayFor(modelItem => item.Venue)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProgramStartDate)
+                @item.ProgramStartDate.Value.ToString("dd/MM/yyyy")
+                
             </td>
-            <td>
+            <td style="white-space:nowrap">
+               
                 @Html.DisplayFor(modelItem => item.ID)
             </td>
             <td>
@@ -163,6 +188,49 @@
         $("#JobCodes").val(optCol);
         //refresh the control
         $("#JobCodes").multiselect("refresh");
+
+        $('#Venues').multiselect({
+            onChange: function (option, checked) {
+                //get all of the selected tiems
+                var values = $('#Venues option:selected');
+                var selected = "";
+                $(values).each(function (index, value) {
+                    selected += $(value).prop('value') + ",";
+                });
+                selected = selected.substring(0, selected.length - 1);
+                //update hidden field with comma delimited string for state persistance
+                $("#Hidden_Venues").val(selected);
+            },
+            includeSelectAllOption: true
+        });
+
+        var optCol = $("#Hidden_Venues").val().split(',');
+        //set them as checked
+        $("#Venues").val(optCol);
+        //refresh the control
+        $("#Venues").multiselect("refresh");
+
+        $('#StartDates').multiselect({
+            onChange: function (option, checked) {
+                //get all of the selected tiems
+                var values = $('#StartDates option:selected');
+                var selected = "";
+                $(values).each(function (index, value) {
+                    selected += $(value).prop('value') + ",";
+                });
+                selected = selected.substring(0, selected.length - 1);
+                //update hidden field with comma delimited string for state persistance
+                $("#Hidden_StartDates").val(selected);
+            },
+            includeSelectAllOption: true
+        });
+
+        var optCol = $("#Hidden_StartDates").val().split(',');
+        //set them as checked
+        $("#StartDates").val(optCol);
+        //refresh the control
+        $("#StartDates").multiselect("refresh");
+
 
     });
 </script>

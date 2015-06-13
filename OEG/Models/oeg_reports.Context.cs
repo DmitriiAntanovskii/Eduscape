@@ -46,6 +46,15 @@ namespace OEG.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StdDevByQuestionID_Result>("StdDevByQuestionID");
         }
     
+        public virtual ObjectResult<YearLevelBenchmark_Result> YearLevelBenchmark(string jobCodes)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<YearLevelBenchmark_Result>("YearLevelBenchmark", jobCodesParameter);
+        }
+    
         public virtual ObjectResult<ProgramsBenchmark_Result> ProgramsBenchmark(string factors)
         {
             var factorsParameter = factors != null ?
@@ -53,15 +62,6 @@ namespace OEG.Models
                 new ObjectParameter("Factors", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramsBenchmark_Result>("ProgramsBenchmark", factorsParameter);
-        }
-    
-        public virtual ObjectResult<QuantativeByGroup_Result> QuantativeByGroup(string jobCodes)
-        {
-            var jobCodesParameter = jobCodes != null ?
-                new ObjectParameter("JobCodes", jobCodes) :
-                new ObjectParameter("JobCodes", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QuantativeByGroup_Result>("QuantativeByGroup", jobCodesParameter);
         }
     
         public virtual ObjectResult<DurationBenchmark_Result> DurationBenchmark(string days)
@@ -82,13 +82,13 @@ namespace OEG.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AllCoursesBenchmark_Result>("AllCoursesBenchmark", jobCodesParameter);
         }
     
-        public virtual ObjectResult<YearLevelBenchmark_Result> YearLevelBenchmark(string jobCodes)
+        public virtual ObjectResult<QuantativeByGroup_Result> QuantativeByGroup(string jobCodes)
         {
             var jobCodesParameter = jobCodes != null ?
                 new ObjectParameter("JobCodes", jobCodes) :
                 new ObjectParameter("JobCodes", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<YearLevelBenchmark_Result>("YearLevelBenchmark", jobCodesParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<QuantativeByGroup_Result>("QuantativeByGroup", jobCodesParameter);
         }
     
         public virtual ObjectResult<SchoolQuantativeByGroup_Result> SchoolQuantativeByGroup(string jobCodes)
@@ -100,7 +100,7 @@ namespace OEG.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQuantativeByGroup_Result>("SchoolQuantativeByGroup", jobCodesParameter);
         }
     
-        public virtual ObjectResult<SchoolQualative_Result> SchoolQualative(string years, string schools, string jobCodes)
+        public virtual ObjectResult<SchoolQualative_Result> SchoolQualative(string years, string schools, string jobCodes, string venues, string startDates)
         {
             var yearsParameter = years != null ?
                 new ObjectParameter("Years", years) :
@@ -114,7 +114,15 @@ namespace OEG.Models
                 new ObjectParameter("JobCodes", jobCodes) :
                 new ObjectParameter("JobCodes", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQualative_Result>("SchoolQualative", yearsParameter, schoolsParameter, jobCodesParameter);
+            var venuesParameter = venues != null ?
+                new ObjectParameter("Venues", venues) :
+                new ObjectParameter("Venues", typeof(string));
+    
+            var startDatesParameter = startDates != null ?
+                new ObjectParameter("StartDates", startDates) :
+                new ObjectParameter("StartDates", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQualative_Result>("SchoolQualative", yearsParameter, schoolsParameter, jobCodesParameter, venuesParameter, startDatesParameter);
         }
     }
 }
