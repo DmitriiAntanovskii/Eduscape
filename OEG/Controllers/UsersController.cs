@@ -32,7 +32,17 @@ namespace OEG.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+
+            var source = from f in db.Users
+                         select f;
+
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x=>x.UserGroup.UserGroupName == "School Coordinator");
+            }
+            
+            return View(source.ToList());
         }
 
         // GET: Users/Details/5
@@ -53,10 +63,25 @@ namespace OEG.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
 
-            var schools = (from f in db.ReportDatas
-                           select new { School = f.School }).Distinct();
+            if (User.IsInRole("Senior Manager"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1009",Text="School Coordinator"}
+                                          }
+                                          ,"Value","Text");
+            }
+            else
+            { 
+                ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
+            }
+            var source = from f in db.ReportDatas
+                         select f;
+
+            var schools = (from f in source
+                            select new { School = f.School}).Distinct();
+
 
             ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School");
 
@@ -87,10 +112,25 @@ namespace OEG.Controllers
                 
                 return RedirectToAction("Index");
             }
-            ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
+            if (User.IsInRole("Senior Manager"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1009",Text="School Coordinator"}
+                                          }
+                                          , "Value", "Text");
+            }
+            else
+            {
+                ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
+            }
 
-            var schools = (from f in db.ReportDatas
+            var source = from f in db.ReportDatas
+                         select f;
+
+            var schools = (from f in source
                            select new { School = f.School }).Distinct();
+
 
             ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School");
 
@@ -109,12 +149,26 @@ namespace OEG.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName",user.UserGroupID);
+            if (User.IsInRole("Senior Manager"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1009",Text="School Coordinator"}
+                                          }
+                                          , "Value", "Text");
+            }
+            else
+            {
+                ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
+            }
 
-            var schools = (from f in db.ReportDatas
+            var source = from f in db.ReportDatas
+                         select f;
+
+            var schools = (from f in source
                            select new { School = f.School }).Distinct();
 
-            ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School", user.School);
+            ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School",user.School);
 
 
             return View(user);
@@ -136,10 +190,25 @@ namespace OEG.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName", user.UserGroupID);
-            
-            var schools = (from f in db.ReportDatas
-                         select new { School = f.School }).Distinct();
+
+            if (User.IsInRole("Senior Manager"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1009",Text="School Coordinator"}
+                                          }
+                                          , "Value", "Text");
+            }
+            else
+            {
+                ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
+            }
+
+            var source = from f in db.ReportDatas
+                         select f;
+
+            var schools = (from f in source
+                           select new { School = f.School }).Distinct();
 
             ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School", user.School);
 
