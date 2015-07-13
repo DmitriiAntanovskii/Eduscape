@@ -46,6 +46,7 @@
           <Property Name="PWD" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="School" Type="varchar" MaxLength="100" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifedBy" Type="int" Nullable="false" />
@@ -151,6 +152,7 @@
           <Property Name="ModifedBy" Type="Int32" Nullable="false" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="UserGroup" Relationship="Self.FK_Users_UserGroups" FromRole="Users" ToRole="UserGroups" />
+          <Property Name="School" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Users_UserGroups">
           <End Role="UserGroups" Type="Self.UserGroup" Multiplicity="1" />
@@ -347,6 +349,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="oeg_reportsModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="School" ColumnName="School" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />
                 <ScalarProperty Name="UserGroupID" ColumnName="UserGroupID" />

@@ -179,7 +179,7 @@ namespace OEG.Controllers
                             var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, signup.email), }, DefaultAuthenticationTypes.ApplicationCookie, ClaimTypes.Email, ClaimTypes.Role);
 
                             // if you want roles, just add as many as you want here (for loop maybe?)
-                            identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
+                            identity.AddClaim(new Claim(ClaimTypes.Role, u.UserGroup.UserGroupName));
                             // tell OWIN the identity provider, optional
                             // identity.AddClaim(new Claim(IdentityProvider, "Simplest Auth"));
 

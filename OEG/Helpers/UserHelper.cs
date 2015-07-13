@@ -15,9 +15,9 @@ namespace OEG.Static_Helper
         {
             var identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
             string email = identity.Identities.First().Name;
-            User u = (from a in db.Users
+            User u = (from a in db.Users.AsNoTracking()
                              where a.Email == email
-                             select a).FirstOrDefault();
+                      select a).FirstOrDefault();
             return u;
            
         }

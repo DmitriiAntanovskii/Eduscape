@@ -25,6 +25,7 @@ namespace OEG.Models
         public System.DateTime CreatedDate { get; set; }
         public int ModifedBy { get; set; }
         public System.DateTime ModifiedDate { get; set; }
+        public string School { get; set; }
     
         public virtual UserGroup UserGroup { get; set; }
     }

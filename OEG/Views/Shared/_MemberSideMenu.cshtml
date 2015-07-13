@@ -1,19 +1,25 @@
 ﻿<ul class="nav navbar-nav side-nav">
     <li class="section hidden-xs">Reports</li>
+    @if (User.IsInRole("Administrator"))
+    {
     <li><a href="/Reports/AllData/"><i class="fa fa-dashboard"></i> All Data (BIG!)</a></li>
     <li><a href="/Reports/StandardDeviation"><i class="fa fa-dashboard"></i> Standard Deviation</a></li>
+    }
+    @if (!User.IsInRole("School Coordinator"))
+    {
     <li><a href="/Reports/QuantativeByGroup"><i class="fa fa-dashboard"></i> Quantative By Group</a></li>
     <li><a href="/Reports/ProgramsBenchmark"><i class="fa fa-dashboard"></i> Programs Benchmark</a></li>
     <li><a href="/Reports/DurationBenchmark"><i class="fa fa-dashboard"></i> Duration Benchmark</a></li>
     <li><a href="/Reports/AllCoursesBenchmark"><i class="fa fa-dashboard"></i> All Courses Benchmark</a></li>
     <li><a href="/Reports/YearLevelBenchmark"><i class="fa fa-dashboard"></i> Year Level Benchmark</a></li>
+    }
     <li><a href="/Reports/SchoolQuantativeByGroup"><i class="fa fa-dashboard"></i> School Quantative By Group</a></li>
     <li><a href="/Reports/SchoolQualitative"><i class="fa fa-dashboard"></i> School Qualitative</a></li>
-    @*@if (User.IsInRole("admin"))
-    {*@
+    @if (User.IsInRole("Administrator") || User.IsInRole("Senior Manager"))
+    {
         <li class="section hidden-xs">System Admin</li>
         <li><a href="/Users"><i class="fa fa-user"></i> Users</a></li>
         <li><a href="/UserGroups"><i class="fa fa-users"></i> User Groups</a></li>
-    @*}*@
+    }
 
 </ul>
