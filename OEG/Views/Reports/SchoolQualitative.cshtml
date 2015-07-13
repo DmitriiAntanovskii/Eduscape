@@ -19,9 +19,16 @@
             <div class="row">
                 <div class="col-md-6 col-lg-4">
                     <div class="form-group">
-                        <label class="control-label col-md-6 col-lg-4">Year:</label>
+                        <label class="control-label col-md-6 col-lg-4">School:</label>
                         <div class="col-md-6 col-lg-8">
-                            @Html.DropDownList("Years", (SelectList)ViewBag.Years, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+                            @if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager") || User.IsInRole("School Coordinator"))
+                            {
+                                <label style="margin-top:7px;">@ViewBag.Hidden_Schools</label>
+                            }
+                            else
+                            {
+                                @Html.DropDownList("Schools", (SelectList)ViewBag.Schools, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })<br />
+                            } 
                         </div>
                     </div>
                 </div>
@@ -29,9 +36,9 @@
             <div class="row">
                 <div class="col-md-6 col-lg-4">
                     <div class="form-group">
-                        <label class="control-label col-md-6 col-lg-4">School:</label>
+                        <label class="control-label col-md-6 col-lg-4">Year:</label>
                         <div class="col-md-6 col-lg-8">
-                            @Html.DropDownList("Schools", (SelectList)ViewBag.Schools, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })<br />
+                            @Html.DropDownList("Years", (SelectList)ViewBag.Years, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
                         </div>
                     </div>
                 </div>

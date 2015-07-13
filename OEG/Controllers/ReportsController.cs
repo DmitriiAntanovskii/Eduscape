@@ -1,4 +1,5 @@
 ﻿using OEG.Models;
+using OEG.Static_Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,8 @@ namespace OEG.Controllers
         {
             return View();
         }
-
+        
+        [Authorize(Roles = "Administrator")]
         public ActionResult AllData()
         {
             return View(db.ReportDatas.ToList());
@@ -65,7 +67,7 @@ namespace OEG.Controllers
         }
 
 
-
+        [Authorize(Roles = "Administrator")]
         public ActionResult StandardDeviation()
         {
             List<StdDevByFactor_Result> Factor = db.StdDevByFactor().ToList();
@@ -80,21 +82,66 @@ namespace OEG.Controllers
 
         public ActionResult QuantativeByGroup()
         {
-            var jobcodes = (from f in db.ReportDatas
-                           select new { JobCode = f.JobCode}).Distinct();
+            var source = from f in db.ReportDatas
+                         select f;
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School == u.School);
+            }
+
+            var jobcodes = (from f in source
+                            select new { JobCode = f.JobCode }).Distinct();
 
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
 
-            return View(db.QuantativeByGroup(null).ToList());
+            string ret = "";
+            foreach(string s in jobcodes.Select(o=>o.JobCode))
+            {
+                ret += s + ",";
+            }
+
+            ret = ret.Remove(ret.Length - 1);
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager"))
+            {
+                ViewBag.Hidden_JobCodes = ret;
+            }
+            return View(db.QuantativeByGroup(ret).ToList());
         }
 
         [HttpPost]
         public ActionResult QuantativeByGroup(string Hidden_JobCodes)
         {
-            var jobcodes = (from f in db.ReportDatas
+            
+            var source = from f in db.ReportDatas
+                         select f;
+            
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager") )
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School == u.School);
+            }
+
+            var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
 
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager"))
+            {
+                if (Hidden_JobCodes.Length == 0)
+                {
+                    string ret = "";
+                    foreach (string s in jobcodes.Select(o => o.JobCode))
+                    {
+                        ret += s + ",";
+                    }
+
+                    ret = ret.Remove(ret.Length - 1);
+                    Hidden_JobCodes = ret;
+                }
+            }
             ViewBag.Hidden_JobCodes = Hidden_JobCodes;
             return View(db.QuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
         }
@@ -145,21 +192,66 @@ namespace OEG.Controllers
 
         public ActionResult SchoolQuantativeByGroup()
         {
-            var jobcodes = (from f in db.ReportDatas
+            var source = from f in db.ReportDatas
+                         select f;
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager") || User.IsInRole("School Coordinator"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School == u.School);
+            }
+
+            var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
 
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
 
-            return View(db.SchoolQuantativeByGroup(null).ToList());
+            string ret = "";
+            foreach (string s in jobcodes.Select(o => o.JobCode))
+            {
+                ret += s + ",";
+            }
+
+            ret = ret.Remove(ret.Length - 1);
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager"))
+            {
+                ViewBag.Hidden_JobCodes = ret;
+            }
+            return View(db.SchoolQuantativeByGroup(ret).ToList());
         }
 
         [HttpPost]
         public ActionResult SchoolQuantativeByGroup(string Hidden_JobCodes)
         {
-            var jobcodes = (from f in db.ReportDatas
+            var source = from f in db.ReportDatas
+                         select f;
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager") || User.IsInRole("School Coordinator"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School == u.School);
+            }
+
+            var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
 
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager"))
+            {
+                if (Hidden_JobCodes.Length == 0)
+                {
+                    string ret = "";
+                    foreach (string s in jobcodes.Select(o => o.JobCode))
+                    {
+                        ret += s + ",";
+                    }
+
+                    ret = ret.Remove(ret.Length - 1);
+                    Hidden_JobCodes = ret;
+                }
+            }
+
             ViewBag.Hidden_JobCodes = Hidden_JobCodes;
 
             return View(db.SchoolQuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
@@ -168,28 +260,69 @@ namespace OEG.Controllers
 
         public ActionResult SchoolQualitative()
         {
-            var jobcodes = (from f in db.ReportDatas
+            var source = from f in db.ReportDatas
+                         select f;
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager") || User.IsInRole("School Coordinator"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School == u.School);
+            }
+
+            
+            var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
 
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
 
-            var schools = (from f in db.ReportDatas
+            string jc = "";
+            foreach (string s in jobcodes.Select(o => o.JobCode))
+            {
+                jc += s + ",";
+            }
+            jc = jc.Remove(jc.Length - 1);
+
+
+            var schools = (from f in source
                             select new { School = f.School }).Distinct();
 
-            ViewBag.Schools = new SelectList(schools.OrderBy(x => x.School), "School", "School");
+            string sc = "";
+            foreach (string s in schools.Select(o => o.School))
+            {
+                sc += s + ",";
+            }
+            sc = sc.Remove(sc.Length - 1);
 
-            var years = (from f in db.ReportDatas
+
+            ViewBag.Schools = new SelectList(schools.OrderBy(x => x.School), "School", "School");
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager") || User.IsInRole("School Coordinator"))
+            {
+                ViewBag.Hidden_Schools = sc;
+            }
+            var years = (from f in source
                             select new { Year = f.Year}).Distinct();
 
             ViewBag.Years = new SelectList(years.OrderBy(x => x.Year), "Year", "Year");
+            string y = "";
+            foreach (int s in years.Select(o => o.Year))
+            {
+                y += s.ToString() + ",";
+            }
+            y = y.Remove(y.Length - 1);
 
-            var venues = (from f in db.ReportDatas
+            var venues = (from f in source
                           select new { Venue = f.Venue }).Distinct();
 
             ViewBag.Venues = new SelectList(venues.OrderBy(x => x.Venue), "Venue", "Venue");
+            string v = "";
+            foreach (string s in venues.Select(o => o.Venue))
+            {
+                v += s + ",";
+            }
+            v = v.Remove(v.Length - 1);
 
 
-            var startdates = db.ReportDatas.OrderBy(d => d.ProgramStartDate)
+            var startdates = source.OrderBy(d => d.ProgramStartDate)
                 .Select(d => d.ProgramStartDate)
                 .AsEnumerable()
                 .Select(date => date.GetValueOrDefault().ToString("dd/MM/yyyy"))
@@ -198,38 +331,54 @@ namespace OEG.Controllers
                 .ToList();
 
             ViewBag.StartDates = new SelectList(startdates, "Text", "Value");
+            string sd = "";
+            foreach (string s in startdates.Select(o => o.Text))
+            {
+                sd += s + ",";
+            }
+            sd = sd.Remove(sd.Length - 1);
 
-            return View(db.SchoolQualative(null,null,null,null,null).ToList());
+            return View(db.SchoolQualative(y,sc,jc,v,sd).ToList());
         }
 
         [HttpPost]
         public ActionResult SchoolQualitative(string Hidden_Years, string Hidden_Schools, string Hidden_JobCodes, string Hidden_Venues, string Hidden_StartDates)
         {
-            var jobcodes = (from f in db.ReportDatas
+
+            var source = from f in db.ReportDatas
+                         select f;
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager") || User.IsInRole("School Coordinator"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School == u.School);
+            }
+
+            var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
 
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
             ViewBag.Hidden_JobCodes = Hidden_JobCodes;
-            
-            var schools = (from f in db.ReportDatas
+
+            var schools = (from f in source
                            select new { School = f.School }).Distinct();
 
             ViewBag.Schools = new SelectList(schools.OrderBy(x => x.School), "School", "School");
             ViewBag.Hidden_Schools = Hidden_Schools;
-            
-            var years = (from f in db.ReportDatas
+
+            var years = (from f in source
                          select new { Year = f.Year }).Distinct();
 
             ViewBag.Years = new SelectList(years.OrderBy(x => x.Year), "Year", "Year");
             ViewBag.Hidden_Years = Hidden_Years;
 
-            var venues = (from f in db.ReportDatas
+            var venues = (from f in source
                           select new { Venue = f.Venue }).Distinct();
 
             ViewBag.Venues = new SelectList(venues.OrderBy(x => x.Venue), "Venue", "Venue");
             ViewBag.Hidden_Venues = Hidden_Venues;
 
-            var startdates = db.ReportDatas.OrderBy(d => d.ProgramStartDate)
+            var startdates = source.OrderBy(d => d.ProgramStartDate)
                 .Select(d => d.ProgramStartDate)
                 .AsEnumerable()
                 .Select(date => date.GetValueOrDefault().ToString("dd/MM/yyyy"))

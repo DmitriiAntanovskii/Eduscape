@@ -17,9 +17,11 @@
     <li><a href="/Reports/SchoolQualitative"><i class="fa fa-dashboard"></i> School Qualitative</a></li>
     @if (User.IsInRole("Administrator") || User.IsInRole("Senior Manager"))
     {
-        <li class="section hidden-xs">System Admin</li>
+        <li class="section hidden-xs">System Administration</li>
         <li><a href="/Users"><i class="fa fa-user"></i> Users</a></li>
-        <li><a href="/UserGroups"><i class="fa fa-users"></i> User Groups</a></li>
+        if (User.IsInRole("Administrator"))
+        {
+            <li><a href="/UserGroups"><i class="fa fa-users"></i> User Groups</a></li>
+        }
     }
-
 </ul>

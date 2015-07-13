@@ -10,6 +10,7 @@ using OEG.Models;
 
 namespace OEG.Controllers
 {
+    [Authorize (Roles="Administrator")]
     public class UserGroupsController : Controller
     {
         private oeg_reportsEntities db = new oeg_reportsEntities();

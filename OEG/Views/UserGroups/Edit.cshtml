@@ -14,6 +14,7 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.UserGroupID)
+        <div class="alert alert-danger">Please note: DO NOT CHANGE USER GROUP NAMES.</div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.UserGroupName, htmlAttributes: new { @class = "control-label col-md-2" })

@@ -54,6 +54,12 @@ namespace OEG.Controllers
         public ActionResult Create()
         {
             ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
+
+            var schools = (from f in db.ReportDatas
+                           select new { School = f.School }).Distinct();
+
+            ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School");
+
             return View();
         }
 
@@ -62,7 +68,7 @@ namespace OEG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
+        public ActionResult Create([Bind(Include = "School,UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -82,6 +88,12 @@ namespace OEG.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
+
+            var schools = (from f in db.ReportDatas
+                           select new { School = f.School }).Distinct();
+
+            ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School");
+
             return View(user);
         }
 
@@ -99,6 +111,12 @@ namespace OEG.Controllers
             }
             ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName",user.UserGroupID);
 
+            var schools = (from f in db.ReportDatas
+                           select new { School = f.School }).Distinct();
+
+            ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School", user.School);
+
+
             return View(user);
         }
 
@@ -107,7 +125,7 @@ namespace OEG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
+        public ActionResult Edit([Bind(Include = "School,UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -119,6 +137,12 @@ namespace OEG.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName", user.UserGroupID);
+            
+            var schools = (from f in db.ReportDatas
+                         select new { School = f.School }).Distinct();
+
+            ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School", user.School);
+
             return View(user);
         }
 
