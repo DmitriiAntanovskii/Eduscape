@@ -15,7 +15,7 @@
     }
     <li><a href="/Reports/SchoolQuantativeByGroup"><i class="fa fa-dashboard"></i> School Quantative By Group</a></li>
     <li><a href="/Reports/SchoolQualitative"><i class="fa fa-dashboard"></i> School Qualitative</a></li>
-    @if (User.IsInRole("Administrator") || User.IsInRole("Senior Manager"))
+    @if (User.IsInRole("Administrator") || User.IsInRole("Senior Manager") || User.IsInRole("Director") || User.IsInRole("Head of Teaching Team"))
     {
         <li class="section hidden-xs">System Administration</li>
         <li><a href="/Users"><i class="fa fa-user"></i> Users</a></li>

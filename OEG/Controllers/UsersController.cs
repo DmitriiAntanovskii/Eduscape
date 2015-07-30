@@ -38,10 +38,16 @@ namespace OEG.Controllers
 
             if (User.IsInRole("Senior Manager"))
             {
-                User u = UserHelper.getMember(db);
                 source = source.Where(x=>x.UserGroup.UserGroupName == "School Coordinator");
             }
-            
+            else if (User.IsInRole("Director"))
+            {
+                source = source.Where(x => x.UserGroup.UserGroupName == "Program Leader" || x.UserGroup.UserGroupName  == "Senior Manager");
+            }
+            else if (User.IsInRole("Head of Teaching Team"))
+            {
+                source = source.Where(x => x.UserGroup.UserGroupName == "Group Leader");
+            }
             return View(source.ToList());
         }
 
@@ -71,6 +77,23 @@ namespace OEG.Controllers
                                               new { Value="1009",Text="School Coordinator"}
                                           }
                                           ,"Value","Text");
+            }
+            else if (User.IsInRole("Director"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1006",Text="Program Leader"},
+                                              new { Value="1008",Text="Senior Manager"}
+                                          }
+                                          , "Value", "Text");
+            }
+            else if (User.IsInRole("Head of Teaching Team"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1007",Text="Group Leader"}
+                                          }
+                                          , "Value", "Text");
             }
             else
             { 
@@ -120,6 +143,24 @@ namespace OEG.Controllers
                                           }
                                           , "Value", "Text");
             }
+            else if (User.IsInRole("Director"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1006",Text="Program Leader"},
+                                              new { Value="1008",Text="Senior Manager"}
+                                          }
+                                          , "Value", "Text");
+            }
+            else if (User.IsInRole("Head of Teaching Team"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1007",Text="Group Leader"}
+                                          }
+                                          , "Value", "Text");
+            }
+
             else
             {
                 ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
@@ -157,6 +198,24 @@ namespace OEG.Controllers
                                           }
                                           , "Value", "Text");
             }
+            else if (User.IsInRole("Director"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1006",Text="Program Leader"},
+                                              new { Value="1008",Text="Senior Manager"}
+                                          }
+                                          , "Value", "Text");
+            }
+            else if (User.IsInRole("Head of Teaching Team"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1007",Text="Group Leader"}
+                                          }
+                                          , "Value", "Text");
+            }
+
             else
             {
                 ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
@@ -199,6 +258,24 @@ namespace OEG.Controllers
                                           }
                                           , "Value", "Text");
             }
+            else if (User.IsInRole("Director"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1006",Text="Program Leader"},
+                                              new { Value="1008",Text="Senior Manager"}
+                                          }
+                                          , "Value", "Text");
+            }
+            else if (User.IsInRole("Head of Teaching Team"))
+            {
+                ViewBag.UserGroupID = new SelectList(new[]
+                                          {
+                                              new { Value="1007",Text="Group Leader"}
+                                          }
+                                          , "Value", "Text");
+            }
+
             else
             {
                 ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
