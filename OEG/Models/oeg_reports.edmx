@@ -77,6 +77,7 @@
         </Function>
         <Function Name="QuantativeByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="JobCodes" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="EmpNo" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="SchoolQualative" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Years" Type="nvarchar(max)" Mode="In" />
@@ -84,9 +85,11 @@
           <Parameter Name="JobCodes" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Venues" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="StartDates" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="EmpNo" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="SchoolQuantativeByGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="JobCodes" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="EmpNo" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="SchoolReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="StdDevByFactor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -194,10 +197,12 @@
           <Parameter Name="JobCodes" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="QuantativeByGroup" ReturnType="Collection(oeg_reportsModel.QuantativeByGroup_Result)">
-          <Parameter Name="JobCodes" Mode="In" Type="String" />
+            <Parameter Name="JobCodes" Mode="In" Type="String" />
+            <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SchoolQuantativeByGroup" ReturnType="Collection(oeg_reportsModel.SchoolQuantativeByGroup_Result)">
-          <Parameter Name="JobCodes" Mode="In" Type="String" />
+            <Parameter Name="JobCodes" Mode="In" Type="String" />
+            <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SchoolQualative" ReturnType="Collection(oeg_reportsModel.SchoolQualative_Result)">
             <Parameter Name="Years" Mode="In" Type="String" />
@@ -205,6 +210,7 @@
             <Parameter Name="JobCodes" Mode="In" Type="String" />
             <Parameter Name="Venues" Mode="In" Type="String" />
             <Parameter Name="StartDates" Mode="In" Type="String" />
+            <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SchoolReport_Result">

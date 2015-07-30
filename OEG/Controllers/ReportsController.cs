@@ -85,10 +85,13 @@ namespace OEG.Controllers
             var source = from f in db.ReportDatas
                          select f;
 
+            string EmpNo = null;
+
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => x.School == u.School);
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
             var jobcodes = (from f in source
@@ -107,7 +110,7 @@ namespace OEG.Controllers
             {
                 ViewBag.Hidden_JobCodes = ret;
             }
-            return View(db.QuantativeByGroup(ret).ToList());
+            return View(db.QuantativeByGroup(ret, EmpNo).ToList());
         }
 
         [HttpPost]
@@ -116,11 +119,14 @@ namespace OEG.Controllers
             
             var source = from f in db.ReportDatas
                          select f;
+
+            string EmpNo = null;
             
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") )
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => x.School == u.School);
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
             var jobcodes = (from f in source
@@ -143,7 +149,7 @@ namespace OEG.Controllers
                 }
             }
             ViewBag.Hidden_JobCodes = Hidden_JobCodes;
-            return View(db.QuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
+            return View(db.QuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, EmpNo).ToList());
         }
 
         public ActionResult AllCoursesBenchmark()
@@ -195,10 +201,13 @@ namespace OEG.Controllers
             var source = from f in db.ReportDatas
                          select f;
 
+            string EmpNo = null;
+
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => x.School == u.School);
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
             var jobcodes = (from f in source
@@ -217,7 +226,7 @@ namespace OEG.Controllers
             {
                 ViewBag.Hidden_JobCodes = ret;
             }
-            return View(db.SchoolQuantativeByGroup(ret).ToList());
+            return View(db.SchoolQuantativeByGroup(ret, EmpNo).ToList());
         }
 
         [HttpPost]
@@ -226,10 +235,13 @@ namespace OEG.Controllers
             var source = from f in db.ReportDatas
                          select f;
 
+            string EmpNo = null;
+
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => x.School == u.School);
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
             var jobcodes = (from f in source
@@ -254,7 +266,7 @@ namespace OEG.Controllers
 
             ViewBag.Hidden_JobCodes = Hidden_JobCodes;
 
-            return View(db.SchoolQuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
+            return View(db.SchoolQuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, EmpNo).ToList());
         }
 
 
@@ -263,10 +275,12 @@ namespace OEG.Controllers
             var source = from f in db.ReportDatas
                          select f;
 
+            string EmpNo = null;
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => x.School == u.School);
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
             
@@ -338,7 +352,7 @@ namespace OEG.Controllers
             }
             sd = sd.Remove(sd.Length - 1);
 
-            return View(db.SchoolQualative(y,sc,jc,v,sd).ToList());
+            return View(db.SchoolQualative(y, sc, jc, v, sd, EmpNo).ToList());
         }
 
         [HttpPost]
@@ -347,11 +361,12 @@ namespace OEG.Controllers
 
             var source = from f in db.ReportDatas
                          select f;
-
+            string EmpNo = null;
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => x.School == u.School);
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
             var jobcodes = (from f in source
@@ -390,10 +405,7 @@ namespace OEG.Controllers
             ViewBag.Hidden_StartDates = Hidden_StartDates;
 
 
-            return View(db.SchoolQualative(Hidden_Years.Length > 0 ? Hidden_Years : null, Hidden_Schools.Length > 0 ? Hidden_Schools : null, Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Venues.Length > 0 ? Hidden_Venues : null, Hidden_StartDates.Length > 0 ? Hidden_StartDates : null).ToList());
+            return View(db.SchoolQualative(Hidden_Years.Length > 0 ? Hidden_Years : null, Hidden_Schools.Length > 0 ? Hidden_Schools : null, Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Venues.Length > 0 ? Hidden_Venues : null, Hidden_StartDates.Length > 0 ? Hidden_StartDates : null, EmpNo).ToList());
         }
-
-        
-
     }
 }
