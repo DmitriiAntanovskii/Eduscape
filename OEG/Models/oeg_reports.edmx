@@ -27,6 +27,7 @@
           <Property Name="Venue" Type="varchar" MaxLength="50" />
           <Property Name="Year" Type="int" />
           <Property Name="ProgramStartDate" Type="datetime" />
+          <Property Name="EmployeeNumber" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserGroups">
           <Key>
@@ -51,6 +52,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedDate" Type="date" Nullable="false" />
+          <Property Name="EmployeeNumber" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Users_UserGroups">
           <End Role="UserGroups" Type="Self.UserGroups" Multiplicity="1" />
@@ -127,6 +129,7 @@
           <Property Name="Venue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Year" Type="Int32" />
           <Property Name="ProgramStartDate" Type="DateTime" Precision="3" />
+          <Property Name="EmployeeNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>
@@ -153,6 +156,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="UserGroup" Relationship="Self.FK_Users_UserGroups" FromRole="Users" ToRole="UserGroups" />
           <Property Name="School" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Users_UserGroups">
           <End Role="UserGroups" Type="Self.UserGroup" Multiplicity="1" />
@@ -317,6 +321,7 @@
           <EntitySetMapping Name="ReportDatas">
             <EntityTypeMapping TypeName="oeg_reportsModel.ReportData">
               <MappingFragment StoreEntitySet="ReportData">
+                <ScalarProperty Name="EmployeeNumber" ColumnName="EmployeeNumber" />
                 <ScalarProperty Name="ReportDataID" ColumnName="ReportDataID" />
                 <ScalarProperty Name="JobCode" ColumnName="JobCode" />
                 <ScalarProperty Name="Group" ColumnName="Group" />
@@ -349,6 +354,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="oeg_reportsModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="EmployeeNumber" ColumnName="EmployeeNumber" />
                 <ScalarProperty Name="School" ColumnName="School" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserGUID" ColumnName="UserGUID" />

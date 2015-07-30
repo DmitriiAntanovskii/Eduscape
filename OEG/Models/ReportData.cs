@@ -32,5 +32,6 @@ namespace OEG.Models
         public string Venue { get; set; }
         public Nullable<int> Year { get; set; }
         public Nullable<System.DateTime> ProgramStartDate { get; set; }
+        public string EmployeeNumber { get; set; }
     }
 }

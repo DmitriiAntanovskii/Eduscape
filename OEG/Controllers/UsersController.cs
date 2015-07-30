@@ -93,7 +93,7 @@ namespace OEG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "School,UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
+        public ActionResult Create([Bind(Include = "EmployeeNumber,School,UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -179,7 +179,7 @@ namespace OEG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "School,UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
+        public ActionResult Edit([Bind(Include = "EmployeeNumber,School,UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
         {
             if (ModelState.IsValid)
             {

@@ -60,6 +60,10 @@
         <th>
             @Html.DisplayNameFor(model => model.ProgramStartDate)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeNumber)
+        </th>
+
     </tr>
 
     @foreach (var item in Model)
@@ -115,6 +119,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProgramStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeNumber)
             </td>
         </tr>
     }
