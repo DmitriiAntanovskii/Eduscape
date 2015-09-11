@@ -7,14 +7,21 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OEG.Models;
+using Microsoft.Owin.Security;
 
 namespace OEG.Controllers
 {
+    [Authorize]
     public class SurveysController : Controller
     {
         private oeg_reportsEntities db = new oeg_reportsEntities();
 
-        // GET: Surveys
+        IAuthenticationManager Authentication
+        {
+            get { return HttpContext.GetOwinContext().Authentication; }
+        }
+        
+        // GET: Survey
         public ActionResult Index()
         {
             return View(db.Surveys.ToList());
