@@ -33,5 +33,6 @@ namespace OEG.Models
         public Nullable<int> Year { get; set; }
         public Nullable<System.DateTime> ProgramStartDate { get; set; }
         public string EmployeeNumber { get; set; }
+        public string ResponseID { get; set; }
     }
 }

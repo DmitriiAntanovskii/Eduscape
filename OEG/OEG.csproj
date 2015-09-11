@@ -221,6 +221,9 @@
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StdDevViewModel.cs" />
+    <Compile Include="Models\Surveys.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>

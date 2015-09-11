@@ -28,6 +28,19 @@
           <Property Name="Year" Type="int" />
           <Property Name="ProgramStartDate" Type="datetime" />
           <Property Name="EmployeeNumber" Type="varchar" MaxLength="50" />
+          <Property Name="ResponseID" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Surveys">
+          <Key>
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Name="SurveyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SurveyCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifedBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="UserGroups">
           <Key>
@@ -99,6 +112,7 @@
         </Function>
         <EntityContainer Name="oeg_reportsModelStoreContainer">
           <EntitySet Name="ReportData" EntityType="Self.ReportData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Surveys" EntityType="Self.Surveys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserGroups" EntityType="Self.UserGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Users_UserGroups" Association="Self.FK_Users_UserGroups">
@@ -133,6 +147,7 @@
           <Property Name="Year" Type="Int32" />
           <Property Name="ProgramStartDate" Type="DateTime" Precision="3" />
           <Property Name="EmployeeNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ResponseID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="UserGroup">
           <Key>
@@ -212,6 +227,7 @@
             <Parameter Name="StartDates" Mode="In" Type="String" />
             <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Surveys" EntityType="oeg_reportsModel.Surveys" />
         </EntityContainer>
         <ComplexType Name="SchoolReport_Result">
           <Property Type="Int32" Name="year" Nullable="true" />
@@ -318,6 +334,18 @@
           <Property Type="String" Name="QuestionID" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="QualResponse" Nullable="true" />
         </ComplexType>
+        <EntityType Name="Surveys">
+          <Key>
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Name="SurveyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SurveyName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SurveyCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -327,6 +355,7 @@
           <EntitySetMapping Name="ReportDatas">
             <EntityTypeMapping TypeName="oeg_reportsModel.ReportData">
               <MappingFragment StoreEntitySet="ReportData">
+                <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
                 <ScalarProperty Name="EmployeeNumber" ColumnName="EmployeeNumber" />
                 <ScalarProperty Name="ReportDataID" ColumnName="ReportDataID" />
                 <ScalarProperty Name="JobCode" ColumnName="JobCode" />
@@ -521,6 +550,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Surveys">
+            <EntityTypeMapping TypeName="oeg_reportsModel.Surveys">
+              <MappingFragment StoreEntitySet="Surveys">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifedBy" ColumnName="ModifedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="SurveyCode" ColumnName="SurveyCode" />
+                <ScalarProperty Name="SurveyName" ColumnName="SurveyName" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -535,7 +577,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
