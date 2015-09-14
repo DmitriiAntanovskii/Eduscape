@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using OEG.Models;
 using Microsoft.Owin.Security;
+using OEG.Static_Helper;
 
 namespace OEG.Controllers
 {
@@ -57,6 +58,12 @@ namespace OEG.Controllers
         {
             if (ModelState.IsValid)
             {
+                User u = UserHelper.getMember(db);
+                surveys.CreatedBy = u.UserID;
+                surveys.CreatedDate = DateTime.Now;
+                surveys.ModifedBy = u.UserID;
+                surveys.ModifiedDate = DateTime.Now;
+
                 db.Surveys.Add(surveys);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,6 +96,10 @@ namespace OEG.Controllers
         {
             if (ModelState.IsValid)
             {
+                User u = UserHelper.getMember(db);
+                surveys.ModifedBy = u.UserID;
+                surveys.ModifiedDate = DateTime.Now;
+
                 db.Entry(surveys).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
