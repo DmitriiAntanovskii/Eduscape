@@ -46,6 +46,14 @@ namespace OEG.Controllers
         // GET: Surveys/Create
         public ActionResult Create()
         {
+            ViewBag.SurveyType = new SelectList(new[]
+                                          {
+                                              new { Value="Participant",Text="Participant"},
+                                              new { Value="OEG Staff",Text="OEG Staff"},
+                                              new { Value="School Staff",Text="School Staff"}
+                                          }
+                                          , "Value", "Text");
+            
             return View();
         }
 
@@ -54,7 +62,7 @@ namespace OEG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SurveyID,SurveyName,SurveyCode,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] Surveys surveys)
+        public ActionResult Create([Bind(Include = "SurveyID,SurveyName,SurveyCode,SurveyType,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] Surveys surveys)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +76,14 @@ namespace OEG.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.SurveyType = new SelectList(new[]
+                                          {
+                                              new { Value="Participant",Text="Participant"},
+                                              new { Value="OEG Staff",Text="OEG Staff"},
+                                              new { Value="School Staff",Text="School Staff"}
+                                          }
+                                         , "Value", "Text");
 
             return View(surveys);
         }
@@ -84,6 +100,14 @@ namespace OEG.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.SurveyType = new SelectList(new[]
+                                          {
+                                              new { Value="Participant",Text="Participant"},
+                                              new { Value="OEG Staff",Text="OEG Staff"},
+                                              new { Value="School Staff",Text="School Staff"}
+                                          }
+                                         , "Value", "Text");
             return View(surveys);
         }
 
@@ -92,7 +116,7 @@ namespace OEG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SurveyID,SurveyName,SurveyCode,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] Surveys surveys)
+        public ActionResult Edit([Bind(Include = "SurveyID,SurveyName,SurveyCode,SurveyType,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] Surveys surveys)
         {
             if (ModelState.IsValid)
             {
@@ -104,6 +128,14 @@ namespace OEG.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.SurveyType = new SelectList(new[]
+                                          {
+                                              new { Value="Participant",Text="Participant"},
+                                              new { Value="OEG Staff",Text="OEG Staff"},
+                                              new { Value="School Staff",Text="School Staff"}
+                                          }
+                                         , "Value", "Text");
             return View(surveys);
         }
 

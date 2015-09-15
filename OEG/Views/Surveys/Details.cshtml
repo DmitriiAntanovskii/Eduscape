@@ -8,8 +8,7 @@
 <h1><i class="fa fa-file fa-2x"></i> Details <small>Survey details</small></h1><hr />
 
 <div>
-    <h4>Surveys</h4>
-    <hr />
+    
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.SurveyName)
@@ -25,6 +24,13 @@
 
         <dd>
             @Html.DisplayFor(model => model.SurveyCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SurveyType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SurveyType)
         </dd>
 
         <dt>

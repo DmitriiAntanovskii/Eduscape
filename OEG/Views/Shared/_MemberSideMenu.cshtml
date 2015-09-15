@@ -19,10 +19,11 @@
     {
         <li class="section hidden-xs">System Administration</li>
         <li><a href="/Users"><i class="fa fa-user"></i> Users</a></li>
-        <li><a href="/Surveys"><i class="fa fa-file"></i> Surveys</a></li>
+        
         if (User.IsInRole("Administrator"))
         {
             <li><a href="/UserGroups"><i class="fa fa-users"></i> User Groups</a></li>
+            <li><a href="/Surveys"><i class="fa fa-file"></i> Surveys</a></li>
         }
     }
 </ul>

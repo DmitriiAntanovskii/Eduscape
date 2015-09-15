@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
-<h1><i class="fa fa-file fa-2x"></i> Users <small>Maintain surveys</small></h1><hr />
+<h1><i class="fa fa-file fa-2x"></i> Surveys <small>Maintain surveys</small></h1><hr />
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -19,6 +19,10 @@
         <th>
             @Html.DisplayNameFor(model => model.SurveyCode)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SurveyType)
+        </th>
+
     </tr>
 
 @foreach (var item in Model) {
@@ -34,6 +38,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.SurveyCode)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SurveyType)
+        </td>
+
     </tr>
 }
 
