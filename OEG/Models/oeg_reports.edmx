@@ -30,6 +30,19 @@
           <Property Name="EmployeeNumber" Type="varchar" MaxLength="50" />
           <Property Name="ResponseID" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="StaffReportData">
+          <Key>
+            <PropertyRef Name="StaffReportDataID" />
+          </Key>
+          <Property Name="StaffReportDataID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResponseID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="JobCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Group" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmployeeNumber" Type="varchar" MaxLength="50" />
+          <Property Name="QuestionID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Score" Type="int" />
+          <Property Name="QualResponse" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="Surveys">
           <Key>
             <PropertyRef Name="SurveyID" />
@@ -113,6 +126,7 @@
         </Function>
         <EntityContainer Name="oeg_reportsModelStoreContainer">
           <EntitySet Name="ReportData" EntityType="Self.ReportData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StaffReportData" EntityType="Self.StaffReportData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Surveys" EntityType="Self.Surveys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserGroups" EntityType="Self.UserGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -229,6 +243,7 @@
             <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="Surveys" EntityType="oeg_reportsModel.Surveys" />
+          <EntitySet Name="StaffReportData" EntityType="oeg_reportsModel.StaffReportData" />
         </EntityContainer>
         <ComplexType Name="SchoolReport_Result">
           <Property Type="Int32" Name="year" Nullable="true" />
@@ -347,6 +362,19 @@
           <Property Name="ModifedBy" Type="Int32" Nullable="false" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="SurveyType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="StaffReportData">
+          <Key>
+            <PropertyRef Name="StaffReportDataID" />
+          </Key>
+          <Property Name="StaffReportDataID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResponseID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JobCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Group" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QuestionID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="QualResponse" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -563,6 +591,20 @@
                 <ScalarProperty Name="SurveyCode" ColumnName="SurveyCode" />
                 <ScalarProperty Name="SurveyName" ColumnName="SurveyName" />
                 <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StaffReportData">
+            <EntityTypeMapping TypeName="oeg_reportsModel.StaffReportData">
+              <MappingFragment StoreEntitySet="StaffReportData">
+                <ScalarProperty Name="QualResponse" ColumnName="QualResponse" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="EmployeeNumber" ColumnName="EmployeeNumber" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="JobCode" ColumnName="JobCode" />
+                <ScalarProperty Name="ResponseID" ColumnName="ResponseID" />
+                <ScalarProperty Name="StaffReportDataID" ColumnName="StaffReportDataID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -2,14 +2,14 @@
 
 
 @{
-    ViewBag.Title = "School Quantative By Group";
+    ViewBag.Title = "School Quantitative By Group";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <div>
-    <form action="/Reports/SchoolQuantativeByGroup" method="post">
+    <form action="/Reports/SchoolQuantitativeByGroup" method="post">
         <input type="hidden" id="Hidden_JobCodes" name="Hidden_JobCodes" value="@ViewBag.Hidden_JobCodes" />
         <div class="form-horizontal">
             <div class="row">
@@ -46,7 +46,7 @@
             Group
         </th>
         <th>
-            Factor
+            Competency
         </th>
         <th>
             Jobe Code

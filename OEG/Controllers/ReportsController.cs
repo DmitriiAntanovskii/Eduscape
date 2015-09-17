@@ -25,6 +25,12 @@ namespace OEG.Controllers
             return View(db.ReportDatas.ToList());
         }
 
+        [Authorize(Roles = "Administrator")]
+        public ActionResult StaffData()
+        {
+            return View(db.StaffReportData.ToList());
+        }
+
         public ActionResult ProgramsBenchmark()
         {
             var factors = (from f in db.ReportDatas
@@ -80,7 +86,7 @@ namespace OEG.Controllers
             return View(vm);
         }
 
-        public ActionResult QuantativeByGroup()
+        public ActionResult QuantitativeByGroup()
         {
             var source = from f in db.ReportDatas
                          select f;
@@ -114,7 +120,7 @@ namespace OEG.Controllers
         }
 
         [HttpPost]
-        public ActionResult QuantativeByGroup(string Hidden_JobCodes)
+        public ActionResult QuantitativeByGroup(string Hidden_JobCodes)
         {
             
             var source = from f in db.ReportDatas
@@ -196,7 +202,7 @@ namespace OEG.Controllers
             return View(db.YearLevelBenchmark(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
         }
 
-        public ActionResult SchoolQuantativeByGroup()
+        public ActionResult SchoolQuantitativeByGroup()
         {
             var source = from f in db.ReportDatas
                          select f;
@@ -230,7 +236,7 @@ namespace OEG.Controllers
         }
 
         [HttpPost]
-        public ActionResult SchoolQuantativeByGroup(string Hidden_JobCodes)
+        public ActionResult SchoolQuantitativeByGroup(string Hidden_JobCodes)
         {
             var source = from f in db.ReportDatas
                          select f;

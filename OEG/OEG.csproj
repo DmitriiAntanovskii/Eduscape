@@ -216,6 +216,9 @@
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SignUp.cs" />
+    <Compile Include="Models\StaffReportData.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\StdDevByFactor_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
@@ -323,16 +326,17 @@
     <Content Include="Views\Reports\DurationBenchmark.cshtml" />
     <Content Include="Views\Reports\ProgramsBenchmark.cshtml" />
     <Content Include="Views\Reports\StandardDeviation.cshtml" />
-    <Content Include="Views\Reports\QuantativeByGroup.cshtml" />
+    <Content Include="Views\Reports\QuantitativeByGroup.cshtml" />
     <Content Include="Views\Reports\AllCoursesBenchmark.cshtml" />
     <Content Include="Views\Reports\YearLevelBenchmark.cshtml" />
-    <Content Include="Views\Reports\SchoolQuantativeByGroup.cshtml" />
+    <Content Include="Views\Reports\SchoolQuantitativeByGroup.cshtml" />
     <Content Include="Views\Reports\SchoolQualitative.cshtml" />
     <Content Include="Views\Surveys\Create.cshtml" />
     <Content Include="Views\Surveys\Delete.cshtml" />
     <Content Include="Views\Surveys\Details.cshtml" />
     <Content Include="Views\Surveys\Edit.cshtml" />
     <Content Include="Views\Surveys\Index.cshtml" />
+    <Content Include="Views\Reports\StaffData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

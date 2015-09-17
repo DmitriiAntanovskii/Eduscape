@@ -10,6 +10,7 @@
         <EntityTypeShape EntityType="oeg_reportsModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="oeg_reportsModel.FK_Users_UserGroups" ManuallyRouted="false" />
         <EntityTypeShape EntityType="oeg_reportsModel.Surveys" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="oeg_reportsModel.StaffReportData" Width="1.5" PointX="3.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
