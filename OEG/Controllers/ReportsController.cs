@@ -96,6 +96,11 @@ namespace OEG.Controllers
         }
 
 
+        public ActionResult Venue()
+        {
+            return View(db.Venue().ToList());
+        }
+
 
 
         [Authorize(Roles = "Administrator")]

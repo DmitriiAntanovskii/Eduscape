@@ -238,6 +238,9 @@
     <Compile Include="Models\UserGroup.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Venue_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\YearLevelBenchmark_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
@@ -341,6 +344,7 @@
     <Content Include="Views\Surveys\Index.cshtml" />
     <Content Include="Views\Reports\StaffData.cshtml" />
     <Content Include="Views\Reports\Duration.cshtml" />
+    <Content Include="Views\Reports\Venue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

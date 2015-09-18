@@ -147,5 +147,10 @@ namespace OEG.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Duration_Result>("Duration", daysParameter);
         }
+    
+        public virtual ObjectResult<Venue_Result> Venue()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Venue_Result>("Venue");
+        }
     }
 }

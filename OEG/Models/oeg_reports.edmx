@@ -125,6 +125,7 @@
         <Function Name="SchoolReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="StdDevByFactor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="StdDevByQuestionID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Venue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="YearLevelBenchmark" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="JobCodes" Type="nvarchar(max)" Mode="In" />
         </Function>
@@ -210,8 +211,9 @@
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
           <FunctionImport Name="Duration" ReturnType="Collection(oeg_reportsModel.Duration_Result)">
-            <Parameter Name="Days" Mode="In" Type="String" />
+          <Parameter Name="Days" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="Venue" ReturnType="Collection(oeg_reportsModel.Venue_Result)" />
         </EntityContainer>
         <ComplexType Name="SchoolReport_Result">
           <Property Type="Int32" Name="year" Nullable="true" />
@@ -386,6 +388,14 @@
         </Association>
         <ComplexType Name="Duration_Result">
           <Property Type="Int32" Name="Days" Nullable="true" />
+          <Property Type="Double" Name="Pre" Nullable="true" />
+          <Property Type="Double" Name="Post" Nullable="true" />
+          <Property Type="Double" Name="Change" Nullable="true" />
+          <Property Type="Double" Name="ChangePercent" Nullable="true" />
+          <Property Type="Double" Name="EffectSize" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Venue_Result">
+          <Property Type="String" Name="Venue" Nullable="true" MaxLength="50" />
           <Property Type="Double" Name="Pre" Nullable="true" />
           <Property Type="Double" Name="Post" Nullable="true" />
           <Property Type="Double" Name="Change" Nullable="true" />
@@ -629,6 +639,18 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="oeg_reportsModel.Duration_Result">
                 <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="Pre" ColumnName="Pre" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="Change" ColumnName="Change" />
+                <ScalarProperty Name="ChangePercent" ColumnName="ChangePercent" />
+                <ScalarProperty Name="EffectSize" ColumnName="EffectSize" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Venue" FunctionName="oeg_reportsModel.Store.Venue">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="oeg_reportsModel.Venue_Result">
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
                 <ScalarProperty Name="Pre" ColumnName="Pre" />
                 <ScalarProperty Name="Post" ColumnName="Post" />
                 <ScalarProperty Name="Change" ColumnName="Change" />
