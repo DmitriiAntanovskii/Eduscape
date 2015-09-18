@@ -104,6 +104,11 @@
           <Parameter Name="Days" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="Item" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ItemJobCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="JobCodes" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Groups" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="EmpNo" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="JobCodeGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="JobCodes" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="Groups" Type="nvarchar(max)" Mode="In" />
@@ -236,6 +241,11 @@
             <Parameter Name="Groups" Mode="In" Type="String" />
             <Parameter Name="Venues" Mode="In" Type="String" />
             <Parameter Name="StartDates" Mode="In" Type="String" />
+            <Parameter Name="EmpNo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ItemJobCode" ReturnType="Collection(oeg_reportsModel.ItemJobCode_Result)">
+            <Parameter Name="JobCodes" Mode="In" Type="String" />
+            <Parameter Name="Groups" Mode="In" Type="String" />
             <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
@@ -469,6 +479,20 @@
           <Property Type="String" Name="ID" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="QuestionID" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="QualResponse" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ItemJobCode_Result">
+          <Property Type="String" Name="School" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="yearlevel" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Days" Nullable="true" />
+          <Property Type="String" Name="Venue" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Group" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="QuestionID" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="JobCode" Nullable="false" MaxLength="50" />
+          <Property Type="Double" Name="Pre" Nullable="true" />
+          <Property Type="Double" Name="Post" Nullable="true" />
+          <Property Type="Double" Name="Change" Nullable="true" />
+          <Property Type="Double" Name="ChangePercent" Nullable="true" />
+          <Property Type="Double" Name="EffectSize" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -784,6 +808,24 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
                 <ScalarProperty Name="QualResponse" ColumnName="QualResponse" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ItemJobCode" FunctionName="oeg_reportsModel.Store.ItemJobCode">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="oeg_reportsModel.ItemJobCode_Result">
+                <ScalarProperty Name="School" ColumnName="School" />
+                <ScalarProperty Name="yearlevel" ColumnName="yearlevel" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="JobCode" ColumnName="JobCode" />
+                <ScalarProperty Name="Pre" ColumnName="Pre" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="Change" ColumnName="Change" />
+                <ScalarProperty Name="ChangePercent" ColumnName="ChangePercent" />
+                <ScalarProperty Name="EffectSize" ColumnName="EffectSize" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

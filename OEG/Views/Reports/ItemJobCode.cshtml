@@ -1,0 +1,175 @@
+﻿@model IEnumerable<OEG.Models.ItemJobCode_Result>
+
+
+@{
+    ViewBag.Title = "Items & Job Code";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <form action="/Reports/ItemJobCode" method="post">
+        <input type="hidden" id="Hidden_JobCodes" name="Hidden_JobCodes" value="@ViewBag.Hidden_JobCodes" />
+        <input type="hidden" id="Hidden_Groups" name="Hidden_Groups" value="@ViewBag.Hidden_Groups" />
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label col-md-6 col-lg-4">Job Code:</label>
+                        <div class="col-md-6 col-lg-8">
+                            @Html.DropDownList("JobCodes", (SelectList)ViewBag.JobCodes, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label col-md-6 col-lg-4">Group:</label>
+                        <div class="col-md-6 col-lg-8">
+                            @Html.DropDownList("Groups", (SelectList)ViewBag.Groups, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <input type="submit" class="btn btn-primary" value="Refresh" />
+    </form>
+</div>
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            School
+        </th>
+        <th>
+            Year Level
+        </th>
+        <th>
+            Duration (Days)
+        </th>
+        <th>
+            Venue
+        </th>
+        <th>
+            Group
+        </th>
+        <th>
+            Item
+        </th>
+        <th>
+            Job Code
+        </th>
+        <th>
+            Avg. Pre
+        </th>
+        <th>
+            Avg. Post
+        </th>
+        <th>
+            Avg. Change
+        </th>
+        <th>
+            Avg. Change %
+        </th>
+        <th>
+            Effect Size
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.School)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.yearlevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Days)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Venue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post)
+            </td>
+            <td class="@(item.Change < 0 ? "negative" : "")">
+                @Html.DisplayFor(modelItem => item.Change)
+            </td>
+            <td class="@(item.Change < 0 ? "negative" : "")">
+                @Html.DisplayFor(modelItem => item.ChangePercent)%
+            </td>
+            <td class="@(item.Change < 0 ? "negative" : "")">
+                @Html.DisplayFor(modelItem => item.EffectSize)
+            </td>
+        </tr>
+    }
+
+</table>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#JobCodes').multiselect({
+            onChange: function (option, checked) {
+                //get all of the selected tiems
+                var values = $('#JobCodes option:selected');
+                var selected = "";
+                $(values).each(function (index, value) {
+                    selected += $(value).prop('value') + ",";
+                });
+                selected = selected.substring(0, selected.length - 1);
+                //update hidden field with comma delimited string for state persistance
+                $("#Hidden_JobCodes").val(selected);
+            },
+            includeSelectAllOption: true
+        });
+
+        var optCol = $("#Hidden_JobCodes").val().split(',');
+        //set them as checked
+        $("#JobCodes").val(optCol);
+        //refresh the control
+        $("#JobCodes").multiselect("refresh");
+
+        $('#Groups').multiselect({
+            onChange: function (option, checked) {
+                //get all of the selected tiems
+                var values = $('#Groups option:selected');
+                var selected = "";
+                $(values).each(function (index, value) {
+                    selected += $(value).prop('value') + ",";
+                });
+                selected = selected.substring(0, selected.length - 1);
+                //update hidden field with comma delimited string for state persistance
+                $("#Hidden_Groups").val(selected);
+            },
+            includeSelectAllOption: true
+        });
+
+        var optCol = $("#Hidden_Groups").val().split(',');
+        //set them as checked
+        $("#Groups").val(optCol);
+        //refresh the control
+        $("#Groups").multiselect("refresh");
+
+    });
+</script>
+
+
+

@@ -379,6 +379,127 @@ namespace OEG.Controllers
             return View(db.YearLevelBenchmark(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
         }
 
+        public ActionResult ItemJobCode()
+        {
+            var source = from f in db.ReportDatas
+                         select f;
+
+            string EmpNo = null;
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School == u.Schools);
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+            }
+
+            var jobcodes = (from f in source
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            string ret = "";
+            foreach (string s in jobcodes.Select(o => o.JobCode))
+            {
+                ret += s + ",";
+            }
+
+            ret = ret.Remove(ret.Length - 1);
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                ViewBag.Hidden_JobCodes = ret;
+            }
+
+
+            var groups = (from f in source
+                          select new { Group = f.Group }).Distinct();
+
+            ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
+
+            string g = null;
+            foreach (string s in groups.Select(o => o.Group))
+            {
+                g += s + ",";
+            }
+
+            g = g.Remove(g.Length - 1);
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                ViewBag.Hidden_Groups = g;
+            }
+
+
+            return View(db.ItemJobCode(ret, g, EmpNo).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult ItemJobCode(string Hidden_JobCodes, string Hidden_Groups)
+        {
+            var source = from f in db.ReportDatas
+                         select f;
+
+            string EmpNo = null;
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School.Contains(u.Schools));
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+            }
+
+            var jobcodes = (from f in source
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                if (Hidden_JobCodes.Length == 0)
+                {
+                    string ret = "";
+                    foreach (string s in jobcodes.Select(o => o.JobCode))
+                    {
+                        ret += s + ",";
+                    }
+
+                    ret = ret.Remove(ret.Length - 1);
+                    Hidden_JobCodes = ret;
+                }
+            }
+
+            ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+
+            var groups = (from f in source
+                          select new { Group = f.Group }).Distinct();
+
+            ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
+
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                if (Hidden_Groups.Length == 0)
+                {
+                    string ret = "";
+                    foreach (string s in groups.Select(o => o.Group))
+                    {
+                        ret += s + ",";
+                    }
+
+                    ret = ret.Remove(ret.Length - 1);
+                    Hidden_Groups = ret;
+                }
+            }
+
+            ViewBag.Hidden_Groups = Hidden_Groups;
+
+
+            return View(db.ItemJobCode(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).ToList());
+        }
+
+
+
+
+
         public ActionResult SchoolQuantitativeByGroup()
         {
             var source = from f in db.ReportDatas

@@ -196,5 +196,22 @@ namespace OEG.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQualative_Result>("SchoolQualative", yearsParameter, schoolsParameter, jobCodesParameter, groupsParameter, venuesParameter, startDatesParameter, empNoParameter);
         }
+    
+        public virtual ObjectResult<ItemJobCode_Result> ItemJobCode(string jobCodes, string groups, string empNo)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            var groupsParameter = groups != null ?
+                new ObjectParameter("Groups", groups) :
+                new ObjectParameter("Groups", typeof(string));
+    
+            var empNoParameter = empNo != null ?
+                new ObjectParameter("EmpNo", empNo) :
+                new ObjectParameter("EmpNo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ItemJobCode_Result>("ItemJobCode", jobCodesParameter, groupsParameter, empNoParameter);
+        }
     }
 }

@@ -184,6 +184,9 @@
     <Compile Include="Models\Duration_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ItemJobCode_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Item_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
@@ -361,6 +364,7 @@
     <Content Include="Views\Reports\School.cshtml" />
     <Content Include="Views\Reports\JobCodeGroup.cshtml" />
     <Content Include="Views\Reports\Item.cshtml" />
+    <Content Include="Views\Reports\ItemJobCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
