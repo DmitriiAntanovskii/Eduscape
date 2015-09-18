@@ -51,6 +51,27 @@ namespace OEG.Controllers
             return View(db.ProgramsBenchmark(Hidden_Factors.Length > 0 ? Hidden_Factors : null ).ToList());
         }
 
+        public ActionResult JobCodePrograms()
+        {
+            var factors = (from f in db.ReportDatas
+                           select new { Factor = f.Factor }).Distinct();
+
+            ViewBag.Factors = new SelectList(factors.OrderBy(x => x.Factor), "Factor", "Factor");
+            return View(db.JobCodePrograms(null).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult JobCodePrograms(string Hidden_Factors)
+        {
+            var factors = (from f in db.ReportDatas
+                           select new { Factor = f.Factor }).Distinct();
+
+            ViewBag.Factors = new SelectList(factors.OrderBy(x => x.Factor), "Factor", "Factor");
+            ViewBag.Hidden_Factors = Hidden_Factors;
+            return View(db.JobCodePrograms(Hidden_Factors.Length > 0 ? Hidden_Factors : null).ToList());
+        }
+
+
         public ActionResult DurationBenchmark()
         {
             var days = (from f in db.ReportDatas
@@ -101,6 +122,15 @@ namespace OEG.Controllers
             return View(db.Venue().ToList());
         }
 
+        public ActionResult School()
+        {
+            return View(db.School().ToList());
+        }
+
+        public ActionResult Item()
+        {
+            return View(db.Item().ToList());
+        }
 
 
         [Authorize(Roles = "Administrator")]
@@ -188,6 +218,123 @@ namespace OEG.Controllers
             return View(db.QuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, EmpNo).ToList());
         }
 
+
+        public ActionResult JobCodeGroup()
+        {
+            var source = from f in db.ReportDatas
+                         select f;
+
+            string EmpNo = null;
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School.Contains(u.Schools));
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+            }
+
+            var jobcodes = (from f in source
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            string jc = null;
+            foreach (string s in jobcodes.Select(o => o.JobCode))
+            {
+                jc += s + ",";
+            }
+
+            jc = jc.Remove(jc.Length - 1);
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                ViewBag.Hidden_JobCodes = jc;
+            }
+
+            var groups = (from f in source
+                            select new { Group = f.Group }).Distinct();
+
+            ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
+
+            string g = null;
+            foreach (string s in groups.Select(o => o.Group))
+            {
+                g += s + ",";
+            }
+
+            g = g.Remove(g.Length - 1);
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                ViewBag.Hidden_Groups = g;
+            }
+
+            return View(db.JobCodeGroup(jc, g, EmpNo).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult JobCodeGroup(string Hidden_JobCodes, string Hidden_Groups)
+        {
+
+            var source = from f in db.ReportDatas
+                         select f;
+
+            string EmpNo = null;
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School.Contains(u.Schools));
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+            }
+
+            var jobcodes = (from f in source
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                if (Hidden_JobCodes.Length == 0)
+                {
+                    string ret = "";
+                    foreach (string s in jobcodes.Select(o => o.JobCode))
+                    {
+                        ret += s + ",";
+                    }
+
+                    ret = ret.Remove(ret.Length - 1);
+                    Hidden_JobCodes = ret;
+                }
+            }
+            ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+
+            var groups = (from f in source
+                          select new { Group = f.Group }).Distinct();
+
+            ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
+
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                if (Hidden_Groups.Length == 0)
+                {
+                    string ret = "";
+                    foreach (string s in groups.Select(o => o.Group))
+                    {
+                        ret += s + ",";
+                    }
+
+                    ret = ret.Remove(ret.Length - 1);
+                    Hidden_Groups = ret;
+                }
+            }
+
+            ViewBag.Hidden_Groups = Hidden_Groups;
+
+            return View(db.JobCodeGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).ToList());
+        }
+
+
+
         public ActionResult AllCoursesBenchmark()
         {
 
@@ -211,7 +358,7 @@ namespace OEG.Controllers
             return View(db.AllCoursesBenchmark(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
         }
 
-        public ActionResult YearLevelBenchmark()
+        public ActionResult YearLevel()
         {
             var jobcodes = (from f in db.ReportDatas
                             select new { JobCode = f.JobCode }).Distinct();
@@ -222,7 +369,7 @@ namespace OEG.Controllers
         }
 
         [HttpPost]
-        public ActionResult YearLevelBenchmark(string Hidden_JobCodes)
+        public ActionResult YearLevel(string Hidden_JobCodes)
         {
             var jobcodes = (from f in db.ReportDatas
                             select new { JobCode = f.JobCode }).Distinct();

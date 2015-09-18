@@ -8,13 +8,17 @@
     }
     @if (!User.IsInRole("School Coordinator"))
     {
-    <li><a href="/Reports/QuantitativeByGroup"><i class="fa fa-dashboard"></i> Quantitative By Group</a></li>
-    <li><a href="/Reports/ProgramsBenchmark"><i class="fa fa-dashboard"></i> Programs Benchmark</a></li>
+    @*<li><a href="/Reports/QuantitativeByGroup"><i class="fa fa-dashboard"></i> Quantitative By Group</a></li>*@
+    <li><a href="/Reports/JobCodeGroup"><i class="fa fa-dashboard"></i> JobCode (Group)</a></li>
+    <li><a href="/Reports/JobCodePrograms"><i class="fa fa-dashboard"></i> JobCode (Program)</a></li>
+    @*<li><a href="/Reports/ProgramsBenchmark"><i class="fa fa-dashboard"></i> Programs Benchmark</a></li>*@
     @*<li><a href="/Reports/DurationBenchmark"><i class="fa fa-dashboard"></i> Duration Benchmark</a></li>*@
     <li><a href="/Reports/Duration"><i class="fa fa-dashboard"></i> Duration</a></li>
     <li><a href="/Reports/Venue"><i class="fa fa-dashboard"></i> Venue</a></li>
-    <li><a href="/Reports/AllCoursesBenchmark"><i class="fa fa-dashboard"></i> All Courses Benchmark</a></li>
-    <li><a href="/Reports/YearLevelBenchmark"><i class="fa fa-dashboard"></i> Year Level Benchmark</a></li>
+    <li><a href="/Reports/School"><i class="fa fa-dashboard"></i> School</a></li>
+    <li><a href="/Reports/Item"><i class="fa fa-dashboard"></i> Item</a></li>
+    @*<li><a href="/Reports/AllCoursesBenchmark"><i class="fa fa-dashboard"></i> All Courses Benchmark</a></li>*@
+    <li><a href="/Reports/YearLevel"><i class="fa fa-dashboard"></i> Year Level</a></li>
     }
     <li><a href="/Reports/SchoolQuantitativeByGroup"><i class="fa fa-dashboard"></i> School Quantitative By Group</a></li>
     <li><a href="/Reports/SchoolQualitative"><i class="fa fa-dashboard"></i> School Qualitative</a></li>

@@ -2,14 +2,14 @@
 
 
 @{
-    ViewBag.Title = "Year Level Benchmark";
+    ViewBag.Title = "Year Level";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
 
 <div>
-    <form action="/Reports/YearLevelBenchmark" method="post">
+    <form action="/Reports/YearLevel" method="post">
         <input type="hidden" id="Hidden_JobCodes" name="Hidden_JobCodes" value="@ViewBag.Hidden_JobCodes" />
         <div class="form-horizontal">
             <div class="row">

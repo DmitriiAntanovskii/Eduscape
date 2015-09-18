@@ -184,6 +184,15 @@
     <Compile Include="Models\Duration_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Item_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JobCodeGroup_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JobCodePrograms_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Messages.cs" />
     <Compile Include="Models\oeg_reports.Context.cs">
       <AutoGen>True</AutoGen>
@@ -216,6 +225,9 @@
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SchoolReport_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\School_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SignUp.cs" />
@@ -334,7 +346,7 @@
     <Content Include="Views\Reports\StandardDeviation.cshtml" />
     <Content Include="Views\Reports\QuantitativeByGroup.cshtml" />
     <Content Include="Views\Reports\AllCoursesBenchmark.cshtml" />
-    <Content Include="Views\Reports\YearLevelBenchmark.cshtml" />
+    <Content Include="Views\Reports\YearLevel.cshtml" />
     <Content Include="Views\Reports\SchoolQuantitativeByGroup.cshtml" />
     <Content Include="Views\Reports\SchoolQualitative.cshtml" />
     <Content Include="Views\Surveys\Create.cshtml" />
@@ -345,6 +357,10 @@
     <Content Include="Views\Reports\StaffData.cshtml" />
     <Content Include="Views\Reports\Duration.cshtml" />
     <Content Include="Views\Reports\Venue.cshtml" />
+    <Content Include="Views\Reports\JobCodePrograms.cshtml" />
+    <Content Include="Views\Reports\School.cshtml" />
+    <Content Include="Views\Reports\JobCodeGroup.cshtml" />
+    <Content Include="Views\Reports\Item.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -152,5 +152,41 @@ namespace OEG.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Venue_Result>("Venue");
         }
+    
+        public virtual ObjectResult<JobCodePrograms_Result> JobCodePrograms(string factors)
+        {
+            var factorsParameter = factors != null ?
+                new ObjectParameter("Factors", factors) :
+                new ObjectParameter("Factors", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<JobCodePrograms_Result>("JobCodePrograms", factorsParameter);
+        }
+    
+        public virtual ObjectResult<School_Result> School()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<School_Result>("School");
+        }
+    
+        public virtual ObjectResult<JobCodeGroup_Result> JobCodeGroup(string jobCodes, string groups, string empNo)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            var groupsParameter = groups != null ?
+                new ObjectParameter("Groups", groups) :
+                new ObjectParameter("Groups", typeof(string));
+    
+            var empNoParameter = empNo != null ?
+                new ObjectParameter("EmpNo", empNo) :
+                new ObjectParameter("EmpNo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<JobCodeGroup_Result>("JobCodeGroup", jobCodesParameter, groupsParameter, empNoParameter);
+        }
+    
+        public virtual ObjectResult<Item_Result> Item()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Item_Result>("Item");
+        }
     }
 }
