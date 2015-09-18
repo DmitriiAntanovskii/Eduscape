@@ -409,11 +409,31 @@ namespace OEG.Controllers
             {
                 ViewBag.Hidden_JobCodes = ret;
             }
-            return View(db.SchoolQuantativeByGroup(ret, EmpNo).ToList());
+
+
+            var groups = (from f in source
+                          select new { Group = f.Group }).Distinct();
+
+            ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
+
+            string g = null;
+            foreach (string s in groups.Select(o => o.Group))
+            {
+                g += s + ",";
+            }
+
+            g = g.Remove(g.Length - 1);
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                ViewBag.Hidden_Groups = g;
+            }
+
+
+            return View(db.SchoolQuantativeByGroup(ret,g,EmpNo).ToList());
         }
 
         [HttpPost]
-        public ActionResult SchoolQuantitativeByGroup(string Hidden_JobCodes)
+        public ActionResult SchoolQuantitativeByGroup(string Hidden_JobCodes, string Hidden_Groups)
         {
             var source = from f in db.ReportDatas
                          select f;
@@ -423,7 +443,7 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.Schools);
+                source = source.Where(x => x.School.Contains(u.Schools));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
@@ -449,7 +469,31 @@ namespace OEG.Controllers
 
             ViewBag.Hidden_JobCodes = Hidden_JobCodes;
 
-            return View(db.SchoolQuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, EmpNo).ToList());
+            var groups = (from f in source
+                          select new { Group = f.Group }).Distinct();
+
+            ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
+
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                if (Hidden_Groups.Length == 0)
+                {
+                    string ret = "";
+                    foreach (string s in groups.Select(o => o.Group))
+                    {
+                        ret += s + ",";
+                    }
+
+                    ret = ret.Remove(ret.Length - 1);
+                    Hidden_Groups = ret;
+                }
+            }
+
+            ViewBag.Hidden_Groups = Hidden_Groups;
+
+
+            return View(db.SchoolQuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).ToList());
         }
 
 
@@ -535,11 +579,29 @@ namespace OEG.Controllers
             }
             sd = sd.Remove(sd.Length - 1);
 
-            return View(db.SchoolQualative(y, sc, jc, v, sd, EmpNo).ToList());
+            var groups = (from f in source
+                          select new { Group = f.Group }).Distinct();
+
+            ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
+
+            string g = null;
+            foreach (string s in groups.Select(o => o.Group))
+            {
+                g += s + ",";
+            }
+
+            g = g.Remove(g.Length - 1);
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                ViewBag.Hidden_Groups = g;
+            }
+
+
+            return View(db.SchoolQualative(y, sc, jc,g, v, sd, EmpNo).ToList());
         }
 
         [HttpPost]
-        public ActionResult SchoolQualitative(string Hidden_Years, string Hidden_Schools, string Hidden_JobCodes, string Hidden_Venues, string Hidden_StartDates)
+        public ActionResult SchoolQualitative(string Hidden_Years, string Hidden_Schools, string Hidden_JobCodes, string Hidden_Venues, string Hidden_StartDates, string Hidden_Groups)
         {
 
             var source = from f in db.ReportDatas
@@ -587,8 +649,31 @@ namespace OEG.Controllers
             ViewBag.StartDates = new SelectList(startdates, "Text", "Value");
             ViewBag.Hidden_StartDates = Hidden_StartDates;
 
+            var groups = (from f in source
+                          select new { Group = f.Group }).Distinct();
 
-            return View(db.SchoolQualative(Hidden_Years.Length > 0 ? Hidden_Years : null, Hidden_Schools.Length > 0 ? Hidden_Schools : null, Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Venues.Length > 0 ? Hidden_Venues : null, Hidden_StartDates.Length > 0 ? Hidden_StartDates : null, EmpNo).ToList());
+            ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
+
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            {
+                if (Hidden_Groups.Length == 0)
+                {
+                    string ret = "";
+                    foreach (string s in groups.Select(o => o.Group))
+                    {
+                        ret += s + ",";
+                    }
+
+                    ret = ret.Remove(ret.Length - 1);
+                    Hidden_Groups = ret;
+                }
+            }
+
+            ViewBag.Hidden_Groups = Hidden_Groups;
+
+
+            return View(db.SchoolQualative(Hidden_Years.Length > 0 ? Hidden_Years : null, Hidden_Schools.Length > 0 ? Hidden_Schools : null, Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, Hidden_Venues.Length > 0 ? Hidden_Venues : null, Hidden_StartDates.Length > 0 ? Hidden_StartDates : null, EmpNo).ToList());
         }
     }
 }

@@ -2,7 +2,7 @@
 
 
 @{
-    ViewBag.Title = "School Quantitative By Group";
+    ViewBag.Title = "Group & Job Code (Competencies & Total)";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
@@ -11,6 +11,7 @@
 <div>
     <form action="/Reports/SchoolQuantitativeByGroup" method="post">
         <input type="hidden" id="Hidden_JobCodes" name="Hidden_JobCodes" value="@ViewBag.Hidden_JobCodes" />
+        <input type="hidden" id="Hidden_Groups" name="Hidden_Groups" value="@ViewBag.Hidden_Groups" />
         <div class="form-horizontal">
             <div class="row">
                 <div class="col-md-6 col-lg-4">
@@ -22,6 +23,17 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label col-md-6 col-lg-4">Group:</label>
+                        <div class="col-md-6 col-lg-8">
+                            @Html.DropDownList("Groups", (SelectList)ViewBag.Groups, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <input type="submit" class="btn btn-primary" value="Refresh" />
     </form>
@@ -134,6 +146,28 @@
         $("#JobCodes").val(optCol);
         //refresh the control
         $("#JobCodes").multiselect("refresh");
+
+        $('#Groups').multiselect({
+            onChange: function (option, checked) {
+                //get all of the selected tiems
+                var values = $('#Groups option:selected');
+                var selected = "";
+                $(values).each(function (index, value) {
+                    selected += $(value).prop('value') + ",";
+                });
+                selected = selected.substring(0, selected.length - 1);
+                //update hidden field with comma delimited string for state persistance
+                $("#Hidden_Groups").val(selected);
+            },
+            includeSelectAllOption: true
+        });
+
+        var optCol = $("#Hidden_Groups").val().split(',');
+        //set them as checked
+        $("#Groups").val(optCol);
+        //refresh the control
+        $("#Groups").multiselect("refresh");
+
     });
 </script>
 
