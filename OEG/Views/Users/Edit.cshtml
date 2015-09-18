@@ -22,11 +22,14 @@
         @Html.HiddenFor(model => model.ModifedBy)
         @Html.HiddenFor(model => model.ModifiedDate)
         @Html.HiddenFor(model => model.PWD)
+        <input type="hidden" id="Hidden_Schools" name="Hidden_Schools" value="@ViewBag.Hidden_Schools" />
+        <input type="hidden" id="Hidden_JobCodes" name="Hidden_JobCodes" value="@ViewBag.Hidden_JobCodes" />
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.UserGroupID, "User Group", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("UserGroupID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("UserGroupID", null, htmlAttributes: new { @class = "form-control UserGroups" })
                 @Html.ValidationMessageFor(model => model.UserGroupID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,11 +64,17 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.School, "School", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div id="JobCodesSection" class="form-group">
+            @Html.LabelFor(model => model.JobCodes, "Job Codes", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("School", null, String.Empty, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UserGroupID, "", new { @class = "text-danger" })
+                @Html.DropDownList("JobCodes", (SelectList)ViewBag.JobCodes, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+            </div>
+        </div>
+
+        <div id="SchoolsSection" class="form-group">
+            @Html.LabelFor(model => model.Schools, "Schools", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Schools", (SelectList)ViewBag.Schools, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
             </div>
         </div>
 
@@ -84,3 +93,79 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#SchoolsSection').hide();
+        $('#JobCodesSection').hide();
+
+        if ($('.UserGroups').val() == 1006 || $('.UserGroups').val() == 1007 || $('.UserGroups').val() == 1009) {
+            $('#JobCodesSection').show();
+        }
+        if ($('.UserGroups').val() == 1008) {
+            $('#SchoolsSection').show();
+        }
+
+        $('.UserGroups').change(function () {
+            $('#SchoolsSection').hide();
+            $('#JobCodesSection').hide();
+            if ($('.UserGroups').val() == 1006 || $('.UserGroups').val() == 1007 || $('.UserGroups').val() == 1009)
+            {
+                $('#JobCodesSection').show();
+            }
+            if ($('.UserGroups').val() == 1008)
+            {
+                $('#SchoolsSection').show();
+            }
+        });
+
+
+        $('#Schools').multiselect({
+            onChange: function (option, checked) {
+                //get all of the selected tiems
+                var values = $('#Schools option:selected');
+                var selected = "";
+                $(values).each(function (index, value) {
+                    selected += $(value).prop('value') + ",";
+                });
+                selected = selected.substring(0, selected.length - 1);
+                //update hidden field with comma delimited string for state persistance
+                $("#Hidden_Schools").val(selected);
+            },
+            includeSelectAllOption: true
+        });
+
+        var optCol = $("#Hidden_Schools").val().split(',');
+        //set them as checked
+        $("#Schools").val(optCol);
+        //refresh the control
+        $("#Schools").multiselect("refresh");
+
+
+        $('#JobCodes').multiselect({
+            onChange: function (option, checked) {
+                //get all of the selected tiems
+                var values = $('#JobCodes option:selected');
+                var selected = "";
+                $(values).each(function (index, value) {
+                    selected += $(value).prop('value') + ",";
+                });
+                selected = selected.substring(0, selected.length - 1);
+                //update hidden field with comma delimited string for state persistance
+                $("#Hidden_JobCodes").val(selected);
+            },
+            includeSelectAllOption: true
+        });
+
+        var optCol = $("#Hidden_JobCodes").val().split(',');
+        //set them as checked
+        $("#JobCodes").val(optCol);
+        //refresh the control
+        $("#JobCodes").multiselect("refresh");
+
+
+    });
+</script>
+

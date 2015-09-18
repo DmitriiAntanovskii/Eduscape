@@ -102,11 +102,16 @@ namespace OEG.Controllers
             var source = from f in db.ReportDatas
                          select f;
 
+            var jobcodes = (from f in source
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+           
             var schools = (from f in source
-                            select new { School = f.School}).Distinct();
+                           select new { School = f.School }).Distinct();
 
-
-            ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School");
+            ViewBag.Schools = new SelectList(schools.OrderBy(x => x.School), "School", "School");
 
             return View();
         }
@@ -116,7 +121,7 @@ namespace OEG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeNumber,School,UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
+        public ActionResult Create(string Hidden_Schools, string Hidden_JobCodes,[Bind(Include = "EmployeeNumber,Schools,JobCodes,UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -126,6 +131,17 @@ namespace OEG.Controllers
                 user.CreatedDate = DateTime.Now;
                 user.ModifedBy = u.UserID;
                 user.ModifiedDate = DateTime.Now;
+
+                if (user.UserGroupID == 1006 || user.UserGroupID == 1007 || user.UserGroupID == 1009)
+                {
+                    user.JobCodes = Hidden_JobCodes;
+                }
+
+                if (user.UserGroupID == 1008)
+                {
+                    user.Schools = Hidden_Schools;
+                }
+
                 string newPWD = Security.CreateRandomPassword(8);
                 user.PWD = Security.HashSHA1(newPWD + user.UserGUID.ToString());
                 db.Users.Add(user);
@@ -169,11 +185,19 @@ namespace OEG.Controllers
             var source = from f in db.ReportDatas
                          select f;
 
+            var jobcodes = (from f in source
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+
             var schools = (from f in source
                            select new { School = f.School }).Distinct();
 
+            ViewBag.Schools = new SelectList(schools.OrderBy(x => x.School), "School", "School");
 
-            ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School");
+            ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+            ViewBag.Hidden_Schools = Hidden_Schools;
 
             return View(user);
         }
@@ -196,7 +220,7 @@ namespace OEG.Controllers
                                           {
                                               new { Value="1009",Text="School Coordinator"}
                                           }
-                                          , "Value", "Text");
+                                          , "Value", "Text", user.UserGroupID);
             }
             else if (User.IsInRole("Director"))
             {
@@ -205,7 +229,7 @@ namespace OEG.Controllers
                                               new { Value="1006",Text="Program Leader"},
                                               new { Value="1008",Text="Senior Manager"}
                                           }
-                                          , "Value", "Text");
+                                          , "Value", "Text", user.UserGroupID);
             }
             else if (User.IsInRole("Head of Teaching Team"))
             {
@@ -213,21 +237,30 @@ namespace OEG.Controllers
                                           {
                                               new { Value="1007",Text="Group Leader"}
                                           }
-                                          , "Value", "Text");
+                                          , "Value", "Text", user.UserGroupID);
             }
 
             else
             {
-                ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
+                ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName", user.UserGroupID);
             }
 
             var source = from f in db.ReportDatas
                          select f;
 
+            var jobcodes = (from f in source
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+
             var schools = (from f in source
                            select new { School = f.School }).Distinct();
 
-            ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School",user.School);
+            ViewBag.Schools = new SelectList(schools.OrderBy(x => x.School), "School", "School");
+
+            ViewBag.Hidden_JobCodes = user.JobCodes;
+            ViewBag.Hidden_Schools = user.Schools;
 
 
             return View(user);
@@ -238,17 +271,30 @@ namespace OEG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmployeeNumber,School,UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
+        public ActionResult Edit(string Hidden_Schools, string Hidden_JobCodes, [Bind(Include = "EmployeeNumber,School,UserID,UserGUID,UserGroupID,Email,PWD,FirstName,Surname,CreatedBy,CreatedDate,ModifedBy,ModifiedDate")] User user)
         {
             if (ModelState.IsValid)
             {
                 User u = UserHelper.getMember(db);
                 user.ModifedBy = u.UserID;
                 user.ModifiedDate = DateTime.Now;
+
+                if (user.UserGroupID == 1006 || user.UserGroupID == 1007 || user.UserGroupID == 1009)
+                {
+                    user.JobCodes = Hidden_JobCodes;
+                }
+
+                if (user.UserGroupID == 1008)
+                {
+                    user.Schools = Hidden_Schools;
+                }
+                
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+           
 
             if (User.IsInRole("Senior Manager"))
             {
@@ -256,7 +302,7 @@ namespace OEG.Controllers
                                           {
                                               new { Value="1009",Text="School Coordinator"}
                                           }
-                                          , "Value", "Text");
+                                          , "Value", "Text", user.UserGroupID);
             }
             else if (User.IsInRole("Director"))
             {
@@ -265,7 +311,7 @@ namespace OEG.Controllers
                                               new { Value="1006",Text="Program Leader"},
                                               new { Value="1008",Text="Senior Manager"}
                                           }
-                                          , "Value", "Text");
+                                          , "Value", "Text", user.UserGroupID);
             }
             else if (User.IsInRole("Head of Teaching Team"))
             {
@@ -273,21 +319,32 @@ namespace OEG.Controllers
                                           {
                                               new { Value="1007",Text="Group Leader"}
                                           }
-                                          , "Value", "Text");
+                                          , "Value", "Text", user.UserGroupID);
             }
 
             else
             {
-                ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName");
+                ViewBag.UserGroupID = new SelectList(db.UserGroups, "UserGroupID", "UserGroupName", user.UserGroupID);
             }
 
             var source = from f in db.ReportDatas
                          select f;
 
+            var jobcodes = (from f in source
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+
             var schools = (from f in source
                            select new { School = f.School }).Distinct();
 
-            ViewBag.School = new SelectList(schools.OrderBy(x => x.School), "School", "School", user.School);
+            ViewBag.Schools = new SelectList(schools.OrderBy(x => x.School), "School", "School");
+
+            ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+            ViewBag.Hidden_Schools = Hidden_Schools;
+
+
 
             return View(user);
         }

@@ -21,11 +21,12 @@ namespace OEG.Models
         public string PWD { get; set; }
         public string FirstName { get; set; }
         public string Surname { get; set; }
+        public string Schools { get; set; }
+        public string JobCodes { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int ModifedBy { get; set; }
         public System.DateTime ModifiedDate { get; set; }
-        public string School { get; set; }
         public string EmployeeNumber { get; set; }
     
         public virtual UserGroup UserGroup { get; set; }

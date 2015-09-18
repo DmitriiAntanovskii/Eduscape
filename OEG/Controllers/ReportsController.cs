@@ -96,7 +96,7 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.School);
+                source = source.Where(x => x.School == u.Schools);
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
@@ -131,7 +131,7 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") )
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.School);
+                source = source.Where(x => x.School == u.Schools);
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
@@ -212,7 +212,7 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.School);
+                source = source.Where(x => x.School == u.Schools);
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
@@ -246,7 +246,7 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.School);
+                source = source.Where(x => x.School == u.Schools);
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
@@ -285,7 +285,7 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.School);
+                source = source.Where(x => x.School == u.Schools);
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 
@@ -371,7 +371,7 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.School);
+                source = source.Where(x => x.School == u.Schools);
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
 

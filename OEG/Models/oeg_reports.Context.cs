@@ -28,10 +28,10 @@ namespace OEG.Models
         }
     
         public virtual DbSet<ReportData> ReportDatas { get; set; }
-        public virtual DbSet<UserGroup> UserGroups { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Surveys> Surveys { get; set; }
         public virtual DbSet<StaffReportData> StaffReportData { get; set; }
+        public virtual DbSet<UserGroup> UserGroups { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     
         public virtual ObjectResult<SchoolReport_Result> SchoolReport()
         {
