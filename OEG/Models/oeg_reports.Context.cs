@@ -138,5 +138,14 @@ namespace OEG.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQualative_Result>("SchoolQualative", yearsParameter, schoolsParameter, jobCodesParameter, venuesParameter, startDatesParameter, empNoParameter);
         }
+    
+        public virtual ObjectResult<Duration_Result> Duration(string days)
+        {
+            var daysParameter = days != null ?
+                new ObjectParameter("Days", days) :
+                new ObjectParameter("Days", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Duration_Result>("Duration", daysParameter);
+        }
     }
 }

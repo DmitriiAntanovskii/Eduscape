@@ -61,6 +61,7 @@ namespace OEG.Controllers
             return View(db.DurationBenchmark(null).ToList());
         }
 
+
         [HttpPost]
         public ActionResult DurationBenchmark(string Hidden_Days)
         {
@@ -71,6 +72,30 @@ namespace OEG.Controllers
             ViewBag.Hidden_Days = Hidden_Days;
             return View(db.DurationBenchmark(Hidden_Days.Length > 0 ? Hidden_Days : null).ToList());
         }
+
+        public ActionResult Duration()
+        {
+            var days = (from f in db.ReportDatas
+                        select new { Days = f.Days }).Distinct();
+
+            ViewBag.Days = new SelectList(days.OrderBy(x => x.Days), "Days", "Days");
+
+            return View(db.Duration(null).ToList());
+        }
+
+
+        [HttpPost]
+        public ActionResult Duration(string Hidden_Days)
+        {
+            var days = (from f in db.ReportDatas
+                        select new { Days = f.Days }).Distinct();
+
+            ViewBag.Days = new SelectList(days.OrderBy(x => x.Days), "Days", "Days");
+            ViewBag.Hidden_Days = Hidden_Days;
+            return View(db.Duration(Hidden_Days.Length > 0 ? Hidden_Days : null).ToList());
+        }
+
+
 
 
         [Authorize(Roles = "Administrator")]

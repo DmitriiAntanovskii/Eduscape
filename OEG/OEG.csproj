@@ -181,6 +181,9 @@
     <Compile Include="Models\DurationBenchmark_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Duration_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Messages.cs" />
     <Compile Include="Models\oeg_reports.Context.cs">
       <AutoGen>True</AutoGen>
@@ -337,6 +340,7 @@
     <Content Include="Views\Surveys\Edit.cshtml" />
     <Content Include="Views\Surveys\Index.cshtml" />
     <Content Include="Views\Reports\StaffData.cshtml" />
+    <Content Include="Views\Reports\Duration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
