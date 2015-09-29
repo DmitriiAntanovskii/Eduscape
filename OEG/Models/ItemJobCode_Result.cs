@@ -18,6 +18,7 @@ namespace OEG.Models
         public Nullable<int> Days { get; set; }
         public string Venue { get; set; }
         public string Group { get; set; }
+        public string EmployeeName { get; set; }
         public string QuestionID { get; set; }
         public string JobCode { get; set; }
         public Nullable<double> Pre { get; set; }

@@ -1,12 +1,12 @@
-﻿@model IEnumerable<OEG.Models.JobCodeGroup_Result>
+﻿@model OEG.Models.JobCodeGroupViewModel
 
 
 @{
-    ViewBag.Title = "Job Code (Group)";
+    ViewBag.Title = "Job Code";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1><i class="fa fa-dashboard fa-2x"></i> @ViewBag.Title <small>(Group)</small></h1>
 
 <div>
     <form action="/Reports/JobCodeGroup" method="post">
@@ -34,11 +34,13 @@
                 </div>
             </div>
         </div>
-        <input type="submit" class="btn btn-primary" value="Refresh" />
+        <input type="submit" class="btn btn-lg btn-primary" value="Refresh Data" />
     </form>
 </div>
 <br />
-
+<div class="pull-right">
+    <h3>Total Effect Size: <span class="@(Model.SubTotal < 0 ? "negative" : "")"> @Model.SubTotal </span></h3>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -83,7 +85,7 @@
 
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.ReportData)
     {
         <tr>
             <td>
@@ -174,4 +176,5 @@
         //refresh the control
         $("#Groups").multiselect("refresh");
     });
+
 </script>

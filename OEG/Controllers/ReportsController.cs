@@ -267,7 +267,12 @@ namespace OEG.Controllers
                 ViewBag.Hidden_Groups = g;
             }
 
-            return View(db.JobCodeGroup(jc, g, EmpNo).ToList());
+            JobCodeGroupViewModel vm = new JobCodeGroupViewModel();
+            vm.ReportData = db.JobCodeGroup(jc, g, EmpNo).ToList();
+            vm.SubTotal = db.JobCodeGroupSubTotal(jc, g, EmpNo).FirstOrDefault();
+
+
+            return View(vm);
         }
 
         [HttpPost]
@@ -330,7 +335,11 @@ namespace OEG.Controllers
 
             ViewBag.Hidden_Groups = Hidden_Groups;
 
-            return View(db.JobCodeGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).ToList());
+            JobCodeGroupViewModel vm = new JobCodeGroupViewModel();
+            vm.ReportData = db.JobCodeGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).ToList();
+            vm.SubTotal = db.JobCodeGroupSubTotal(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).FirstOrDefault();
+
+            return View(vm);
         }
 
 
@@ -428,8 +437,11 @@ namespace OEG.Controllers
                 ViewBag.Hidden_Groups = g;
             }
 
+            ItemJobCodeViewModel vm = new ItemJobCodeViewModel();
+            vm.ReportData = db.ItemJobCode(ret, g, EmpNo).ToList();
+            vm.SubTotal = db.ItemJobCodeSubTotal(ret, g, EmpNo).FirstOrDefault();
 
-            return View(db.ItemJobCode(ret, g, EmpNo).ToList());
+            return View(vm);
         }
 
         [HttpPost]
@@ -492,8 +504,11 @@ namespace OEG.Controllers
 
             ViewBag.Hidden_Groups = Hidden_Groups;
 
+            ItemJobCodeViewModel vm = new ItemJobCodeViewModel();
+            vm.ReportData = db.ItemJobCode(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).ToList();
+            vm.SubTotal = db.ItemJobCodeSubTotal(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).FirstOrDefault();
 
-            return View(db.ItemJobCode(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).ToList());
+            return View(vm);
         }
 
 
@@ -549,8 +564,11 @@ namespace OEG.Controllers
                 ViewBag.Hidden_Groups = g;
             }
 
+            SchoolQuantitativeByGroupViewModel vm = new SchoolQuantitativeByGroupViewModel();
+            vm.ReportData = db.SchoolQuantativeByGroup(ret, g, EmpNo).ToList();
+            vm.SubTotal = db.SchoolQuantativeByGroupSubTotal(ret, g, EmpNo).FirstOrDefault();
 
-            return View(db.SchoolQuantativeByGroup(ret,g,EmpNo).ToList());
+            return View(vm);
         }
 
         [HttpPost]
@@ -613,8 +631,11 @@ namespace OEG.Controllers
 
             ViewBag.Hidden_Groups = Hidden_Groups;
 
+            SchoolQuantitativeByGroupViewModel vm = new SchoolQuantitativeByGroupViewModel();
+            vm.ReportData = db.SchoolQuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).ToList();
+            vm.SubTotal = db.SchoolQuantativeByGroupSubTotal(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).FirstOrDefault();
 
-            return View(db.SchoolQuantativeByGroup(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).ToList());
+            return View(vm);
         }
 
 

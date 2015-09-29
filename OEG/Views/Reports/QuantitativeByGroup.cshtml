@@ -2,11 +2,12 @@
 
 
 @{
-    ViewBag.Title = "Quantitative  By Group";
+    ViewBag.Title = "Quantitative By Group";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1><i class="fa fa-dashboard fa-2x"></i> @ViewBag.Title </h1>
+
 
 <div>
     <form action="/Reports/QuantitativeByGroup" method="post">
@@ -23,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <input type="submit" class="btn btn-primary" value="Refresh" />
+        <input type="submit" class="btn btn-lg btn-primary" value="Refresh Data" />
     </form>
 </div>
 <br />

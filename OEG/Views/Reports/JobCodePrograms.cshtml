@@ -2,11 +2,12 @@
 
 
 @{
-    ViewBag.Title = "JobCode (Program)";
+    ViewBag.Title = "JobCode";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1><i class="fa fa-dashboard fa-2x"></i> @ViewBag.Title <small>(Program)</small></h1>
+
 
 <div>
 
@@ -16,7 +17,7 @@
             <div class="row">
                 <div class="col-md-6 col-lg-4">
                     <div class="form-group">
-                        <label class="control-label col-md-6 col-lg-4">Factor:</label>
+                        <label class="control-label col-md-6 col-lg-4">Competency:</label>
                         <div class="col-md-6 col-lg-8">
                             @Html.DropDownList("Factors", (SelectList)ViewBag.Factors, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
                         </div>
@@ -24,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <input type="submit" class="btn btn-primary" value="Refresh" />
+        <input type="submit" class="btn btn-lg btn-primary" value="Refresh Data" />
     </form>
 </div>
 <br />
@@ -32,12 +33,6 @@
     <tr>
         <th>
             Year
-        </th>
-        <th>
-            Year Level
-        </th>
-        <th>
-            Duration
         </th>
         <th>
             School
@@ -71,12 +66,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.YearLevel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Days)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.school)

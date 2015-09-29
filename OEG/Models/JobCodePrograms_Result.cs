@@ -14,8 +14,6 @@ namespace OEG.Models
     public partial class JobCodePrograms_Result
     {
         public Nullable<int> year { get; set; }
-        public string YearLevel { get; set; }
-        public Nullable<int> Days { get; set; }
         public string school { get; set; }
         public string jobcode { get; set; }
         public string Venue { get; set; }

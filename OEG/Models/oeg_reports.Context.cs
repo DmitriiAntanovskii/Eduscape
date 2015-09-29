@@ -111,15 +111,6 @@ namespace OEG.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Venue_Result>("Venue");
         }
     
-        public virtual ObjectResult<JobCodePrograms_Result> JobCodePrograms(string factors)
-        {
-            var factorsParameter = factors != null ?
-                new ObjectParameter("Factors", factors) :
-                new ObjectParameter("Factors", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<JobCodePrograms_Result>("JobCodePrograms", factorsParameter);
-        }
-    
         public virtual ObjectResult<School_Result> School()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<School_Result>("School");
@@ -145,23 +136,6 @@ namespace OEG.Models
         public virtual ObjectResult<Item_Result> Item()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Item_Result>("Item");
-        }
-    
-        public virtual ObjectResult<SchoolQuantativeByGroup_Result> SchoolQuantativeByGroup(string jobCodes, string groups, string empNo)
-        {
-            var jobCodesParameter = jobCodes != null ?
-                new ObjectParameter("JobCodes", jobCodes) :
-                new ObjectParameter("JobCodes", typeof(string));
-    
-            var groupsParameter = groups != null ?
-                new ObjectParameter("Groups", groups) :
-                new ObjectParameter("Groups", typeof(string));
-    
-            var empNoParameter = empNo != null ?
-                new ObjectParameter("EmpNo", empNo) :
-                new ObjectParameter("EmpNo", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQuantativeByGroup_Result>("SchoolQuantativeByGroup", jobCodesParameter, groupsParameter, empNoParameter);
         }
     
         public virtual ObjectResult<SchoolQualative_Result> SchoolQualative(string years, string schools, string jobCodes, string groups, string venues, string startDates, string empNo)
@@ -197,6 +171,32 @@ namespace OEG.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQualative_Result>("SchoolQualative", yearsParameter, schoolsParameter, jobCodesParameter, groupsParameter, venuesParameter, startDatesParameter, empNoParameter);
         }
     
+        public virtual ObjectResult<JobCodePrograms_Result> JobCodePrograms(string factors)
+        {
+            var factorsParameter = factors != null ?
+                new ObjectParameter("Factors", factors) :
+                new ObjectParameter("Factors", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<JobCodePrograms_Result>("JobCodePrograms", factorsParameter);
+        }
+    
+        public virtual ObjectResult<SchoolQuantativeByGroup_Result> SchoolQuantativeByGroup(string jobCodes, string groups, string empNo)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            var groupsParameter = groups != null ?
+                new ObjectParameter("Groups", groups) :
+                new ObjectParameter("Groups", typeof(string));
+    
+            var empNoParameter = empNo != null ?
+                new ObjectParameter("EmpNo", empNo) :
+                new ObjectParameter("EmpNo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQuantativeByGroup_Result>("SchoolQuantativeByGroup", jobCodesParameter, groupsParameter, empNoParameter);
+        }
+    
         public virtual ObjectResult<ItemJobCode_Result> ItemJobCode(string jobCodes, string groups, string empNo)
         {
             var jobCodesParameter = jobCodes != null ?
@@ -212,6 +212,57 @@ namespace OEG.Models
                 new ObjectParameter("EmpNo", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ItemJobCode_Result>("ItemJobCode", jobCodesParameter, groupsParameter, empNoParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<double>> ItemJobCodeSubTotal(string jobCodes, string groups, string empNo)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            var groupsParameter = groups != null ?
+                new ObjectParameter("Groups", groups) :
+                new ObjectParameter("Groups", typeof(string));
+    
+            var empNoParameter = empNo != null ?
+                new ObjectParameter("EmpNo", empNo) :
+                new ObjectParameter("EmpNo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<double>>("ItemJobCodeSubTotal", jobCodesParameter, groupsParameter, empNoParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<double>> JobCodeGroupSubTotal(string jobCodes, string groups, string empNo)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            var groupsParameter = groups != null ?
+                new ObjectParameter("Groups", groups) :
+                new ObjectParameter("Groups", typeof(string));
+    
+            var empNoParameter = empNo != null ?
+                new ObjectParameter("EmpNo", empNo) :
+                new ObjectParameter("EmpNo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<double>>("JobCodeGroupSubTotal", jobCodesParameter, groupsParameter, empNoParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<double>> SchoolQuantativeByGroupSubTotal(string jobCodes, string groups, string empNo)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            var groupsParameter = groups != null ?
+                new ObjectParameter("Groups", groups) :
+                new ObjectParameter("Groups", typeof(string));
+    
+            var empNoParameter = empNo != null ?
+                new ObjectParameter("EmpNo", empNo) :
+                new ObjectParameter("EmpNo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<double>>("SchoolQuantativeByGroupSubTotal", jobCodesParameter, groupsParameter, empNoParameter);
         }
     }
 }

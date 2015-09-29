@@ -1,12 +1,13 @@
-﻿@model IEnumerable<OEG.Models.SchoolQuantativeByGroup_Result>
+﻿@model OEG.Models.SchoolQuantitativeByGroupViewModel
 
 
 @{
-    ViewBag.Title = "Group & Job Code (Competencies & Total)";
+    ViewBag.Title = "Group & Job Code";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h1><i class="fa fa-dashboard fa-2x"></i> @ViewBag.Title <small>(Competencies & Total)</small></h1>
+
 
 <div>
     <form action="/Reports/SchoolQuantitativeByGroup" method="post">
@@ -35,10 +36,13 @@
             </div>
 
         </div>
-        <input type="submit" class="btn btn-primary" value="Refresh" />
+        <input type="submit" class="btn btn-lg btn-primary" value="Refresh Data" />
     </form>
 </div>
 <br />
+<div class="pull-right">
+    <h3>Total Effect Size: <span class="@(Model.SubTotal < 0 ? "negative" : "")"> @Model.SubTotal </span></h3>
+</div>
 
 <table class="table">
     <tr>
@@ -56,6 +60,9 @@
         </th>
         <th>
             Group
+        </th>
+        <th>
+            Employee Name
         </th>
         <th>
             Competency
@@ -81,7 +88,7 @@
 
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.ReportData)
     {
         <tr>
             <td>
@@ -98,6 +105,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Group)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Factor)
