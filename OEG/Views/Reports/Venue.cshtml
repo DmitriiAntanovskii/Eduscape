@@ -31,8 +31,34 @@
 
     </tr>
 
-    @foreach (var item in Model)
+@{int i = 1;}
+@foreach (var item in Model)
     {
+        if (i % 10 == 0)
+        {
+            <tr>
+                <th>
+                    Venue
+                </th>
+                <th>
+                    Avg. Pre
+                </th>
+                <th>
+                    Avg. Post
+                </th>
+                <th>
+                    Avg. Change
+                </th>
+                <th>
+                    Avg. Change %
+                </th>
+                <th>
+                    Effect Size
+                </th>
+
+            </tr>
+}
+        i++;
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Venue)

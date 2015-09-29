@@ -52,8 +52,35 @@
 
     </tr>
 
+    @{int i = 1;}
     @foreach (var item in Model)
     {
+        if (i % 10 == 0)
+        {
+            <tr>
+                <th>
+                    Duration
+                </th>
+                <th>
+                    Avg. Pre
+                </th>
+                <th>
+                    Avg. Post
+                </th>
+                <th>
+                    Avg. Change
+                </th>
+                <th>
+                    Avg. Change %
+                </th>
+                <th>
+                    Effect Size
+                </th>
+
+            </tr>
+
+        }
+        i++;
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Days)

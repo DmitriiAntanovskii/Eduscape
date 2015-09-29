@@ -113,8 +113,33 @@
         </th>
     </tr>
 
-    @foreach (var item in Model)
+@{int i = 1;}
+@foreach (var item in Model)
     {
+        if (i % 10 == 0)
+        {
+            <tr>
+                <th>
+                    Year Level
+                </th>
+                <th>
+                    Venue
+                </th>
+                <th>
+                    Program Start Date
+                </th>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Qualative Response
+                </th>
+            </tr>
+}
+        i++;
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.yearlevel)
