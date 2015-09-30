@@ -817,5 +817,31 @@ namespace OEG.Controllers
 
             return View(db.SchoolQualative(Hidden_Years.Length > 0 ? Hidden_Years : null, Hidden_Schools.Length > 0 ? Hidden_Schools : null, Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, Hidden_Venues.Length > 0 ? Hidden_Venues : null, Hidden_StartDates.Length > 0 ? Hidden_StartDates : null, EmpNo).ToList());
         }
+
+        public JsonResult GetGroups(string options)
+        {
+
+            var source = from f in db.ReportDatas
+                         select f;
+
+            if (options.Length > 0)
+            {
+                string[] jobCodes = options.Split(',');
+
+                source = source.Where(x => jobCodes.Contains(x.JobCode));
+            }
+            var groups = (from f in source
+                          select new { Group = f.Group }).Distinct();
+            
+            var results =
+                    from e in groups
+                    orderby e.Group
+                    select new
+                    {
+                        id = e.Group,
+                        text = e.Group
+                    };
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
     }
 }

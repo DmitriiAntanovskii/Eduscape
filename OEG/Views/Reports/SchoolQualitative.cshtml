@@ -211,26 +211,6 @@
         $("#Schools").multiselect("refresh");
 
 
-        $('#JobCodes').multiselect({
-            onChange: function (option, checked) {
-                //get all of the selected tiems
-                var values = $('#JobCodes option:selected');
-                var selected = "";
-                $(values).each(function (index, value) {
-                    selected += $(value).prop('value') + ",";
-                });
-                selected = selected.substring(0, selected.length - 1);
-                //update hidden field with comma delimited string for state persistance
-                $("#Hidden_JobCodes").val(selected);
-            },
-            includeSelectAllOption: true
-        });
-
-        var optCol = $("#Hidden_JobCodes").val().split(',');
-        //set them as checked
-        $("#JobCodes").val(optCol);
-        //refresh the control
-        $("#JobCodes").multiselect("refresh");
 
         $('#Venues').multiselect({
             onChange: function (option, checked) {
@@ -274,30 +254,82 @@
         //refresh the control
         $("#StartDates").multiselect("refresh");
 
-        $('#Groups').multiselect({
-            onChange: function (option, checked) {
-                //get all of the selected tiems
-                var values = $('#Groups option:selected');
-                var selected = "";
-                $(values).each(function (index, value) {
-                    selected += $(value).prop('value') + ",";
+
+                $('#JobCodes').multiselect({
+                    onDropdownHide: function(event) {
+                        console.log("start");
+                        var option = $("#Groups");
+                        //clear out old consolidations
+                        option.empty();
+                        console.log("emptied");
+
+                        ////get consolidation and append to select options list
+                        $.getJSON("/Reports/GetGroups/", { options: $("#Hidden_JobCodes").val() }, function (result) {
+                            $.each(result, function (index, item) {
+                                console.log(item.text);
+                                option.append($("<option />").val(item.id).text(item.text));
+                            });
+                            option.multiselect('rebuild')
+                        });
+
+                    },
+                    onChange: function (option, checked) {
+                        //get all of the selected tiems
+                        var values = $('#JobCodes option:selected');
+                        var selected = "";
+                        $(values).each(function (index, value) {
+                            selected += $(value).prop('value') + ",";
+                        });
+                        selected = selected.substring(0, selected.length - 1);
+                        //update hidden field with comma delimited string for state persistance
+                        $("#Hidden_JobCodes").val(selected);
+
+                    },
+                    includeSelectAllOption: true
                 });
-                selected = selected.substring(0, selected.length - 1);
-                //update hidden field with comma delimited string for state persistance
-                $("#Hidden_Groups").val(selected);
-            },
-            includeSelectAllOption: true
-        });
 
-        var optCol = $("#Hidden_Groups").val().split(',');
-        //set them as checked
-        $("#Groups").val(optCol);
-        //refresh the control
-        $("#Groups").multiselect("refresh");
+                var optCol = $("#Hidden_JobCodes").val().split(',');
+                //set them as checked
+                $("#JobCodes").val(optCol);
+                //refresh the control
+                $("#JobCodes").multiselect("refresh");
 
+                $('#Groups').multiselect({
+                    onChange: function (option, checked) {
+                        //get all of the selected tiems
+                        var values = $('#Groups option:selected');
+                        var selected = "";
+                        $(values).each(function (index, value) {
+                            selected += $(value).prop('value') + ",";
+                        });
+                        selected = selected.substring(0, selected.length - 1);
+                        //update hidden field with comma delimited string for state persistance
+                        $("#Hidden_Groups").val(selected);
+                    },
+                    includeSelectAllOption: true
+                });
 
+                var option = $("#Groups");
+                //clear out old consolidations
+                option.empty();
+                console.log("emptied");
 
-    });
+                ////get consolidation and append to select options list
+                $.getJSON("/Reports/GetGroups/", { options: $("#Hidden_JobCodes").val() }, function (result) {
+                    $.each(result, function (index, item) {
+                        console.log(item.text);
+                        option.append($("<option />").val(item.id).text(item.text));
+                    });
+                    option.multiselect('rebuild');
+
+                    var optCol = $("#Hidden_Groups").val().split(',');
+                    //set them as checked
+                    $("#Groups").val(optCol);
+                    //refresh the control
+                    $("#Groups").multiselect("refresh");
+                });
+       
+            });
 </script>
 
 

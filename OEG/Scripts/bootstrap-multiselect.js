@@ -408,10 +408,11 @@
          * 
          * Uses createDivider and createOptionValue to create the necessary options.
          */
-        buildDropdownOptions: function() {
+        buildDropdownOptions: function () {
+            
 
             this.$select.children().each($.proxy(function(index, element) {
-
+                
                 var $element = $(element);
                 // Support optgroups and options without a group simultaneously.
                 var tag = $element.prop('tagName')

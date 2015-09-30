@@ -180,8 +180,25 @@
 </table>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#JobCodes').multiselect({
+            onDropdownHide: function(event) {
+                console.log("start");
+                var option = $("#Groups");
+                //clear out old consolidations
+                option.empty();
+                console.log("emptied");
+
+                ////get consolidation and append to select options list
+                $.getJSON("/Reports/GetGroups/", { options: $("#Hidden_JobCodes").val() }, function (result) {
+                    $.each(result, function (index, item) {
+                        console.log(item.text);
+                        option.append($("<option />").val(item.id).text(item.text));
+                    });
+                    option.multiselect('rebuild')
+                });
+
+            },
             onChange: function (option, checked) {
                 //get all of the selected tiems
                 var values = $('#JobCodes option:selected');
@@ -192,6 +209,7 @@
                 selected = selected.substring(0, selected.length - 1);
                 //update hidden field with comma delimited string for state persistance
                 $("#Hidden_JobCodes").val(selected);
+
             },
             includeSelectAllOption: true
         });
@@ -217,11 +235,26 @@
             includeSelectAllOption: true
         });
 
-        var optCol = $("#Hidden_Groups").val().split(',');
-        //set them as checked
-        $("#Groups").val(optCol);
-        //refresh the control
-        $("#Groups").multiselect("refresh");
+        var option = $("#Groups");
+        //clear out old consolidations
+        option.empty();
+        console.log("emptied");
+
+        ////get consolidation and append to select options list
+        $.getJSON("/Reports/GetGroups/", { options: $("#Hidden_JobCodes").val() }, function (result) {
+            $.each(result, function (index, item) {
+                console.log(item.text);
+                option.append($("<option />").val(item.id).text(item.text));
+            });
+            option.multiselect('rebuild');
+
+            var optCol = $("#Hidden_Groups").val().split(',');
+            //set them as checked
+            $("#Groups").val(optCol);
+            //refresh the control
+            $("#Groups").multiselect("refresh");
+        });
+       
     });
 
 </script>
