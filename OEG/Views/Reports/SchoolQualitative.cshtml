@@ -156,7 +156,7 @@
                 @Html.DisplayFor(modelItem => item.ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.QuestionID)
+                <a class="hastooltip" href="#" title="@Html.DisplayFor(modelItem => item.QuestionText)">@Html.DisplayFor(modelItem => item.QuestionID)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.QualResponse)
@@ -167,7 +167,8 @@
 </table>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
+        $(document).tooltip({ show: { effect: "none", delay: 0 } });
         $('#Years').multiselect({
             onChange: function (option, checked) {
                 //get all of the selected tiems

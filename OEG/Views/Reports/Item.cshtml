@@ -6,6 +6,7 @@
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
+
 <h1><i class="fa fa-question fa-2x"></i> @ViewBag.Title </h1>
 
 
@@ -61,7 +62,7 @@
         i++;
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.QuestionID)
+                <a class="hastooltip" href="#" title="@Html.DisplayFor(modelItem => item.QuestionText)">@Html.DisplayFor(modelItem => item.QuestionID)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pre)
@@ -82,4 +83,11 @@
     }
 
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).tooltip({ show: { effect: "none", delay: 0 } });
+    });
+</script>
+
 

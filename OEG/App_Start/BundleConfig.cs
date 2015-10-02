@@ -16,6 +16,7 @@ namespace OEG
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui,js",
                         "~/Scripts/page_function.js",
                         "~/Scripts/google.js",
                         "~/Scripts/youtube.js"));
@@ -41,6 +42,7 @@ namespace OEG
                         "~/Content/bootstrap.css",
                         "~/Content/bootstrap-multiselect.css",
                         "~/Content/sb-admin.css",
+                        "~/Scripts/jquery-ui.css",
                         "~/Scripts/datepicker/css/datepicker.css"));
             //).Include("~/font-awesome/css/font-awesome.min.css", new CssRewriteUrlTransform()));
 
