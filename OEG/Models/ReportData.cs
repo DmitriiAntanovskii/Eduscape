@@ -35,5 +35,6 @@ namespace OEG.Models
         public string EmployeeNumber { get; set; }
         public string ResponseID { get; set; }
         public string EmployeeName { get; set; }
+        public string QuestionText { get; set; }
     }
 }

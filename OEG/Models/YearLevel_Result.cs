@@ -11,14 +11,13 @@ namespace OEG.Models
 {
     using System;
     
-    public partial class SchoolQualative_Result
+    public partial class YearLevel_Result
     {
         public string yearlevel { get; set; }
-        public string Venue { get; set; }
-        public Nullable<System.DateTime> ProgramStartDate { get; set; }
-        public string ID { get; set; }
-        public string QuestionID { get; set; }
-        public string QuestionText { get; set; }
-        public string QualResponse { get; set; }
+        public Nullable<double> Pre { get; set; }
+        public Nullable<double> Post { get; set; }
+        public Nullable<double> Change { get; set; }
+        public Nullable<double> ChangePercent { get; set; }
+        public Nullable<double> EffectSize { get; set; }
     }
 }

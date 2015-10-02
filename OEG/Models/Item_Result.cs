@@ -14,6 +14,7 @@ namespace OEG.Models
     public partial class Item_Result
     {
         public string QuestionID { get; set; }
+        public string QuestionText { get; set; }
         public Nullable<double> Pre { get; set; }
         public Nullable<double> Post { get; set; }
         public Nullable<double> Change { get; set; }

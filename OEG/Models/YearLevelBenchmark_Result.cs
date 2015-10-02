@@ -14,9 +14,6 @@ namespace OEG.Models
     public partial class YearLevelBenchmark_Result
     {
         public string yearlevel { get; set; }
-        public Nullable<int> Year { get; set; }
-        public Nullable<int> Days { get; set; }
-        public string Venue { get; set; }
         public string Factor { get; set; }
         public Nullable<double> Pre { get; set; }
         public Nullable<double> Post { get; set; }

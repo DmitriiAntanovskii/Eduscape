@@ -20,6 +20,7 @@ namespace OEG.Models
         public string Group { get; set; }
         public string EmployeeName { get; set; }
         public string QuestionID { get; set; }
+        public string QuestionText { get; set; }
         public string JobCode { get; set; }
         public Nullable<double> Pre { get; set; }
         public Nullable<double> Post { get; set; }

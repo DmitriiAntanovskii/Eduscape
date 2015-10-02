@@ -1,8 +1,8 @@
-﻿@model IEnumerable<OEG.Models.YearLevel_Result>
+﻿@model IEnumerable<OEG.Models.YearLevelBenchmark_Result>
 
 
 @{
-    ViewBag.Title = "Year Level";
+    ViewBag.Title = "Year Level With Competency";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
@@ -34,6 +34,9 @@
             Year Level
         </th>
         <th>
+            Competency
+        </th>
+        <th>
             Avg. Pre
         </th>
         <th>
@@ -51,14 +54,17 @@
 
     </tr>
 
-@{int i = 1;}
-@foreach (var item in Model)
+    @{int i = 1;}
+    @foreach (var item in Model)
     {
         if (i % 10 == 0)
         {
             <tr>
                 <th>
                     Year Level
+                </th>
+                <th>
+                    Competency
                 </th>
                 <th>
                     Avg. Pre
@@ -77,11 +83,14 @@
                 </th>
 
             </tr>
-}
+        }
         i++;
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.yearlevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Factor)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pre)

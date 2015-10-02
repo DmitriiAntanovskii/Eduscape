@@ -367,7 +367,7 @@ namespace OEG.Controllers
             return View(db.AllCoursesBenchmark(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
         }
 
-        public ActionResult YearLevel()
+        public ActionResult YearLevelCompetency()
         {
             var jobcodes = (from f in db.ReportDatas
                             select new { JobCode = f.JobCode }).Distinct();
@@ -378,7 +378,7 @@ namespace OEG.Controllers
         }
 
         [HttpPost]
-        public ActionResult YearLevel(string Hidden_JobCodes)
+        public ActionResult YearLevelCompetency(string Hidden_JobCodes)
         {
             var jobcodes = (from f in db.ReportDatas
                             select new { JobCode = f.JobCode }).Distinct();
@@ -387,6 +387,31 @@ namespace OEG.Controllers
             ViewBag.Hidden_JobCodes = Hidden_JobCodes;
             return View(db.YearLevelBenchmark(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
         }
+
+
+        public ActionResult YearLevel()
+        {
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            return View(db.YearLevel(null).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult YearLevel(string Hidden_JobCodes)
+        {
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+            ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+            return View(db.YearLevel(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
+        }
+
+
+
 
         public ActionResult ItemJobCode()
         {
