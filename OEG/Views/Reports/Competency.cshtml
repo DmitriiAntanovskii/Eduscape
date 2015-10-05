@@ -1,15 +1,15 @@
-﻿@model IEnumerable<OEG.Models.YearLevelBenchmark_Result>
+﻿@model IEnumerable<OEG.Models.Competency_Result>
 
 
 @{
-    ViewBag.Title = "Year Level With Competency";
+    ViewBag.Title = "Competency";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
-<h1><i class="fa fa-calendar fa-2x"></i> @ViewBag.Title </h1>
+<h1><i class="fa fa-question fa-2x"></i> @ViewBag.Title </h1>
 
 <div>
-    <form action="/Reports/YearLevelCompetency" method="post">
+    <form action="/Reports/Competency" method="post">
         <input type="hidden" id="Hidden_JobCodes" name="Hidden_JobCodes" value="@ViewBag.Hidden_JobCodes" />
         <div class="form-horizontal">
             <div class="row">
@@ -30,9 +30,6 @@
 
 <table class="table">
     <tr>
-        <th>
-            Year Level
-        </th>
         <th>
             Competency
         </th>
@@ -61,9 +58,6 @@
         {
             <tr>
                 <th>
-                    Year Level
-                </th>
-                <th>
                     Competency
                 </th>
                 <th>
@@ -86,9 +80,6 @@
         }
         i++;
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.yearlevel)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Factor)
             </td>

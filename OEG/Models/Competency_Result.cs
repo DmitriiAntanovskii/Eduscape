@@ -11,17 +11,9 @@ namespace OEG.Models
 {
     using System;
     
-    public partial class JobCodeGroup_Result
+    public partial class Competency_Result
     {
-        public string School { get; set; }
-        public string yearlevel { get; set; }
-        public Nullable<int> Days { get; set; }
-        public string Venue { get; set; }
-        public string Group { get; set; }
         public string Factor { get; set; }
-        public string FactorText { get; set; }
-        public Nullable<int> YEAR { get; set; }
-        public string JobCode { get; set; }
         public Nullable<double> Pre { get; set; }
         public Nullable<double> Post { get; set; }
         public Nullable<double> Change { get; set; }

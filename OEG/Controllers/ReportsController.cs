@@ -389,6 +389,28 @@ namespace OEG.Controllers
         }
 
 
+        public ActionResult Competency()
+        {
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+
+            return View(db.Competency(null).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult Competency(string Hidden_JobCodes)
+        {
+            var jobcodes = (from f in db.ReportDatas
+                            select new { JobCode = f.JobCode }).Distinct();
+
+            ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
+            ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+            return View(db.Competency(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null).ToList());
+        }
+
+
         public ActionResult YearLevel()
         {
             var jobcodes = (from f in db.ReportDatas

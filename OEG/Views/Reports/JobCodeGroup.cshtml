@@ -151,7 +151,7 @@
                 @Html.DisplayFor(modelItem => item.Group)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Factor)
+                <a class="hastooltip" href="#" title="@Html.DisplayFor(modelItem => item.FactorText)">@Html.DisplayFor(modelItem => item.Factor)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.YEAR)
@@ -179,8 +179,11 @@
 
 </table>
 
+
 <script type="text/javascript">
     $(document).ready(function () {
+        $(document).tooltip({ show: { effect: "none", delay: 0 } });
+
         $('#JobCodes').multiselect({
             onDropdownHide: function(event) {
                 console.log("start");

@@ -178,6 +178,9 @@
     <Compile Include="Models\BuddyClasses\UserGroup_Validation.cs" />
     <Compile Include="Models\BuddyClasses\User_Validation.cs" />
     <Compile Include="Models\ChangePassword.cs" />
+    <Compile Include="Models\Competency_Result.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DurationBenchmark_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
@@ -371,6 +374,7 @@
     <Content Include="Views\Reports\Item.cshtml" />
     <Content Include="Views\Reports\ItemJobCode.cshtml" />
     <Content Include="Views\Reports\YearLevelCompetency.cshtml" />
+    <Content Include="Views\Reports\Competency.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
