@@ -72,6 +72,60 @@ namespace OEG.Controllers
         }
 
 
+        public ActionResult GroupsByEmployee()
+        {
+            var source = from f in db.ReportDatas
+                         select f;
+
+            string EmpNo = null;
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School == u.Schools);
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                ViewBag.Hidden_Employees = EmpNo;
+            }
+            else
+            {
+                var employees = (from f in source
+                                 where f.EmployeeName != null
+                                 select new { EmployeeNumber = f.EmployeeNumber, EmployeeName = f.EmployeeName }).Distinct();
+
+                ViewBag.Employees = new SelectList(employees.OrderBy(x => x.EmployeeName), "EmployeeNumber", "EmployeeName");
+            }
+            return View(db.GroupsByEmployee(null).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult GroupsByEmployee(string Hidden_Employees)
+        {
+            var source = from f in db.ReportDatas
+                         select f;
+
+            string EmpNo = null;
+
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => x.School.Contains(u.Schools));
+                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                ViewBag.Hidden_Employees = EmpNo;
+            }
+            else
+            {
+                var employees = (from f in source
+                                 where f.EmployeeName != null
+                                 select new { EmployeeNumber = f.EmployeeNumber, EmployeeName = f.EmployeeName }).Distinct();
+
+                ViewBag.Employees = new SelectList(employees.OrderBy(x => x.EmployeeName), "EmployeeNumber", "EmployeeName");
+
+                ViewBag.Hidden_Employees = Hidden_Employees;
+            }
+            return View(db.GroupsByEmployee(Hidden_Employees.Length > 0 ? Hidden_Employees : null).ToList());
+        }
+
+
         public ActionResult DurationBenchmark()
         {
             var days = (from f in db.ReportDatas
@@ -447,6 +501,15 @@ namespace OEG.Controllers
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => x.School == u.Schools);
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                ViewBag.Hidden_Employees = EmpNo;
+            }
+            else
+            {
+                var employees = (from f in source
+                                 where f.EmployeeName != null
+                                 select new { EmployeeNumber = f.EmployeeNumber, EmployeeName = f.EmployeeName }).Distinct();
+
+                ViewBag.Employees = new SelectList(employees.OrderBy(x => x.EmployeeName), "EmployeeNumber", "EmployeeName");
             }
 
             var jobcodes = (from f in source
@@ -484,6 +547,9 @@ namespace OEG.Controllers
                 ViewBag.Hidden_Groups = g;
             }
 
+
+           
+
             ItemJobCodeViewModel vm = new ItemJobCodeViewModel();
             vm.ReportData = db.ItemJobCode(ret, g, EmpNo).ToList();
             vm.SubTotal = db.ItemJobCodeSubTotal(ret, g, EmpNo).FirstOrDefault();
@@ -492,7 +558,7 @@ namespace OEG.Controllers
         }
 
         [HttpPost]
-        public ActionResult ItemJobCode(string Hidden_JobCodes, string Hidden_Groups)
+        public ActionResult ItemJobCode(string Hidden_JobCodes, string Hidden_Groups, string Hidden_Employees)
         {
             var source = from f in db.ReportDatas
                          select f;
@@ -504,7 +570,19 @@ namespace OEG.Controllers
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => x.School.Contains(u.Schools));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                ViewBag.Hidden_Employees = EmpNo;
             }
+            else
+            {
+                var employees = (from f in source
+                                 where f.EmployeeName != null
+                                 select new { EmployeeNumber = f.EmployeeNumber, EmployeeName = f.EmployeeName }).Distinct();
+
+                ViewBag.Employees = new SelectList(employees.OrderBy(x => x.EmployeeName), "EmployeeNumber", "EmployeeName");
+
+                ViewBag.Hidden_Employees = Hidden_Employees;
+            }
+
 
             var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
@@ -549,15 +627,14 @@ namespace OEG.Controllers
                 }
             }
 
-            ViewBag.Hidden_Groups = Hidden_Groups;
 
+            
             ItemJobCodeViewModel vm = new ItemJobCodeViewModel();
-            vm.ReportData = db.ItemJobCode(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).ToList();
-            vm.SubTotal = db.ItemJobCodeSubTotal(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, EmpNo).FirstOrDefault();
+            vm.ReportData = db.ItemJobCode(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, Hidden_Employees.Length > 0 ? Hidden_Employees : EmpNo).ToList();
+            vm.SubTotal = db.ItemJobCodeSubTotal(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, Hidden_Employees.Length > 0 ? Hidden_Employees : EmpNo).FirstOrDefault();
 
             return View(vm);
         }
-
 
 
 

@@ -282,5 +282,14 @@ namespace OEG.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQuantativeByGroup_Result>("SchoolQuantativeByGroup", jobCodesParameter, groupsParameter, empNoParameter);
         }
+    
+        public virtual ObjectResult<GroupsByEmployee_Result> GroupsByEmployee(string empNo)
+        {
+            var empNoParameter = empNo != null ?
+                new ObjectParameter("EmpNo", empNo) :
+                new ObjectParameter("EmpNo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GroupsByEmployee_Result>("GroupsByEmployee", empNoParameter);
+        }
     }
 }

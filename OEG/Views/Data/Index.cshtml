@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Data Aquisition Running...";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<h2 id="msg">@ViewBag.Title</h2>
+<p id="msg2">This will take a while. Go make a cup of coffee!</p>
+<img id="loading" width="50px" src="../Content/ajax_loader.gif" />
+
+<script>
+
+    function getUrlVars()
+    {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+
+
+function startProcess() {
+    
+    $.ajax({
+        type: "POST",
+        url: "/Data/Run",
+        data: { key : getUrlVars()["key"] },
+        success: function (data) {
+            $('#msg').text("Complete!");
+            $('#loading').hide();
+            $('#msg2').hide();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $('#msg').text = "Error!" + jqXHR.status + " " + errorThrown
+        }
+    });
+}
+
+$(document).ready(function () {
+        startProcess();
+});
+</script>

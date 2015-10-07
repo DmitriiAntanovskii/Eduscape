@@ -15,13 +15,23 @@
     @*<li><a href="/Reports/DurationBenchmark"><i class="fa fa-dashboard"></i> Duration Benchmark</a></li>*@
     <li><a href="/Reports/Duration"><i class="fa fa-clock-o"></i> Duration</a></li>
     <li><a href="/Reports/Venue"><i class="fa fa-university"></i> Venue</a></li>
-    <li><a href="/Reports/School"><i class="fa fa-graduation-cap"></i> School</a></li>
+    if (!User.IsInRole("Head of Teaching Team") && !User.IsInRole("Program Leader") && !User.IsInRole("Group Leader"))
+    {
+        <li><a href="/Reports/School"><i class="fa fa-graduation-cap"></i> School</a></li>
+    }
     <li><a href="/Reports/Item"><i class="fa fa-question"></i> Item</a></li>
     @*<li><a href="/Reports/AllCoursesBenchmark"><i class="fa fa-dashboard"></i> All Courses Benchmark</a></li>*@
     <li><a href="/Reports/YearLevel"><i class="fa fa-calendar"></i> Year Level</a></li>
     <li><a href="/Reports/YearLevelCompetency"><i class="fa fa-calendar"></i> Year Level With Competency</a></li>
     <li><a href="/Reports/Competency"><i class="fa fa-question"></i> Competency</a></li>
+    if (!User.IsInRole("Senior manager") && !User.IsInRole("Program Leader"))
+    {
+        <li><a href="/Reports/GroupsByEmployee"><i class="fa fa-dashboard"></i> Groups by Employee</a></li>
     }
+
+    }
+    
+
     <li><a href="/Reports/SchoolQuantitativeByGroup"><i class="fa fa-dashboard"></i> Group & Job Code (Competencies & Total)</a></li>
     <li><a href="/Reports/SchoolQualitative"><i class="fa fa-dashboard"></i> School Qualitative</a></li>
     <li><a href="/Reports/ItemJobCode"><i class="fa fa-dashboard"></i> Items & Job Code</a></li>
@@ -38,6 +48,7 @@
         {
             <li><a href="/UserGroups"><i class="fa fa-users"></i> User Groups</a></li>
             <li><a href="/Surveys"><i class="fa fa-file"></i> Surveys</a></li>
+            <li><a href="/Data?key=Sw4OjrY6QW"><i class="fa fa-file"></i> Run Data Aquisition</a></li>
         }
     }
 </ul>
