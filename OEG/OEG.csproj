@@ -188,6 +188,12 @@
     <Compile Include="Models\Duration_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetEmployees_Result.cs">
+      <DependentUpon>oeg_lookups.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetPrograms_Result.cs">
+      <DependentUpon>oeg_lookups.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GroupsByEmployee_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
@@ -204,6 +210,21 @@
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Messages.cs" />
+    <Compile Include="Models\oeg_lookups.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>oeg_lookups.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\oeg_lookups.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>oeg_lookups.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\oeg_lookups.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>oeg_lookups.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\oeg_reports.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -303,6 +324,23 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>oeg_reports.edmx</DependentUpon>
       <LastGenOutput>oeg_reports.cs</LastGenOutput>
+    </Content>
+    <EntityDeploy Include="Models\oeg_lookups.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>oeg_lookups.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\oeg_lookups.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>oeg_lookups.edmx</DependentUpon>
+      <LastGenOutput>oeg_lookups.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\oeg_lookups.edmx.diagram">
+      <DependentUpon>oeg_lookups.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\oeg_lookups.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>oeg_lookups.edmx</DependentUpon>
+      <LastGenOutput>oeg_lookups.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
