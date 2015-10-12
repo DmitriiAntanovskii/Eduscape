@@ -11,6 +11,8 @@
         <EntityTypeShape EntityType="oeg_reportsModel.UserGroup" Width="1.5" PointX="5.375" PointY="8.125" />
         <EntityTypeShape EntityType="oeg_reportsModel.User" Width="1.5" PointX="7.625" PointY="7" />
         <AssociationConnector Association="oeg_reportsModel.FK_Users_UserGroups" />
+        <EntityTypeShape EntityType="oeg_reportsModel.tblHR_Entities" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="oeg_reportsModel.tblProgram" Width="1.5" PointX="2.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

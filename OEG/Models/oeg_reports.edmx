@@ -59,6 +59,25 @@
           <Property Name="ModifedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedDate" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblHR_Entities">
+          <Key>
+            <PropertyRef Name="EntityID" />
+          </Key>
+          <Property Name="EntityID" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPrograms">
+          <Key>
+            <PropertyRef Name="JobCode" />
+          </Key>
+          <Property Name="JobCode" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="SchoolCode" Type="varchar" MaxLength="8" />
+          <Property Name="Venue" Type="varchar" MaxLength="25" />
+          <Property Name="JobFrom" Type="smalldatetime" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="YearLvl" Type="varchar" MaxLength="12" />
+          <Property Name="Year" Type="varchar" MaxLength="5" />
+        </EntityType>
         <EntityType Name="UserGroups">
           <Key>
             <PropertyRef Name="UserGroupID" />
@@ -177,6 +196,8 @@
           <EntitySet Name="ReportData" EntityType="Self.ReportData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StaffReportData" EntityType="Self.StaffReportData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Surveys" EntityType="Self.Surveys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblHR_Entities" EntityType="Self.tblHR_Entities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPrograms" EntityType="Self.tblPrograms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserGroups" EntityType="Self.UserGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Users_UserGroups" Association="Self.FK_Users_UserGroups">
@@ -300,8 +321,10 @@
             <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GroupsByEmployee" ReturnType="Collection(oeg_reportsModel.GroupsByEmployee_Result)">
-            <Parameter Name="EmpNo" Mode="In" Type="String" />
+          <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tblHR_Entities" EntityType="oeg_reportsModel.tblHR_Entities" />
+          <EntitySet Name="tblPrograms" EntityType="oeg_reportsModel.tblProgram" />
         </EntityContainer>
         <ComplexType Name="SchoolReport_Result">
           <Property Type="Int32" Name="year" Nullable="true" />
@@ -581,6 +604,25 @@
           <Property Type="Double" Name="ChangePercent" Nullable="true" />
           <Property Type="Double" Name="EffectSize" Nullable="true" />
         </ComplexType>
+        <EntityType Name="tblHR_Entities">
+          <Key>
+            <PropertyRef Name="EntityID" />
+          </Key>
+          <Property Name="EntityID" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblProgram">
+          <Key>
+            <PropertyRef Name="JobCode" />
+          </Key>
+          <Property Name="JobCode" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="SchoolCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Venue" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="JobFrom" Type="DateTime" Precision="0" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="YearLvl" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -967,7 +1009,28 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="tblHR_Entities">
+            <EntityTypeMapping TypeName="oeg_reportsModel.tblHR_Entities">
+              <MappingFragment StoreEntitySet="tblHR_Entities">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPrograms">
+            <EntityTypeMapping TypeName="oeg_reportsModel.tblProgram">
+              <MappingFragment StoreEntitySet="tblPrograms">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="YearLvl" ColumnName="YearLvl" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="JobFrom" ColumnName="JobFrom" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="SchoolCode" ColumnName="SchoolCode" />
+                <ScalarProperty Name="JobCode" ColumnName="JobCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

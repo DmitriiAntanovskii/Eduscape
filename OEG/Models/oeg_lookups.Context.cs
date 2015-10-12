@@ -15,10 +15,10 @@ namespace OEG.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class GaiaEntities : DbContext
+    public partial class oeg_lookupsEntities : DbContext
     {
-        public GaiaEntities()
-            : base("name=GaiaEntities")
+        public oeg_lookupsEntities()
+            : base("name=oeg_lookupsEntities")
         {
         }
     

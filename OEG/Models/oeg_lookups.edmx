@@ -4,24 +4,24 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GaiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="oeg_lookups.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <Function Name="GetEmployees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmployeeNumbers" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="GetPrograms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="JobCodes" Type="nvarchar(max)" Mode="In" />
         </Function>
-        <EntityContainer Name="GaiaModelStoreContainer" />
+        <EntityContainer Name="oeg_lookupsStoreContainer" />
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="GaiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="GaiaEntities" annotation:LazyLoadingEnabled="true" >
-          <FunctionImport Name="GetEmployees" ReturnType="Collection(GaiaModel.GetEmployees_Result)">
+      <Schema Namespace="oeg_lookups" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="oeg_lookupsEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="GetEmployees" ReturnType="Collection(oeg_lookups.GetEmployees_Result)">
             <Parameter Name="EmployeeNumbers" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="GetPrograms" ReturnType="Collection(GaiaModel.GetPrograms_Result)">
+          <FunctionImport Name="GetPrograms" ReturnType="Collection(oeg_lookups.GetPrograms_Result)">
             <Parameter Name="JobCodes" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
@@ -43,18 +43,18 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GaiaModelStoreContainer" CdmEntityContainer="GaiaEntities" >
-          <FunctionImportMapping FunctionImportName="GetEmployees" FunctionName="GaiaModel.Store.GetEmployees">
+        <EntityContainerMapping StorageEntityContainer="oeg_lookupsStoreContainer" CdmEntityContainer="oeg_lookupsEntities" >
+          <FunctionImportMapping FunctionImportName="GetEmployees" FunctionName="oeg_lookups.Store.GetEmployees">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="GaiaModel.GetEmployees_Result">
+              <ComplexTypeMapping TypeName="oeg_lookups.GetEmployees_Result">
                 <ScalarProperty Name="EntityID" ColumnName="EntityID" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetPrograms" FunctionName="GaiaModel.Store.GetPrograms">
+          <FunctionImportMapping FunctionImportName="GetPrograms" FunctionName="oeg_lookups.Store.GetPrograms">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="GaiaModel.GetPrograms_Result">
+              <ComplexTypeMapping TypeName="oeg_lookups.GetPrograms_Result">
                 <ScalarProperty Name="JobCode" ColumnName="JobCode" />
                 <ScalarProperty Name="SchoolCode" ColumnName="SchoolCode" />
                 <ScalarProperty Name="Venue" ColumnName="Venue" />

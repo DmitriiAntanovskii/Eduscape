@@ -32,6 +32,8 @@ namespace OEG.Models
         public virtual DbSet<StaffReportData> StaffReportData { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<tblHR_Entities> tblHR_Entities { get; set; }
+        public virtual DbSet<tblProgram> tblPrograms { get; set; }
     
         public virtual ObjectResult<SchoolReport_Result> SchoolReport()
         {

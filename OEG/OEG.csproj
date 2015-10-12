@@ -275,6 +275,12 @@
     <Compile Include="Models\Surveys.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblHR_Entities.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblProgram.cs">
+      <DependentUpon>oeg_reports.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>

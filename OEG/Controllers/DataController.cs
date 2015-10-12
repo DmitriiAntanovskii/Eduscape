@@ -62,6 +62,7 @@ namespace OEG.Controllers
                 };
 
                 oeg_reportsEntities db = new oeg_reportsEntities();
+                oeg_lookupsEntities db2 = new oeg_lookupsEntities();
 
                 IEnumerable<Surveys> sv = db.Surveys.Where(x => x.SurveyType == "Participant").ToList();
                 int sCount = 0;
@@ -123,13 +124,76 @@ namespace OEG.Controllers
                 db.Database.ExecuteSqlCommand("RemoveIncompletes");
                 System.Diagnostics.Debug.WriteLine("Finished Remove unmatched");
 
-                System.Diagnostics.Debug.WriteLine("Starting ATLAS Data Update");
-                db.Database.ExecuteSqlCommand("UpdateATLASData");
-                System.Diagnostics.Debug.WriteLine("Finished ATLAS Data Update");
-
                 System.Diagnostics.Debug.WriteLine("Starting EmployeeNumber Update");
                 db.Database.ExecuteSqlCommand("UpdateEmployeeNumber");
                 System.Diagnostics.Debug.WriteLine("Finished EmployeeNumber Update");
+
+
+                //update lookup table from Gaia
+                db.Database.ExecuteSqlCommand("CleanoutLookups");
+
+                var source = from f in db.ReportDatas
+                             select f;
+
+
+                var employees = (from f in source
+                                 where f.EmployeeName != null
+                                 select new { EmployeeNumber = f.EmployeeNumber}).Distinct();
+
+                string emp = "";
+                foreach (string s in employees.Select(o => o.EmployeeNumber))
+                {
+                    emp += s + ",";
+                }
+
+                emp = emp.Remove(emp.Length - 1);
+
+                var lkEmployess = db2.GetEmployees(emp).ToList();
+
+                foreach(GetEmployees_Result r in lkEmployess)
+                {
+                    tblHR_Entities hr = new tblHR_Entities();
+                    hr.EntityID = r.EntityID;
+                    hr.FullName = r.FullName;
+                    db.tblHR_Entities.Add(hr);
+                }
+
+                db.SaveChanges();
+
+
+                var jobcodes = (from f in source
+                                select new { JobCode = f.JobCode }).Distinct();
+
+                string jc = "";
+                foreach (string s in jobcodes.Select(o => o.JobCode))
+                {
+                    jc += s + ",";
+                }
+
+                jc = jc.Remove(jc.Length - 1);
+
+
+                var lkjobcodes = db2.GetPrograms(jc).ToList();
+
+                foreach (GetPrograms_Result r in lkjobcodes)
+                {
+                    tblProgram j = new tblProgram();
+                    j.Duration = r.Duration;
+                    j.JobCode = r.JobCode;
+                    j.JobFrom = r.JobFrom;
+                    j.SchoolCode = r.SchoolCode;
+                    j.Venue = r.Venue;
+                    j.Year = r.Year.ToString();
+                    j.YearLvl = r.YearLvl;
+                    
+                    db.tblPrograms.Add(j);
+                }
+
+                db.SaveChanges();
+
+                System.Diagnostics.Debug.WriteLine("Starting ATLAS Data Update");
+                db.Database.ExecuteSqlCommand("UpdateATLASData");
+                System.Diagnostics.Debug.WriteLine("Finished ATLAS Data Update");
 
                 System.Diagnostics.Debug.WriteLine("Starting EmployeeName Update");
                 db.Database.ExecuteSqlCommand("UpdateEmployeeName");
