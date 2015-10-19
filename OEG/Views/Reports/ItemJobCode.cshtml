@@ -201,7 +201,11 @@
 </table>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(document).tooltip({ show: { effect: "none", delay: 0 } });
+        $(document).tooltip();
+        $('.hastooltip').click(function () {
+            $(this).tooltip("toggle");
+        });
+
 
         $('#JobCodes').multiselect({
             onDropdownHide: function (event) {

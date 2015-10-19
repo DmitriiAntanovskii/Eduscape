@@ -506,6 +506,56 @@ namespace OEG.Controllers
             return View(signup);
         }
 
+        public ActionResult ResetPassword(string email)
+        {
+
+            try
+            {
+                User u = (from a in db.Users
+                          where a.Email == email
+                          select a).FirstOrDefault();
+
+                if (u != null)
+                {
+                    string newPWD = Security.CreateRandomPassword(8);
+                    u.PWD = Security.HashSHA1(newPWD + u.UserGUID.ToString());
+                    u.ModifiedDate = DateTime.Now;
+                    db.Entry(u).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    Email.SendEmail(email, WebConfigurationManager.AppSettings["EmailFrom"].ToString(), "OEG - Password Reset", Email.ForgotPasswordEmail(newPWD));
+
+                    //ok, so database is happy,
+                    ViewData["Message"] = new MyMessage(WebConfigurationManager.AppSettings["ResetPasswordMessage"].ToString(), Importance.Success);
+                }
+                else
+                {
+                    ViewData["Message"] = new MyMessage(@"Invalid email.", Importance.Warning);
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
+            catch (Exception ex)
+            {
+                ViewData["Message"] = new MyMessage(WebConfigurationManager.AppSettings["GenericError"].ToString(), Importance.Error);
+            }
+            return View();
+        }
+        
+
         public ActionResult ChangePassword()
         {
             ChangePassword cp = new ChangePassword();

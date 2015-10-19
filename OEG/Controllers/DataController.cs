@@ -26,6 +26,7 @@ namespace OEG.Controllers
             runOEGStaff();
             runSchoolStaff();
             runParticipants();
+            runCleanup();
             
             return "Success";
             }
@@ -62,7 +63,6 @@ namespace OEG.Controllers
                 };
 
                 oeg_reportsEntities db = new oeg_reportsEntities();
-                oeg_lookupsEntities db2 = new oeg_lookupsEntities();
 
                 IEnumerable<Surveys> sv = db.Surveys.Where(x => x.SurveyType == "Participant").ToList();
                 int sCount = 0;
@@ -119,6 +119,22 @@ namespace OEG.Controllers
                     System.Diagnostics.Debug.WriteLine("Finished survey " + s.SurveyName);
                 }
                 System.Diagnostics.Debug.WriteLine("Finished Upload");
+                
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+                
+            }
+        }
+
+        static void runCleanup()
+        {
+            try
+            {
+
+                oeg_reportsEntities db = new oeg_reportsEntities();
+                oeg_lookupsEntities db2 = new oeg_lookupsEntities();
 
                 System.Diagnostics.Debug.WriteLine("Starting Remove unmatched");
                 db.Database.ExecuteSqlCommand("RemoveIncompletes");
@@ -129,7 +145,7 @@ namespace OEG.Controllers
                 System.Diagnostics.Debug.WriteLine("Finished EmployeeNumber Update");
 
 
-                //update lookup table from Gaia
+                ////update lookup table from Gaia
                 db.Database.ExecuteSqlCommand("CleanoutLookups");
 
                 var source = from f in db.ReportDatas
@@ -138,7 +154,7 @@ namespace OEG.Controllers
 
                 var employees = (from f in source
                                  where f.EmployeeName != null
-                                 select new { EmployeeNumber = f.EmployeeNumber}).Distinct();
+                                 select new { EmployeeNumber = f.EmployeeNumber }).Distinct();
 
                 string emp = "";
                 foreach (string s in employees.Select(o => o.EmployeeNumber))
@@ -150,7 +166,7 @@ namespace OEG.Controllers
 
                 var lkEmployess = db2.GetEmployees(emp).ToList();
 
-                foreach(GetEmployees_Result r in lkEmployess)
+                foreach (GetEmployees_Result r in lkEmployess)
                 {
                     tblHR_Entities hr = new tblHR_Entities();
                     hr.EntityID = r.EntityID;
@@ -185,7 +201,7 @@ namespace OEG.Controllers
                     j.Venue = r.Venue;
                     j.Year = r.Year.ToString();
                     j.YearLvl = r.YearLvl;
-                    
+
                     db.tblPrograms.Add(j);
                 }
 
@@ -208,15 +224,13 @@ namespace OEG.Controllers
                 System.Diagnostics.Debug.WriteLine("Finished Factor Text Update");
 
                 System.Diagnostics.Debug.WriteLine("Complete!");
-
-                
-
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.Message);
-                
+
             }
+
         }
 
         static void runOEGStaff()

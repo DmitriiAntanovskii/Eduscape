@@ -168,7 +168,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(document).tooltip({ show: { effect: "none", delay: 0 } });
+        $(document).tooltip();
+
+        $('.hastooltip').click(function () {
+            $(this).tooltip("toggle");
+        });
+
         $('#Years').multiselect({
             onChange: function (option, checked) {
                 //get all of the selected tiems

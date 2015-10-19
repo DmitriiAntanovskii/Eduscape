@@ -426,6 +426,7 @@
     <Content Include="Views\Reports\Competency.cshtml" />
     <Content Include="Views\Reports\GroupsByEmployee.cshtml" />
     <Content Include="Views\Data\Index.cshtml" />
+    <Content Include="Views\Users\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
