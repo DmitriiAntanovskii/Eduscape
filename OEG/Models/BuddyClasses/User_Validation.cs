@@ -8,7 +8,31 @@ using System.Web;
 namespace OEG.Models
 {
     [MetadataType(typeof(UserMetadata))]
-    public partial class User { }
+    public partial class User {
+        public string CreatedByName
+        {
+            get
+            {
+                oeg_reportsEntities db = new oeg_reportsEntities();
+
+                User u = db.Users.Find(this.CreatedBy);
+
+                return u.FirstName + " " + u.Surname;
+            }
+        }
+
+        public string ModifedByName
+        {
+            get
+            {
+                oeg_reportsEntities db = new oeg_reportsEntities();
+
+                User u = db.Users.Find(this.ModifedBy);
+
+                return u.FirstName + " " + u.Surname;
+            }
+        }
+    }
 
     //And a metadata class    
     public class UserMetadata
@@ -23,6 +47,5 @@ namespace OEG.Models
         public string FirstName { get; set; }
         [Required]
         public string Surname { get; set; }
-
     }
 }

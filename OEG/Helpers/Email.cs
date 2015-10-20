@@ -26,11 +26,11 @@ namespace OEG.Helpers
             //email header
             msg = "<html><head><style>";
             msg += "body {text-align: center; font-family: Arial;} #container {margin: 0 auto;width: 900px; text-align: left;} #container img {width:100%;}</style></head><body>";
-            msg += @"<div id=""container""><a href=""http://oeg.thinksimple.com.au""><img src=""https://oeg.thinksimple.com.au/img/oeglogo.png"" alt=""OEG"" /></a>";
+            msg += @"<div id=""container""><a href=""http://eduscape.edu.au""><img src=""https://eduscape.edu.au/img/oeglogo.png"" alt=""OEG"" /></a>";
             //content
             msg += body;
             //footer
-            msg += @"Kind Regards<br><a href=""http://oeg.thinksimple.com.au"">OEG</a>";
+            msg += @"Kind Regards<br><a href=""http://eduscape.edu.au"">OEG</a>";
             msg += "</div></body></html>";
 
             return msg;
