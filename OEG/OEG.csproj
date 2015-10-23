@@ -182,6 +182,7 @@
     <Compile Include="Models\Competency_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomValidation\UniqueEmail.cs" />
     <Compile Include="Models\DurationBenchmark_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>

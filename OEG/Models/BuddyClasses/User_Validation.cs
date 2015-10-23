@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OEG.Models.CustomValidation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -41,6 +42,7 @@ namespace OEG.Models
         [Display(Name = "User Group Name")]
         public int UserGroupID { get; set; }
         [Required]
+        [UniqueEmail(ErrorMessage="This email address already in use.")]
         public string Email { get; set; }
         [Required]
         [Display(Name = "First Name")]

@@ -499,7 +499,7 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.Schools);
+                source = source.Where(x => x.JobCode.Contains(u.JobCodes));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
                 ViewBag.Hidden_Employees = EmpNo;
             }
@@ -523,8 +523,8 @@ namespace OEG.Controllers
                 ret += s + ",";
             }
 
-            ret = ret.Remove(ret.Length - 1);
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager")  || User.IsInRole("School Coordinator"))
             {
                 ViewBag.Hidden_JobCodes = ret;
             }
@@ -541,14 +541,12 @@ namespace OEG.Controllers
                 g += s + ",";
             }
 
-            g = g.Remove(g.Length - 1);
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            if (g.Length > 0) g = g.Remove(g.Length - 1);
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager")  || User.IsInRole("School Coordinator"))
             {
                 ViewBag.Hidden_Groups = g;
             }
 
-
-           
 
             ItemJobCodeViewModel vm = new ItemJobCodeViewModel();
             vm.ReportData = db.ItemJobCode(ret, g, EmpNo).ToList();
@@ -568,7 +566,7 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School.Contains(u.Schools));
+                source = source.Where(x => x.JobCode.Contains(u.JobCodes)); 
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
                 ViewBag.Hidden_Employees = EmpNo;
             }
@@ -589,7 +587,7 @@ namespace OEG.Controllers
 
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
 
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager")  || User.IsInRole("School Coordinator"))
             {
                 if (Hidden_JobCodes.Length == 0)
                 {
@@ -599,7 +597,7 @@ namespace OEG.Controllers
                         ret += s + ",";
                     }
 
-                    ret = ret.Remove(ret.Length - 1);
+                    if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
                     Hidden_JobCodes = ret;
                 }
             }
@@ -612,7 +610,7 @@ namespace OEG.Controllers
             ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
 
 
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager")  || User.IsInRole("School Coordinator"))
             {
                 if (Hidden_Groups.Length == 0)
                 {
@@ -622,13 +620,13 @@ namespace OEG.Controllers
                         ret += s + ",";
                     }
 
-                    ret = ret.Remove(ret.Length - 1);
+                    if (ret.Length > 0)  ret = ret.Remove(ret.Length - 1);
                     Hidden_Groups = ret;
                 }
             }
 
+            ViewBag.Hidden_Groups = Hidden_Groups;
 
-            
             ItemJobCodeViewModel vm = new ItemJobCodeViewModel();
             vm.ReportData = db.ItemJobCode(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, Hidden_Employees.Length > 0 ? Hidden_Employees : EmpNo).ToList();
             vm.SubTotal = db.ItemJobCodeSubTotal(Hidden_JobCodes.Length > 0 ? Hidden_JobCodes : null, Hidden_Groups.Length > 0 ? Hidden_Groups : null, Hidden_Employees.Length > 0 ? Hidden_Employees : EmpNo).FirstOrDefault();

@@ -26,7 +26,7 @@ namespace OEG.Helpers
             //email header
             msg = "<html><head><style>";
             msg += "body {text-align: center; font-family: Arial;} #container {margin: 0 auto;width: 900px; text-align: left;} #container img {width:100%;}</style></head><body>";
-            msg += @"<div id=""container""><a href=""http://eduscape.edu.au""><img src=""https://eduscape.edu.au/img/oeglogo.png"" alt=""OEG"" /></a>";
+            msg += @"<div id=""container"">";
             //content
             msg += body;
             //footer
@@ -67,10 +67,10 @@ namespace OEG.Helpers
         {
             string msg;
 
-            msg = "<h1>OEG - Password Reset</h1>";
+            msg = "<h1>Eduscape - Password Reset</h1>";
             msg += "<p>We have reset your password: <b>" + PWD + "</b></p>";
             msg += "<p>If you did not request this password reset please let us know.</p>";
-            //msg += @"<p>To log in click <a href=""https://OEGReports.com.au/Member/Login"">HERE</a></p>";
+            msg += @"<p>To log in click <a href=""http://eduscape.edu.au/Users/LogIn"">HERE</a></p>";
 
             return createEmail(msg);
         }
@@ -79,10 +79,10 @@ namespace OEG.Helpers
         {
             string msg;
 
-            msg = "<h1>OEG - Reports</h1>";
+            msg = "<h1>Eduscape - Reports</h1>";
             msg += "<p>A user account has been created for you. Your Password is: <b>" + PWD + "</b></p>";
             msg += "<p>If you did not request this password reset please let us know.</p>";
-            //msg += @"<p>To log in click <a href=""https://OEGReports.com.au/Member/Login"">HERE</a></p>";
+            msg += @"<p>To log in click <a href=""http://eduscape.edu.au/Users/LogIn"">HERE</a></p>";
 
             return createEmail(msg);
         }
