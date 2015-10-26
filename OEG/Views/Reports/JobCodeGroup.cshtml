@@ -2,11 +2,11 @@
 
 
 @{
-    ViewBag.Title = "Job Code";
+    ViewBag.Title = "Current Program Report";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
-<h1><i class="fa fa-dashboard fa-2x"></i> @ViewBag.Title <small>(Group)</small></h1>
+<h1><i class="fa fa-dashboard fa-2x"></i> @ViewBag.Title </h1>
 
 <div>
     <form action="/Reports/JobCodeGroup" method="post">
@@ -182,7 +182,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $(document).tooltip({ show: { effect: "none", delay: 0 } });
+        $(document).tooltip();
+        $('.hastooltip').click(function (event) {
+            event.preventDefault();
+            $(this).tooltip("toggle");
+        });
+
 
         $('#JobCodes').multiselect({
             onDropdownHide: function(event) {

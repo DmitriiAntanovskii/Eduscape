@@ -286,9 +286,6 @@
             <Parameter Name="Groups" Mode="In" Type="String" />
             <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="YearLevelBenchmark" ReturnType="Collection(oeg_reportsModel.YearLevelBenchmark_Result)">
-          <Parameter Name="JobCodes" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="YearLevel" ReturnType="Collection(oeg_reportsModel.YearLevel_Result)">
           <Parameter Name="JobCodes" Mode="In" Type="String" />
           </FunctionImport>
@@ -300,9 +297,6 @@
             <Parameter Name="Venues" Mode="In" Type="String" />
             <Parameter Name="StartDates" Mode="In" Type="String" />
             <Parameter Name="EmpNo" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="Competency" ReturnType="Collection(oeg_reportsModel.Competency_Result)">
-          <Parameter Name="JobCodes" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Item" ReturnType="Collection(oeg_reportsModel.Item_Result)" />
           <FunctionImport Name="ItemJobCode" ReturnType="Collection(oeg_reportsModel.ItemJobCode_Result)">
@@ -325,6 +319,12 @@
           </FunctionImport>
           <EntitySet Name="tblHR_Entities" EntityType="oeg_reportsModel.tblHR_Entities" />
           <EntitySet Name="tblPrograms" EntityType="oeg_reportsModel.tblProgram" />
+          <FunctionImport Name="Competency" ReturnType="Collection(oeg_reportsModel.Competency_Result)">
+          <Parameter Name="JobCodes" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="YearLevelBenchmark" ReturnType="Collection(oeg_reportsModel.YearLevelBenchmark_Result)">
+            <Parameter Name="JobCodes" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SchoolReport_Result">
           <Property Type="Int32" Name="year" Nullable="true" />
@@ -498,15 +498,6 @@
           <Property Type="Double" Name="ChangePercent" Nullable="true" />
           <Property Type="Double" Name="EffectSize" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="YearLevelBenchmark_Result">
-          <Property Type="String" Name="yearlevel" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Factor" Nullable="true" MaxLength="50" />
-          <Property Type="Double" Name="Pre" Nullable="true" />
-          <Property Type="Double" Name="Post" Nullable="true" />
-          <Property Type="Double" Name="Change" Nullable="true" />
-          <Property Type="Double" Name="ChangePercent" Nullable="true" />
-          <Property Type="Double" Name="EffectSize" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="YearLevel_Result">
           <Property Type="String" Name="yearlevel" Nullable="true" MaxLength="50" />
           <Property Type="Double" Name="Pre" Nullable="true" />
@@ -523,14 +514,6 @@
           <Property Type="String" Name="QuestionID" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="QuestionText" Nullable="true" />
           <Property Type="String" Name="QualResponse" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="Competency_Result">
-          <Property Type="String" Name="Factor" Nullable="true" MaxLength="50" />
-          <Property Type="Double" Name="Pre" Nullable="true" />
-          <Property Type="Double" Name="Post" Nullable="true" />
-          <Property Type="Double" Name="Change" Nullable="true" />
-          <Property Type="Double" Name="ChangePercent" Nullable="true" />
-          <Property Type="Double" Name="EffectSize" Nullable="true" />
         </ComplexType>
         <ComplexType Name="Item_Result">
           <Property Type="String" Name="QuestionID" Nullable="false" MaxLength="50" />
@@ -623,6 +606,25 @@
           <Property Name="YearLvl" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="Year" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
         </EntityType>
+        <ComplexType Name="Competency_Result">
+          <Property Type="String" Name="Factor" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FactorText" Nullable="true" />
+          <Property Type="Double" Name="Pre" Nullable="true" />
+          <Property Type="Double" Name="Post" Nullable="true" />
+          <Property Type="Double" Name="Change" Nullable="true" />
+          <Property Type="Double" Name="ChangePercent" Nullable="true" />
+          <Property Type="Double" Name="EffectSize" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="YearLevelBenchmark_Result">
+          <Property Type="String" Name="yearlevel" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Factor" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="FactorText" Nullable="true" />
+          <Property Type="Double" Name="Pre" Nullable="true" />
+          <Property Type="Double" Name="Post" Nullable="true" />
+          <Property Type="Double" Name="Change" Nullable="true" />
+          <Property Type="Double" Name="ChangePercent" Nullable="true" />
+          <Property Type="Double" Name="EffectSize" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -867,19 +869,6 @@
           <FunctionImportMapping FunctionImportName="ItemJobCodeSubTotal" FunctionName="oeg_reportsModel.Store.ItemJobCodeSubTotal" />
           <FunctionImportMapping FunctionImportName="JobCodeGroupSubTotal" FunctionName="oeg_reportsModel.Store.JobCodeGroupSubTotal" />
           <FunctionImportMapping FunctionImportName="SchoolQuantativeByGroupSubTotal" FunctionName="oeg_reportsModel.Store.SchoolQuantativeByGroupSubTotal" />
-          <FunctionImportMapping FunctionImportName="YearLevelBenchmark" FunctionName="oeg_reportsModel.Store.YearLevelBenchmark">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="oeg_reportsModel.YearLevelBenchmark_Result">
-                <ScalarProperty Name="yearlevel" ColumnName="yearlevel" />
-                <ScalarProperty Name="Factor" ColumnName="Factor" />
-                <ScalarProperty Name="Pre" ColumnName="Pre" />
-                <ScalarProperty Name="Post" ColumnName="Post" />
-                <ScalarProperty Name="Change" ColumnName="Change" />
-                <ScalarProperty Name="ChangePercent" ColumnName="ChangePercent" />
-                <ScalarProperty Name="EffectSize" ColumnName="EffectSize" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="YearLevel" FunctionName="oeg_reportsModel.Store.YearLevel">
             <ResultMapping>
               <ComplexTypeMapping TypeName="oeg_reportsModel.YearLevel_Result">
@@ -902,18 +891,6 @@
                 <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
                 <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
                 <ScalarProperty Name="QualResponse" ColumnName="QualResponse" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Competency" FunctionName="oeg_reportsModel.Store.Competency">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="oeg_reportsModel.Competency_Result">
-                <ScalarProperty Name="Factor" ColumnName="Factor" />
-                <ScalarProperty Name="Pre" ColumnName="Pre" />
-                <ScalarProperty Name="Post" ColumnName="Post" />
-                <ScalarProperty Name="Change" ColumnName="Change" />
-                <ScalarProperty Name="ChangePercent" ColumnName="ChangePercent" />
-                <ScalarProperty Name="EffectSize" ColumnName="EffectSize" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1030,6 +1007,33 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Competency" FunctionName="oeg_reportsModel.Store.Competency">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="oeg_reportsModel.Competency_Result">
+                <ScalarProperty Name="Factor" ColumnName="Factor" />
+                <ScalarProperty Name="FactorText" ColumnName="FactorText" />
+                <ScalarProperty Name="Pre" ColumnName="Pre" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="Change" ColumnName="Change" />
+                <ScalarProperty Name="ChangePercent" ColumnName="ChangePercent" />
+                <ScalarProperty Name="EffectSize" ColumnName="EffectSize" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="YearLevelBenchmark" FunctionName="oeg_reportsModel.Store.YearLevelBenchmark">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="oeg_reportsModel.YearLevelBenchmark_Result">
+                <ScalarProperty Name="yearlevel" ColumnName="yearlevel" />
+                <ScalarProperty Name="Factor" ColumnName="Factor" />
+                <ScalarProperty Name="FactorText" ColumnName="FactorText" />
+                <ScalarProperty Name="Pre" ColumnName="Pre" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="Change" ColumnName="Change" />
+                <ScalarProperty Name="ChangePercent" ColumnName="ChangePercent" />
+                <ScalarProperty Name="EffectSize" ColumnName="EffectSize" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

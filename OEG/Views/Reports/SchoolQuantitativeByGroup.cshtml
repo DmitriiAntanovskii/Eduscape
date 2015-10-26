@@ -2,11 +2,11 @@
 
 
 @{
-    ViewBag.Title = "Group & Job Code";
+    ViewBag.Title = "Programs History";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
-<h1><i class="fa fa-dashboard fa-2x"></i> @ViewBag.Title <small>(Competencies & Total)</small></h1>
+<h1><i class="fa fa-dashboard fa-2x"></i> @ViewBag.Title <small>(for GL's WITH Competencies & Total Effect Size)</small></h1>
 
 
 <div>
@@ -183,7 +183,12 @@
 </table>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(document).tooltip({ show: { effect: "none", delay: 0 } });
+        $(document).tooltip();
+        $('.hastooltip').click(function (event) {
+            event.preventDefault();
+            $(this).tooltip("toggle");
+        });
+
         $('#JobCodes').multiselect({
             onDropdownHide: function (event) {
                 console.log("start");

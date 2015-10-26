@@ -86,6 +86,9 @@
        
         $('#SchoolsSection').hide();
         $('#JobCodesSection').hide();
+        if ($('.UserGroups').val() == 1006 || $('.UserGroups').val() == 1007 || $('.UserGroups').val() == 1009) {
+            $('#JobCodesSection').show();
+        }
 
         $('.UserGroups').change(function () {
             $('#SchoolsSection').hide();

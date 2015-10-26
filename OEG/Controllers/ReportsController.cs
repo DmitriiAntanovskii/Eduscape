@@ -79,12 +79,17 @@ namespace OEG.Controllers
 
             string EmpNo = null;
 
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.Schools);
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
                 ViewBag.Hidden_Employees = EmpNo;
+            }
+            else if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
             }
             else
             {
@@ -108,9 +113,14 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School.Contains(u.Schools));
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
                 ViewBag.Hidden_Employees = EmpNo;
+            }
+            else if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
             }
             else
             {
@@ -207,11 +217,16 @@ namespace OEG.Controllers
 
             string EmpNo = null;
 
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") )
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.Schools);
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+            }
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
             }
 
             var jobcodes = (from f in source
@@ -225,7 +240,7 @@ namespace OEG.Controllers
                 ret += s + ",";
             }
 
-            ret = ret.Remove(ret.Length - 1);
+            if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
             {
                 ViewBag.Hidden_JobCodes = ret;
@@ -242,12 +257,18 @@ namespace OEG.Controllers
 
             string EmpNo = null;
             
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") )
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader")  )
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.Schools);
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
+            }
+
 
             var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
@@ -264,7 +285,7 @@ namespace OEG.Controllers
                         ret += s + ",";
                     }
 
-                    ret = ret.Remove(ret.Length - 1);
+                    if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
                     Hidden_JobCodes = ret;
                 }
             }
@@ -280,11 +301,17 @@ namespace OEG.Controllers
 
             string EmpNo = null;
 
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School.Contains(u.Schools));
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+            }
+
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
             }
 
             var jobcodes = (from f in source
@@ -292,13 +319,13 @@ namespace OEG.Controllers
 
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
 
-            string jc = null;
+            string jc = "";
             foreach (string s in jobcodes.Select(o => o.JobCode))
             {
                 jc += s + ",";
             }
 
-            jc = jc.Remove(jc.Length - 1);
+            if (jc.Length > 0) jc = jc.Remove(jc.Length - 1);
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
             {
                 ViewBag.Hidden_JobCodes = jc;
@@ -309,13 +336,13 @@ namespace OEG.Controllers
 
             ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
 
-            string g = null;
+            string g = "";
             foreach (string s in groups.Select(o => o.Group))
             {
                 g += s + ",";
             }
 
-            g = g.Remove(g.Length - 1);
+            if (g.Length>0) g = g.Remove(g.Length - 1);
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
             {
                 ViewBag.Hidden_Groups = g;
@@ -338,12 +365,19 @@ namespace OEG.Controllers
 
             string EmpNo = null;
 
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") )
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School.Contains(u.Schools));
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
+
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
+            }
+
 
             var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
@@ -360,7 +394,7 @@ namespace OEG.Controllers
                         ret += s + ",";
                     }
 
-                    ret = ret.Remove(ret.Length - 1);
+                    if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
                     Hidden_JobCodes = ret;
                 }
             }
@@ -382,7 +416,7 @@ namespace OEG.Controllers
                         ret += s + ",";
                     }
 
-                    ret = ret.Remove(ret.Length - 1);
+                    if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
                     Hidden_Groups = ret;
                 }
             }
@@ -496,13 +530,19 @@ namespace OEG.Controllers
 
             string EmpNo = null;
 
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") ||  User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.JobCode.Contains(u.JobCodes));
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
                 ViewBag.Hidden_Employees = EmpNo;
             }
+            else if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
+            }
+
             else
             {
                 var employees = (from f in source
@@ -563,12 +603,17 @@ namespace OEG.Controllers
 
             string EmpNo = null;
 
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.JobCode.Contains(u.JobCodes)); 
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode)); 
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
                 ViewBag.Hidden_Employees = EmpNo;
+            }
+            else if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
             }
             else
             {
@@ -644,11 +689,16 @@ namespace OEG.Controllers
 
             string EmpNo = null;
 
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") ||  User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.Schools);
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+            }
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
             }
 
             var jobcodes = (from f in source
@@ -662,7 +712,7 @@ namespace OEG.Controllers
                 ret += s + ",";
             }
 
-            ret = ret.Remove(ret.Length - 1);
+            if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
             {
                 ViewBag.Hidden_JobCodes = ret;
@@ -674,13 +724,13 @@ namespace OEG.Controllers
 
             ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
 
-            string g = null;
+            string g = "";
             foreach (string s in groups.Select(o => o.Group))
             {
                 g += s + ",";
             }
 
-            g = g.Remove(g.Length - 1);
+            if (g.Length > 0) g = g.Remove(g.Length - 1);
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
             {
                 ViewBag.Hidden_Groups = g;
@@ -701,12 +751,18 @@ namespace OEG.Controllers
 
             string EmpNo = null;
 
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") ||  User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School.Contains(u.Schools));
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
+            }
+
 
             var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
@@ -723,7 +779,7 @@ namespace OEG.Controllers
                         ret += s + ",";
                     }
 
-                    ret = ret.Remove(ret.Length - 1);
+                    if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
                     Hidden_JobCodes = ret;
                 }
             }
@@ -746,7 +802,7 @@ namespace OEG.Controllers
                         ret += s + ",";
                     }
 
-                    ret = ret.Remove(ret.Length - 1);
+                    if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
                     Hidden_Groups = ret;
                 }
             }
@@ -767,11 +823,16 @@ namespace OEG.Controllers
                          select f;
 
             string EmpNo = null;
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") ||  User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.Schools);
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+            }
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
             }
 
             
@@ -785,7 +846,7 @@ namespace OEG.Controllers
             {
                 jc += s + ",";
             }
-            jc = jc.Remove(jc.Length - 1);
+            if (jc.Length > 0) jc = jc.Remove(jc.Length - 1);
 
 
             var schools = (from f in source
@@ -796,7 +857,7 @@ namespace OEG.Controllers
             {
                 sc += s + ",";
             }
-            sc = sc.Remove(sc.Length - 1);
+            if (sc.Length > 0) sc = sc.Remove(sc.Length - 1);
 
 
             ViewBag.Schools = new SelectList(schools.OrderBy(x => x.School), "School", "School");
@@ -813,7 +874,7 @@ namespace OEG.Controllers
             {
                 y += s.ToString() + ",";
             }
-            y = y.Remove(y.Length - 1);
+            if (y.Length > 0) y = y.Remove(y.Length - 1);
 
             var venues = (from f in source
                           select new { Venue = f.Venue }).Distinct();
@@ -824,7 +885,7 @@ namespace OEG.Controllers
             {
                 v += s + ",";
             }
-            v = v.Remove(v.Length - 1);
+            if (v.Length > 0) v = v.Remove(v.Length - 1);
 
 
             var startdates = source.OrderBy(d => d.ProgramStartDate)
@@ -841,20 +902,20 @@ namespace OEG.Controllers
             {
                 sd += s + ",";
             }
-            sd = sd.Remove(sd.Length - 1);
+            if (sd.Length > 0) sd = sd.Remove(sd.Length - 1);
 
             var groups = (from f in source
                           select new { Group = f.Group }).Distinct();
 
             ViewBag.Groups = new SelectList(groups.OrderBy(x => x.Group), "Group", "Group");
 
-            string g = null;
+            string g = "";
             foreach (string s in groups.Select(o => o.Group))
             {
                 g += s + ",";
             }
 
-            g = g.Remove(g.Length - 1);
+            if (g.Length > 0) g = g.Remove(g.Length - 1);
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
             {
                 ViewBag.Hidden_Groups = g;
@@ -871,11 +932,16 @@ namespace OEG.Controllers
             var source = from f in db.ReportDatas
                          select f;
             string EmpNo = null;
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => x.School == u.Schools);
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+            }
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = source.Where(x => u.Schools.Contains(x.School));
             }
 
             var jobcodes = (from f in source
@@ -929,7 +995,7 @@ namespace OEG.Controllers
                         ret += s + ",";
                     }
 
-                    ret = ret.Remove(ret.Length - 1);
+                    if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
                     Hidden_Groups = ret;
                 }
             }

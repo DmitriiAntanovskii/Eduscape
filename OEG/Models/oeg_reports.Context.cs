@@ -169,15 +169,6 @@ namespace OEG.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<double>>("SchoolQuantativeByGroupSubTotal", jobCodesParameter, groupsParameter, empNoParameter);
         }
     
-        public virtual ObjectResult<YearLevelBenchmark_Result> YearLevelBenchmark(string jobCodes)
-        {
-            var jobCodesParameter = jobCodes != null ?
-                new ObjectParameter("JobCodes", jobCodes) :
-                new ObjectParameter("JobCodes", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<YearLevelBenchmark_Result>("YearLevelBenchmark", jobCodesParameter);
-        }
-    
         public virtual ObjectResult<YearLevel_Result> YearLevel(string jobCodes)
         {
             var jobCodesParameter = jobCodes != null ?
@@ -218,15 +209,6 @@ namespace OEG.Models
                 new ObjectParameter("EmpNo", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SchoolQualative_Result>("SchoolQualative", yearsParameter, schoolsParameter, jobCodesParameter, groupsParameter, venuesParameter, startDatesParameter, empNoParameter);
-        }
-    
-        public virtual ObjectResult<Competency_Result> Competency(string jobCodes)
-        {
-            var jobCodesParameter = jobCodes != null ?
-                new ObjectParameter("JobCodes", jobCodes) :
-                new ObjectParameter("JobCodes", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Competency_Result>("Competency", jobCodesParameter);
         }
     
         public virtual ObjectResult<Item_Result> Item()
@@ -292,6 +274,24 @@ namespace OEG.Models
                 new ObjectParameter("EmpNo", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GroupsByEmployee_Result>("GroupsByEmployee", empNoParameter);
+        }
+    
+        public virtual ObjectResult<Competency_Result> Competency(string jobCodes)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Competency_Result>("Competency", jobCodesParameter);
+        }
+    
+        public virtual ObjectResult<YearLevelBenchmark_Result> YearLevelBenchmark(string jobCodes)
+        {
+            var jobCodesParameter = jobCodes != null ?
+                new ObjectParameter("JobCodes", jobCodes) :
+                new ObjectParameter("JobCodes", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<YearLevelBenchmark_Result>("YearLevelBenchmark", jobCodesParameter);
         }
     }
 }

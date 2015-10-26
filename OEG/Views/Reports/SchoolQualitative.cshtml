@@ -2,7 +2,7 @@
 
 
 @{
-    ViewBag.Title = "School Qualitative";
+    ViewBag.Title = "Qualitative";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
@@ -170,7 +170,8 @@
     $(document).ready(function () {
         $(document).tooltip();
 
-        $('.hastooltip').click(function () {
+        $('.hastooltip').click(function (event) {
+            event.preventDefault();
             $(this).tooltip("toggle");
         });
 

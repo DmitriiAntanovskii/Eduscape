@@ -1,54 +1,50 @@
-﻿<ul class="nav navbar-nav side-nav">
-    <li class="section hidden-xs">Reports</li>
-    @if (User.IsInRole("Administrator"))
+﻿
+<ul class="nav navbar-nav side-nav">
+    <li class="section hidden-xs">Documents</li>
+    <li><a href="/documents/FAQs.pdf" target="_blank"><i class="fa fa-question"></i> FAQs</a></li>
+    <li class="section hidden-xs">Current Program Reports</li>
+    <li><a class="@Html.ActivePage("Reports", "JobCodeGroup")" href="/Reports/JobCodeGroup"><i class="fa fa-dashboard"></i> Current Program Report</a></li>
+    <li><a class="@Html.ActivePage("Reports", "SchoolQualitative")" href="/Reports/SchoolQualitative"><i class="fa fa-dashboard"></i> Qualitative</a></li>
+    @if (User.IsInRole("Administrator") || User.IsInRole("Director") || User.IsInRole("Head of Teaching Team"))
     {
-    <li><a href="/Reports/AllData/"><i class="fa fa-dashboard"></i> Participant Data (BIG!)</a></li>
-    <li><a href="/Reports/StaffData/"><i class="fa fa-dashboard"></i> Staff Data (BIG!)</a></li>
-    <li><a href="/Reports/StandardDeviation"><i class="fa fa-dashboard"></i> Standard Deviation</a></li>
+        <li class="section hidden-xs">Programs History for GL's</li>
+        <li><a class="@Html.ActivePage("Reports", "GroupsByEmployee")" href="/Reports/GroupsByEmployee"><i class="fa fa-dashboard"></i> Programs History for GL's</a></li>
+        <li><a class="@Html.ActivePage("Reports", "SchoolQuantitativeByGroup")" href="/Reports/SchoolQuantitativeByGroup"><i class="fa fa-dashboard"></i> Programs History, for GL's WITH Competencies & Total Effect Size</a></li>
+        <li><a class="@Html.ActivePage("Reports", "ItemJobCode")" href="/Reports/ItemJobCode"><i class="fa fa-dashboard"></i> Programs History, for GL's WITH Items & Total Effect Size</a></li>
     }
     @if (!User.IsInRole("School Coordinator"))
     {
-    @*<li><a href="/Reports/QuantitativeByGroup"><i class="fa fa-dashboard"></i> Quantitative By Group</a></li>*@
-    <li><a href="/Reports/JobCodeGroup"><i class="fa fa-dashboard"></i> JobCode (Group)</a></li>
-    <li><a href="/Reports/JobCodePrograms"><i class="fa fa-dashboard"></i> JobCode (Program)</a></li>
-    @*<li><a href="/Reports/ProgramsBenchmark"><i class="fa fa-dashboard"></i> Programs Benchmark</a></li>*@
-    @*<li><a href="/Reports/DurationBenchmark"><i class="fa fa-dashboard"></i> Duration Benchmark</a></li>*@
-    <li><a href="/Reports/Duration"><i class="fa fa-clock-o"></i> Duration</a></li>
-    <li><a href="/Reports/Venue"><i class="fa fa-university"></i> Venue</a></li>
-    if (!User.IsInRole("Head of Teaching Team") && !User.IsInRole("Program Leader") && !User.IsInRole("Group Leader"))
-    {
-        <li><a href="/Reports/School"><i class="fa fa-graduation-cap"></i> School</a></li>
+        <li class="section hidden-xs">Summaries</li>
+        <li><a class="@Html.ActivePage("Reports", "Competency")" href="/Reports/Competency"><i class="fa fa-question"></i> Competency</a></li>
+        <li><a class="@Html.ActivePage("Reports", "Duration")" href="/Reports/Duration"><i class="fa fa-clock-o"></i> Duration</a></li>
+        <li><a class="@Html.ActivePage("Reports", "Item")" href="/Reports/Item"><i class="fa fa-question"></i> Item</a></li>
+        <li><a class="@Html.ActivePage("Reports", "JobCodePrograms")" href="/Reports/JobCodePrograms"><i class="fa fa-dashboard"></i> Program</a></li>
+        <li><a href="/Reports/Venue"><i class="fa fa-university"></i> Venue</a></li>
+        if (!User.IsInRole("Head of Teaching Team") && !User.IsInRole("Program Leader") && !User.IsInRole("Group Leader"))
+        {
+            <li><a class="@Html.ActivePage("Reports", "School")" href="/Reports/School"><i class="fa fa-graduation-cap"></i> School</a></li>
+        }
+        <li><a class="@Html.ActivePage("Reports", "YearLevel")" href="/Reports/YearLevel"><i class="fa fa-calendar"></i> Year Level</a></li>
+        <li><a class="@Html.ActivePage("Reports", "YearLevelCompetency")" href="/Reports/YearLevelCompetency"><i class="fa fa-calendar"></i> Year Level With Competency</a></li>
     }
-    <li><a href="/Reports/Item"><i class="fa fa-question"></i> Item</a></li>
-    @*<li><a href="/Reports/AllCoursesBenchmark"><i class="fa fa-dashboard"></i> All Courses Benchmark</a></li>*@
-    <li><a href="/Reports/YearLevel"><i class="fa fa-calendar"></i> Year Level</a></li>
-    <li><a href="/Reports/YearLevelCompetency"><i class="fa fa-calendar"></i> Year Level With Competency</a></li>
-    <li><a href="/Reports/Competency"><i class="fa fa-question"></i> Competency</a></li>
-    if (!User.IsInRole("Senior manager") && !User.IsInRole("Program Leader"))
-    {
-        <li><a href="/Reports/GroupsByEmployee"><i class="fa fa-dashboard"></i> Groups by Employee</a></li>
-    }
-
-    }
-    
-
-    <li><a href="/Reports/SchoolQuantitativeByGroup"><i class="fa fa-dashboard"></i> Group & Job Code (Competencies & Total)</a></li>
-    <li><a href="/Reports/SchoolQualitative"><i class="fa fa-dashboard"></i> School Qualitative</a></li>
-    <li><a href="/Reports/ItemJobCode"><i class="fa fa-dashboard"></i> Items & Job Code</a></li>
-
-
-
     
     @if (User.IsInRole("Administrator") || User.IsInRole("Senior Manager") || User.IsInRole("Director") || User.IsInRole("Head of Teaching Team"))
     {
         <li class="section hidden-xs">System Administration</li>
-        <li><a href="/Users"><i class="fa fa-user"></i> Users</a></li>
-        
+        <li><a class="@Html.ActivePage("Users", "")" href="/Users"><i class="fa fa-user"></i> Users</a></li>
+
         if (User.IsInRole("Administrator"))
         {
-            <li><a href="/UserGroups"><i class="fa fa-users"></i> User Groups</a></li>
-            <li><a href="/Surveys"><i class="fa fa-file"></i> Surveys</a></li>
-            <li><a href="/Data?key=Sw4OjrY6QW"><i class="fa fa-file"></i> Run Data Aquisition</a></li>
+            <li><a class="@Html.ActivePage("UserGroups", "")" href="/UserGroups"><i class="fa fa-users"></i> User Groups</a></li>
+            <li><a class="@Html.ActivePage("Surveys", "")" href="/Surveys"><i class="fa fa-file"></i> Surveys</a></li>
+            <li><a class="@Html.ActivePage("Data", "")" href="/Data?key=Sw4OjrY6QW"><i class="fa fa-file"></i> Run Data Aquisition</a></li>
         }
+    }
+    @if (User.IsInRole("Administrator"))
+    {
+        <li class="section hidden-xs">Admininstration Reports</li>
+        <li><a class="@Html.ActivePage("Reports", "AllData")" href="/Reports/AllData/"><i class="fa fa-dashboard"></i> Participant Data (BIG!)</a></li>
+        <li><a class="@Html.ActivePage("Reports", "StaffData")" href="/Reports/StaffData/"><i class="fa fa-dashboard"></i> Staff Data (BIG!)</a></li>
+        <li><a class="@Html.ActivePage("Reports", "StandardDeviation")" href="/Reports/StandardDeviation"><i class="fa fa-dashboard"></i> Standard Deviation</a></li>
     }
 </ul>

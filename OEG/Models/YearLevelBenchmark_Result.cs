@@ -15,6 +15,7 @@ namespace OEG.Models
     {
         public string yearlevel { get; set; }
         public string Factor { get; set; }
+        public string FactorText { get; set; }
         public Nullable<double> Pre { get; set; }
         public Nullable<double> Post { get; set; }
         public Nullable<double> Change { get; set; }

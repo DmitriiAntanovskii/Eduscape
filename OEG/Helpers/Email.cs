@@ -30,8 +30,8 @@ namespace OEG.Helpers
             //content
             msg += body;
             //footer
-            msg += @"Kind Regards<br><a href=""http://eduscape.edu.au"">OEG</a>";
-            msg += "</div></body></html>";
+            msg += "<br><p>Happy Educating,</p>";
+            msg += "<p>The EduScape Team OEG</p>";
 
             return msg;
         }
@@ -79,10 +79,13 @@ namespace OEG.Helpers
         {
             string msg;
 
-            msg = "<h1>Eduscape - Reports</h1>";
-            msg += "<p>A user account has been created for you. Your Password is: <b>" + PWD + "</b></p>";
-            msg += "<p>If you did not request this password reset please let us know.</p>";
-            msg += @"<p>To log in click <a href=""http://eduscape.edu.au/Users/LogIn"">HERE</a></p>";
+
+            msg = "<h1>OEG EduScape Report</h1>";
+            msg += "<p>Hello and welcome to EduScape – OEG’s continuous improvement tool!</p>";
+            msg += "<p>You have received this email so that you can access the results gathered during the OEG program that you were involved with recently.</p>";
+            msg += @"<p>To log in and view these results click <a href=""http://eduscape.edu.au/Users/LogIn"">HERE</a> and you will be redirected to the EduScape website.</p>";
+            msg += @"<p>If you have any concerns or questions regarding this process please contact Bec Bessant at <a href=""mailt:bessantr@oeg.vic.edu.au"">bessantr@oeg.vic.edu.au</a>.</p>";
+            msg += "<p>Your Password is: <b>" + PWD + "</b></p>";
 
             return createEmail(msg);
         }

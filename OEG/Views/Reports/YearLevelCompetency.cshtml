@@ -90,7 +90,7 @@
                 @Html.DisplayFor(modelItem => item.yearlevel)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Factor)
+                <a class="hastooltip" href="#" title="@Html.DisplayFor(modelItem => item.FactorText)">@Html.DisplayFor(modelItem => item.Factor)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pre)
@@ -112,7 +112,15 @@
 
 </table>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
+
+        $(document).tooltip();
+
+        $('.hastooltip').click(function (event) {
+            event.preventDefault();
+            $(this).tooltip("toggle");
+        });
+
         $('#JobCodes').multiselect({
             onChange: function (option, checked) {
                 //get all of the selected tiems

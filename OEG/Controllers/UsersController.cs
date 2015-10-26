@@ -102,12 +102,21 @@ namespace OEG.Controllers
             var source = from f in db.ReportDatas
                          select f;
 
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = from f in db.ReportDatas
+                             where u.Schools.Contains(f.School)
+                             select f;
+            }
+
             var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
-
+                
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
 
-           
+
+
             var schools = (from f in source
                            select new { School = f.School }).Distinct();
 
@@ -185,6 +194,14 @@ namespace OEG.Controllers
             var source = from f in db.ReportDatas
                          select f;
 
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = from f in db.ReportDatas
+                         where u.Schools.Contains(f.School)
+                         select f;
+            }
+
             var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
 
@@ -247,6 +264,14 @@ namespace OEG.Controllers
 
             var source = from f in db.ReportDatas
                          select f;
+
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = from f in db.ReportDatas
+                         where u.Schools.Contains(f.School)
+                         select f;
+            }
 
             var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
@@ -329,6 +354,15 @@ namespace OEG.Controllers
 
             var source = from f in db.ReportDatas
                          select f;
+
+            if (User.IsInRole("Senior Manager"))
+            {
+                User u = UserHelper.getMember(db);
+                source = from f in db.ReportDatas
+                         where u.Schools.Contains(f.School)
+                         select f;
+            }
+
 
             var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();

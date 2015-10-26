@@ -2,10 +2,10 @@
 
 
 @{
-    ViewBag.Title = "Group by Employees";
+    ViewBag.Title = "Programs History";
     Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
-<h1><i class="fa fa-dashboard fa-2x"></i> @ViewBag.Title </h1>
+<h1><i class="fa fa-dashboard fa-2x"></i> @ViewBag.Title <small>(for GL's)</small> </h1>
 
 
 <div>
@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-6 col-lg-4">Employees:</label>
                         <div class="col-md-6 col-lg-8">
-                            @if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior manager") || User.IsInRole("School Coordinator"))
+                            @if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
                             {
                                 <label style="margin-top:7px;">@ViewBag.Hidden_Employees</label>
                             }

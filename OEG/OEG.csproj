@@ -170,6 +170,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Email.cs" />
+    <Compile Include="Helpers\Nav.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Helpers\Security.cs" />
     <Compile Include="Models\AllCoursesBenchmark_Result.cs">
