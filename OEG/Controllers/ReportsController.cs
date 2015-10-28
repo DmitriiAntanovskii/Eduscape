@@ -99,7 +99,13 @@ namespace OEG.Controllers
 
                 ViewBag.Employees = new SelectList(employees.OrderBy(x => x.EmployeeName), "EmployeeNumber", "EmployeeName");
             }
-            return View(db.GroupsByEmployee(null).ToList());
+
+            GroupsByEmployeeViewModel vm = new GroupsByEmployeeViewModel();
+            vm.ReportData = db.GroupsByEmployee(null).ToList();
+            vm.SubTotal = db.GroupsByEmployeeSubTotal(null).FirstOrDefault();
+ 
+
+            return View(vm);
         }
 
         [HttpPost]
@@ -110,7 +116,7 @@ namespace OEG.Controllers
 
             string EmpNo = null;
 
-            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+            if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader")  || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => u.JobCodes.Contains(x.JobCode));
@@ -132,7 +138,13 @@ namespace OEG.Controllers
 
                 ViewBag.Hidden_Employees = Hidden_Employees;
             }
-            return View(db.GroupsByEmployee(Hidden_Employees.Length > 0 ? Hidden_Employees : null).ToList());
+
+            GroupsByEmployeeViewModel vm = new GroupsByEmployeeViewModel();
+            vm.ReportData = db.GroupsByEmployee(Hidden_Employees.Length > 0 ? Hidden_Employees : null).ToList();
+            vm.SubTotal = db.GroupsByEmployeeSubTotal(Hidden_Employees.Length > 0 ? Hidden_Employees : null).FirstOrDefault();
+
+
+            return View(vm);
         }
 
 
@@ -695,11 +707,20 @@ namespace OEG.Controllers
                 source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
-            if (User.IsInRole("Senior Manager"))
+            else if (User.IsInRole("Senior Manager"))
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => u.Schools.Contains(x.School));
             }
+            else
+            {
+                var employees = (from f in source
+                                 where f.EmployeeName != null
+                                 select new { EmployeeNumber = f.EmployeeNumber, EmployeeName = f.EmployeeName }).Distinct();
+
+                ViewBag.Employees = new SelectList(employees.OrderBy(x => x.EmployeeName), "EmployeeNumber", "EmployeeName");
+            }
+
 
             var jobcodes = (from f in source
                             select new { JobCode = f.JobCode }).Distinct();
@@ -744,12 +765,12 @@ namespace OEG.Controllers
         }
 
         [HttpPost]
-        public ActionResult SchoolQuantitativeByGroup(string Hidden_JobCodes, string Hidden_Groups)
+        public ActionResult SchoolQuantitativeByGroup(string Hidden_JobCodes, string Hidden_Groups, string Hidden_Employees)
         {
             var source = from f in db.ReportDatas
                          select f;
 
-            string EmpNo = null;
+            string EmpNo = Hidden_Employees.Length > 0 ? Hidden_Employees : null;
 
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") ||  User.IsInRole("School Coordinator"))
             {
@@ -757,11 +778,22 @@ namespace OEG.Controllers
                 source = source.Where(x => u.JobCodes.Contains(x.JobCode));
                 if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
             }
-            if (User.IsInRole("Senior Manager"))
+            else if (User.IsInRole("Senior Manager"))
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => u.Schools.Contains(x.School));
             }
+            else
+            {
+                var employees = (from f in source
+                                 where f.EmployeeName != null
+                                 select new { EmployeeNumber = f.EmployeeNumber, EmployeeName = f.EmployeeName }).Distinct();
+
+                ViewBag.Employees = new SelectList(employees.OrderBy(x => x.EmployeeName), "EmployeeNumber", "EmployeeName");
+
+                ViewBag.Hidden_Employees = Hidden_Employees;
+            }
+
 
 
             var jobcodes = (from f in source

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OEG.Models.GroupsByEmployee_Result>
+﻿@model OEG.Models.GroupsByEmployeeViewModel
 
 
 @{
@@ -34,6 +34,11 @@
         <input type="submit" class="btn btn-lg btn-primary" value="Refresh Data" />
     </form>
 </div>
+<br />
+<div class="pull-right">
+    <h3>Total Effect Size: <span class="@(Model.SubTotal < 0 ? "negative" : "")"> @Model.SubTotal </span></h3>
+</div>
+
 
 <table class="table">
     <tr>
@@ -80,7 +85,7 @@
     </tr>
 
     @{int i = 1;}
-    @foreach (var item in Model)
+    @foreach (var item in Model.ReportData)
     {
         if (i % 10 == 0)
         {

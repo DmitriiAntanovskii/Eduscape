@@ -29,6 +29,11 @@ namespace OEG.Models
         public double? SubTotal { get; set; }
     }
 
+    public class GroupsByEmployeeViewModel
+    {
+        public List<GroupsByEmployee_Result> ReportData { get; set; }
+        public double? SubTotal { get; set; }
+    }
 
 
 }

@@ -131,6 +131,9 @@
         <Function Name="GroupsByEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmpNo" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="GroupsByEmployeeSubTotal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmpNo" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="Item" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ItemJobCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="JobCodes" Type="nvarchar(max)" Mode="In" />
@@ -323,7 +326,10 @@
           <Parameter Name="JobCodes" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="YearLevelBenchmark" ReturnType="Collection(oeg_reportsModel.YearLevelBenchmark_Result)">
-            <Parameter Name="JobCodes" Mode="In" Type="String" />
+          <Parameter Name="JobCodes" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GroupsByEmployeeSubTotal" ReturnType="Collection(Double)">
+            <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SchoolReport_Result">
@@ -1034,6 +1040,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GroupsByEmployeeSubTotal" FunctionName="oeg_reportsModel.Store.GroupsByEmployeeSubTotal" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

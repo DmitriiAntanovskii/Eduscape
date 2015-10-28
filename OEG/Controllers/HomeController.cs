@@ -13,7 +13,10 @@ namespace OEG.Controllers
             //if (User.Identity.IsAuthenticated)
             return RedirectToAction("Index", "Reports");
         }
-
-      
+        [Authorize]
+        public ActionResult Forms()
+        {
+            return View();
+        }
     }
 }

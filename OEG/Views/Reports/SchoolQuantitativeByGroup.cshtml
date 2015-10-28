@@ -13,6 +13,7 @@
     <form action="/Reports/SchoolQuantitativeByGroup" method="post">
         <input type="hidden" id="Hidden_JobCodes" name="Hidden_JobCodes" value="@ViewBag.Hidden_JobCodes" />
         <input type="hidden" id="Hidden_Groups" name="Hidden_Groups" value="@ViewBag.Hidden_Groups" />
+        <input type="hidden" id="Hidden_Employees" name="Hidden_Employees" value="@ViewBag.Hidden_Employees" />
         <div class="form-horizontal">
             <div class="row">
                 <div class="col-md-6 col-lg-4">
@@ -34,6 +35,24 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                        <label class="control-label col-md-6 col-lg-4">Employees:</label>
+                        <div class="col-md-6 col-lg-8">
+                            @if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager") || User.IsInRole("School Coordinator"))
+                            {
+                                <label style="margin-top:7px;">@ViewBag.Hidden_Employees</label>
+                            }
+                            else
+                            {
+                                @Html.DropDownList("Employees", (SelectList)ViewBag.Employees, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
         <input type="submit" class="btn btn-lg btn-primary" value="Refresh Data" />
@@ -262,6 +281,28 @@
             //refresh the control
             $("#Groups").multiselect("refresh");
         });
+
+        $('#Employees').multiselect({
+            onChange: function (option, checked) {
+                //get all of the selected tiems
+                var values = $('#Employees option:selected');
+                var selected = "";
+                $(values).each(function (index, value) {
+                    selected += $(value).prop('value') + ",";
+                });
+                selected = selected.substring(0, selected.length - 1);
+                //update hidden field with comma delimited string for state persistance
+                $("#Hidden_Employees").val(selected);
+            },
+            includeSelectAllOption: true
+        });
+
+        var optCol = $("#Hidden_Employees").val().split(',');
+        //set them as checked
+        $("#Employees").val(optCol);
+        //refresh the control
+        $("#Employees").multiselect("refresh");
+
 
     });
 

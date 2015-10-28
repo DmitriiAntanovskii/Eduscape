@@ -293,5 +293,14 @@ namespace OEG.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<YearLevelBenchmark_Result>("YearLevelBenchmark", jobCodesParameter);
         }
+    
+        public virtual ObjectResult<Nullable<double>> GroupsByEmployeeSubTotal(string empNo)
+        {
+            var empNoParameter = empNo != null ?
+                new ObjectParameter("EmpNo", empNo) :
+                new ObjectParameter("EmpNo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<double>>("GroupsByEmployeeSubTotal", empNoParameter);
+        }
     }
 }
