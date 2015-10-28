@@ -82,6 +82,8 @@ namespace OEG.Controllers
                     string requestUrl = Url + function + "&" + user + "&" + token + "&" + format + "&" + list + "&" + Version;
 
                     HttpWebRequest request = WebRequest.Create(requestUrl) as HttpWebRequest;
+                    try
+                    {
                     HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
                     XmlDocument xmlDoc = new XmlDocument();
@@ -117,6 +119,13 @@ namespace OEG.Controllers
                     System.Diagnostics.Debug.WriteLine("Saving survey to DB");
                     db.SaveChanges();
                     System.Diagnostics.Debug.WriteLine("Finished survey " + s.SurveyName);
+                                        }
+                    catch (Exception ex)
+                    {
+                        //problem with this survey kick onto next
+                        System.Diagnostics.Debug.WriteLine("PROBLEM!");
+                    }
+
                 }
                 System.Diagnostics.Debug.WriteLine("Finished Upload");
                 
@@ -270,8 +279,9 @@ namespace OEG.Controllers
                     string requestUrl = Url + function + "&" + user + "&" + token + "&" + format + "&" + list + "&" + Version;
 
                     HttpWebRequest request = WebRequest.Create(requestUrl) as HttpWebRequest;
+                    try 
+                    { 
                     HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-
                     XmlDocument xmlDoc = new XmlDocument();
                     xmlDoc.Load(response.GetResponseStream());
 
@@ -305,10 +315,15 @@ namespace OEG.Controllers
                     System.Diagnostics.Debug.WriteLine("Saving survey to DB");
                     db.SaveChanges();
                     System.Diagnostics.Debug.WriteLine("Finished survey " + s.SurveyName);
-                }
+                    }
+                    catch (Exception ex)
+                    {
+                        //problem with this survey kick onto next
+                        System.Diagnostics.Debug.WriteLine("PROBLEM!");
+                    }
+
+                    }
                 System.Diagnostics.Debug.WriteLine("Finished Upload");
-
-
             }
             catch (Exception e)
             {
@@ -348,6 +363,9 @@ namespace OEG.Controllers
                     string requestUrl = Url + function + "&" + user + "&" + token + "&" + format + "&" + list + "&" + Version;
 
                     HttpWebRequest request = WebRequest.Create(requestUrl) as HttpWebRequest;
+                    try 
+                    { 
+
                     HttpWebResponse response = request.GetResponse() as HttpWebResponse;
 
                     XmlDocument xmlDoc = new XmlDocument();
@@ -383,6 +401,13 @@ namespace OEG.Controllers
                     System.Diagnostics.Debug.WriteLine("Saving survey to DB");
                     db.SaveChanges();
                     System.Diagnostics.Debug.WriteLine("Finished survey " + s.SurveyName);
+                    }
+                    catch (Exception ex)
+                    {
+                        //problem with this survey kick onto next
+                        System.Diagnostics.Debug.WriteLine("PROBLEM!");
+                    }
+
                 }
                 System.Diagnostics.Debug.WriteLine("Finished Upload");
 
