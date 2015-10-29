@@ -206,7 +206,7 @@ namespace OEG.Controllers
                     j.Duration = r.Duration;
                     j.JobCode = r.JobCode;
                     j.JobFrom = r.JobFrom;
-                    j.SchoolCode = r.SchoolCode;
+                    j.SchoolCode = r.Client;
                     j.Venue = r.Venue;
                     j.Year = r.Year.ToString();
                     j.YearLvl = r.YearLvl;

@@ -48,7 +48,7 @@ namespace OEG.Controllers
             {
                 source = source.Where(x => x.UserGroup.UserGroupName == "Group Leader");
             }
-            return View(source.ToList());
+            return View(source.OrderBy(x => x.Surname).ThenBy(x => x.FirstName).ToList());
         }
 
         // GET: Users/Details/5

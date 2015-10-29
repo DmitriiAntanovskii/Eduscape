@@ -71,7 +71,7 @@
             <PropertyRef Name="JobCode" />
           </Key>
           <Property Name="JobCode" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="SchoolCode" Type="varchar" MaxLength="8" />
+          <Property Name="SchoolCode" Type="varchar" MaxLength="255" />
           <Property Name="Venue" Type="varchar" MaxLength="25" />
           <Property Name="JobFrom" Type="smalldatetime" />
           <Property Name="Duration" Type="int" />
@@ -321,7 +321,6 @@
           <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="tblHR_Entities" EntityType="oeg_reportsModel.tblHR_Entities" />
-          <EntitySet Name="tblPrograms" EntityType="oeg_reportsModel.tblProgram" />
           <FunctionImport Name="Competency" ReturnType="Collection(oeg_reportsModel.Competency_Result)">
           <Parameter Name="JobCodes" Mode="In" Type="String" />
           </FunctionImport>
@@ -329,8 +328,9 @@
           <Parameter Name="JobCodes" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GroupsByEmployeeSubTotal" ReturnType="Collection(Double)">
-            <Parameter Name="EmpNo" Mode="In" Type="String" />
+          <Parameter Name="EmpNo" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tblPrograms" EntityType="oeg_reportsModel.tblProgram" />
         </EntityContainer>
         <ComplexType Name="SchoolReport_Result">
           <Property Type="Int32" Name="year" Nullable="true" />
@@ -600,18 +600,6 @@
           <Property Name="EntityID" Type="Int32" Nullable="false" />
           <Property Name="FullName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="tblProgram">
-          <Key>
-            <PropertyRef Name="JobCode" />
-          </Key>
-          <Property Name="JobCode" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="SchoolCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="Venue" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="JobFrom" Type="DateTime" Precision="0" />
-          <Property Name="Duration" Type="Int32" />
-          <Property Name="YearLvl" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="Year" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-        </EntityType>
         <ComplexType Name="Competency_Result">
           <Property Type="String" Name="Factor" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="FactorText" Nullable="true" />
@@ -631,6 +619,18 @@
           <Property Type="Double" Name="ChangePercent" Nullable="true" />
           <Property Type="Double" Name="EffectSize" Nullable="true" />
         </ComplexType>
+        <EntityType Name="tblProgram">
+          <Key>
+            <PropertyRef Name="JobCode" />
+          </Key>
+          <Property Name="JobCode" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="SchoolCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Venue" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="JobFrom" Type="DateTime" Precision="0" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="YearLvl" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1000,19 +1000,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblPrograms">
-            <EntityTypeMapping TypeName="oeg_reportsModel.tblProgram">
-              <MappingFragment StoreEntitySet="tblPrograms">
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="YearLvl" ColumnName="YearLvl" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="JobFrom" ColumnName="JobFrom" />
-                <ScalarProperty Name="Venue" ColumnName="Venue" />
-                <ScalarProperty Name="SchoolCode" ColumnName="SchoolCode" />
-                <ScalarProperty Name="JobCode" ColumnName="JobCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Competency" FunctionName="oeg_reportsModel.Store.Competency">
             <ResultMapping>
               <ComplexTypeMapping TypeName="oeg_reportsModel.Competency_Result">
@@ -1041,6 +1028,19 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GroupsByEmployeeSubTotal" FunctionName="oeg_reportsModel.Store.GroupsByEmployeeSubTotal" />
+          <EntitySetMapping Name="tblPrograms">
+            <EntityTypeMapping TypeName="oeg_reportsModel.tblProgram">
+              <MappingFragment StoreEntitySet="tblPrograms">
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="YearLvl" ColumnName="YearLvl" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="JobFrom" ColumnName="JobFrom" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="SchoolCode" ColumnName="SchoolCode" />
+                <ScalarProperty Name="JobCode" ColumnName="JobCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

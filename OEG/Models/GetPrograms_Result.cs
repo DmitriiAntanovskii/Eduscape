@@ -20,5 +20,6 @@ namespace OEG.Models
         public Nullable<int> Duration { get; set; }
         public string YearLvl { get; set; }
         public Nullable<int> Year { get; set; }
+        public string Client { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="oeg_lookups.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="oeg_lookups.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <Function Name="GetEmployees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmployeeNumbers" Type="nvarchar(max)" Mode="In" />
         </Function>
@@ -12,14 +12,13 @@
           <Parameter Name="JobCodes" Type="nvarchar(max)" Mode="In" />
         </Function>
         <EntityContainer Name="oeg_lookupsStoreContainer" />
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="oeg_lookups" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="oeg_lookupsEntities" annotation:LazyLoadingEnabled="true" >
           <FunctionImport Name="GetEmployees" ReturnType="Collection(oeg_lookups.GetEmployees_Result)">
-            <Parameter Name="EmployeeNumbers" Mode="In" Type="String" />
+          <Parameter Name="EmployeeNumbers" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetPrograms" ReturnType="Collection(oeg_lookups.GetPrograms_Result)">
             <Parameter Name="JobCodes" Mode="In" Type="String" />
@@ -37,6 +36,7 @@
           <Property Type="Int32" Name="Duration" Nullable="true" />
           <Property Type="String" Name="YearLvl" Nullable="true" MaxLength="12" />
           <Property Type="Int32" Name="Year" Nullable="true" />
+          <Property Type="String" Name="Client" Nullable="true" MaxLength="100" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -62,6 +62,7 @@
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="YearLvl" ColumnName="YearLvl" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Client" ColumnName="Client" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
