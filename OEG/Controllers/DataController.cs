@@ -76,7 +76,7 @@ namespace OEG.Controllers
                     string function = "Request=getLegacyResponseData";
                     string user = "User=pammert@oeg.vic.edu.au";
                     string token = "Token=zlHrARdXDOn6ep1ZKo2Jb8vpBVUMb6odWPkbEPQL";
-                    string list = "SurveyID=" + s.SurveyCode; //st caths pre
+                    string list = "SurveyID=" + s.SurveyCode.Trim(); //st caths pre
                     string format = "Format=XML";
                     string Version = "Version=2.5";
                     string requestUrl = Url + function + "&" + user + "&" + token + "&" + format + "&" + list + "&" + Version;
@@ -273,7 +273,7 @@ namespace OEG.Controllers
                     string function = "Request=getLegacyResponseData";
                     string user = "User=pammert@oeg.vic.edu.au";
                     string token = "Token=zlHrARdXDOn6ep1ZKo2Jb8vpBVUMb6odWPkbEPQL";
-                    string list = "SurveyID=" + s.SurveyCode; //st caths pre
+                    string list = "SurveyID=" + s.SurveyCode.Trim(); //st caths pre
                     string format = "Format=XML";
                     string Version = "Version=2.5";
                     string requestUrl = Url + function + "&" + user + "&" + token + "&" + format + "&" + list + "&" + Version;
@@ -357,7 +357,7 @@ namespace OEG.Controllers
                     string function = "Request=getLegacyResponseData";
                     string user = "User=pammert@oeg.vic.edu.au";
                     string token = "Token=zlHrARdXDOn6ep1ZKo2Jb8vpBVUMb6odWPkbEPQL";
-                    string list = "SurveyID=" + s.SurveyCode; //st caths pre
+                    string list = "SurveyID=" + s.SurveyCode.Trim(); //st caths pre
                     string format = "Format=XML";
                     string Version = "Version=2.5";
                     string requestUrl = Url + function + "&" + user + "&" + token + "&" + format + "&" + list + "&" + Version;
