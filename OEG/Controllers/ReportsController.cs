@@ -173,6 +173,7 @@ namespace OEG.Controllers
         public ActionResult Duration()
         {
             var days = (from f in db.ReportDatas
+                        where f.Days != null
                         select new { Days = f.Days }).Distinct();
 
             ViewBag.Days = new SelectList(days.OrderBy(x => x.Days), "Days", "Days");
@@ -185,6 +186,7 @@ namespace OEG.Controllers
         public ActionResult Duration(string Hidden_Days)
         {
             var days = (from f in db.ReportDatas
+                        where f.Days != null
                         select new { Days = f.Days }).Distinct();
 
             ViewBag.Days = new SelectList(days.OrderBy(x => x.Days), "Days", "Days");
@@ -882,6 +884,7 @@ namespace OEG.Controllers
 
 
             var schools = (from f in source
+                           where f.School != null
                             select new { School = f.School }).Distinct();
 
             string sc = "";
@@ -898,6 +901,7 @@ namespace OEG.Controllers
                 ViewBag.Hidden_Schools = sc;
             }
             var years = (from f in source
+                         where f.Year != null
                             select new { Year = f.Year}).Distinct();
 
             ViewBag.Years = new SelectList(years.OrderBy(x => x.Year), "Year", "Year");
@@ -909,6 +913,7 @@ namespace OEG.Controllers
             if (y.Length > 0) y = y.Remove(y.Length - 1);
 
             var venues = (from f in source
+                          where f.Venue != null
                           select new { Venue = f.Venue }).Distinct();
 
             ViewBag.Venues = new SelectList(venues.OrderBy(x => x.Venue), "Venue", "Venue");
@@ -983,18 +988,21 @@ namespace OEG.Controllers
             ViewBag.Hidden_JobCodes = Hidden_JobCodes;
 
             var schools = (from f in source
+                           where f.School != null
                            select new { School = f.School }).Distinct();
 
             ViewBag.Schools = new SelectList(schools.OrderBy(x => x.School), "School", "School");
             ViewBag.Hidden_Schools = Hidden_Schools;
 
             var years = (from f in source
+                         where f.Year != null
                          select new { Year = f.Year }).Distinct();
 
             ViewBag.Years = new SelectList(years.OrderBy(x => x.Year), "Year", "Year");
             ViewBag.Hidden_Years = Hidden_Years;
 
             var venues = (from f in source
+                          where f.Venue != null
                           select new { Venue = f.Venue }).Distinct();
 
             ViewBag.Venues = new SelectList(venues.OrderBy(x => x.Venue), "Venue", "Venue");

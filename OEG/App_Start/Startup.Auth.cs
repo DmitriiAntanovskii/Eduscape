@@ -17,7 +17,7 @@ namespace OEG
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Users/LogIn"),
-                
+                ExpireTimeSpan = TimeSpan.FromMinutes(20)
             });
         }
     }
