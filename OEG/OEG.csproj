@@ -190,10 +190,16 @@
     <Compile Include="Models\Duration_Result.cs">
       <DependentUpon>oeg_reports.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\getEmployeeIDByName_Result.cs">
+      <DependentUpon>oeg_lookups.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GetEmployees_Result.cs">
       <DependentUpon>oeg_lookups.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GetPrograms_Result.cs">
+      <DependentUpon>oeg_lookups.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetRosteredJobcodesCSVByEmployeeNumbers_Result.cs">
       <DependentUpon>oeg_lookups.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GroupsByEmployee_Result.cs">

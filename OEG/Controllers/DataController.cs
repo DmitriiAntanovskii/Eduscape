@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -185,6 +186,37 @@ namespace OEG.Controllers
 
                 db.SaveChanges();
 
+                //get jobcodes for every user
+                var users = (from f in db.Users
+                             where f.EmployeeNumber != null
+                             select new { EmployeeNumber = f.EmployeeNumber }).Distinct();
+
+                string u = "";
+                foreach (string s in users.Select(o => o.EmployeeNumber))
+                {
+                    int n;
+                    bool isNumeric = int.TryParse(s, out n);
+                    if (isNumeric)
+                    {
+                        u += s + ",";
+                    }
+                }
+
+                u = u.Remove(u.Length - 1);
+
+                var lkUsers = db2.GetRosteredJobcodesCSVByEmployeeNumbers(u,null,null).ToList();
+
+                foreach(GetRosteredJobcodesCSVByEmployeeNumbers_Result r in lkUsers)
+                {
+                    User us = db.Users.Where(x => x.EmployeeNumber == r.EmployeeID.ToString()).FirstOrDefault();
+                    if (us != null && r.Jobcodes_CSV != null)
+                    {
+                        us.JobCodes = r.Jobcodes_CSV.Replace(" ", "");
+                        db.Entry(us).State = EntityState.Modified;
+                    }
+                }
+
+                db.SaveChanges();
 
                 var jobcodes = (from f in source
                                 select new { JobCode = f.JobCode }).Distinct();

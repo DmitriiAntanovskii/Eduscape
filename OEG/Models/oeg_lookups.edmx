@@ -5,11 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="oeg_lookups.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="getEmployeeIDByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstname" Type="varchar" Mode="In" />
+          <Parameter Name="lastname" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="GetEmployees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="EmployeeNumbers" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="GetPrograms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="JobCodes" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="GetRosteredJobcodesCSVByEmployeeNumbers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inputEmpID_Str" Type="varchar" Mode="In" />
+          <Parameter Name="monthsAhead" Type="int" Mode="In" />
+          <Parameter Name="monthsPrevious" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="oeg_lookupsStoreContainer" />
       </Schema></edmx:StorageModels>
@@ -21,7 +30,16 @@
           <Parameter Name="EmployeeNumbers" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetPrograms" ReturnType="Collection(oeg_lookups.GetPrograms_Result)">
-            <Parameter Name="JobCodes" Mode="In" Type="String" />
+          <Parameter Name="JobCodes" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="getEmployeeIDByName" ReturnType="Collection(oeg_lookups.getEmployeeIDByName_Result)">
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetRosteredJobcodesCSVByEmployeeNumbers" ReturnType="Collection(oeg_lookups.GetRosteredJobcodesCSVByEmployeeNumbers_Result)">
+            <Parameter Name="inputEmpID_Str" Mode="In" Type="String" />
+            <Parameter Name="monthsAhead" Mode="In" Type="Int32" />
+            <Parameter Name="monthsPrevious" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetEmployees_Result">
@@ -37,6 +55,14 @@
           <Property Type="String" Name="YearLvl" Nullable="true" MaxLength="12" />
           <Property Type="Int32" Name="Year" Nullable="true" />
           <Property Type="String" Name="Client" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="getEmployeeIDByName_Result">
+          <Property Type="Int32" Name="EntityID" Nullable="false" />
+          <Property Type="String" Name="Fullname" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="GetRosteredJobcodesCSVByEmployeeNumbers_Result">
+          <Property Type="Int32" Name="EmployeeID" Nullable="false" />
+          <Property Type="String" Name="Jobcodes_CSV" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -63,6 +89,22 @@
                 <ScalarProperty Name="YearLvl" ColumnName="YearLvl" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Client" ColumnName="Client" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getEmployeeIDByName" FunctionName="oeg_lookups.Store.getEmployeeIDByName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="oeg_lookups.getEmployeeIDByName_Result">
+                <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetRosteredJobcodesCSVByEmployeeNumbers" FunctionName="oeg_lookups.Store.GetRosteredJobcodesCSVByEmployeeNumbers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="oeg_lookups.GetRosteredJobcodesCSVByEmployeeNumbers_Result">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Jobcodes_CSV" ColumnName="Jobcodes_CSV" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -45,5 +45,35 @@ namespace OEG.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPrograms_Result>("GetPrograms", jobCodesParameter);
         }
+    
+        public virtual ObjectResult<getEmployeeIDByName_Result> getEmployeeIDByName(string firstname, string lastname)
+        {
+            var firstnameParameter = firstname != null ?
+                new ObjectParameter("firstname", firstname) :
+                new ObjectParameter("firstname", typeof(string));
+    
+            var lastnameParameter = lastname != null ?
+                new ObjectParameter("lastname", lastname) :
+                new ObjectParameter("lastname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getEmployeeIDByName_Result>("getEmployeeIDByName", firstnameParameter, lastnameParameter);
+        }
+    
+        public virtual ObjectResult<GetRosteredJobcodesCSVByEmployeeNumbers_Result> GetRosteredJobcodesCSVByEmployeeNumbers(string inputEmpID_Str, Nullable<int> monthsAhead, Nullable<int> monthsPrevious)
+        {
+            var inputEmpID_StrParameter = inputEmpID_Str != null ?
+                new ObjectParameter("inputEmpID_Str", inputEmpID_Str) :
+                new ObjectParameter("inputEmpID_Str", typeof(string));
+    
+            var monthsAheadParameter = monthsAhead.HasValue ?
+                new ObjectParameter("monthsAhead", monthsAhead) :
+                new ObjectParameter("monthsAhead", typeof(int));
+    
+            var monthsPreviousParameter = monthsPrevious.HasValue ?
+                new ObjectParameter("monthsPrevious", monthsPrevious) :
+                new ObjectParameter("monthsPrevious", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetRosteredJobcodesCSVByEmployeeNumbers_Result>("GetRosteredJobcodesCSVByEmployeeNumbers", inputEmpID_StrParameter, monthsAheadParameter, monthsPreviousParameter);
+        }
     }
 }
