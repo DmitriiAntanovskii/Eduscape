@@ -4,7 +4,8 @@
     <li><a href="/documents/FAQs.pdf" target="_blank"><i class="fa fa-question"></i> FAQs</a></li>
     <li><a class="@Html.ActivePage("Home", "Forms")" href="/Home/Forms"><i class="fa fa-file"></i> Forms</a></li>
     <li class="section hidden-xs">Current Program Reports</li>
-    <li><a class="@Html.ActivePage("Reports", "JobCodeGroup")" href="/Reports/JobCodeGroup"><i class="fa fa-dashboard"></i> Current Program Report</a></li>
+    <li><a class="@Html.ActivePage("Reports", "JobCodeGroup")" href="/Reports/JobCodeGroup"><i class="fa fa-dashboard"></i> Current Program Reports for GL’s, PL’s SM’s and School Coordinators
+</a></li>
     <li><a class="@Html.ActivePage("Reports", "SchoolQualitative")" href="/Reports/SchoolQualitative"><i class="fa fa-dashboard"></i> Qualitative</a></li>
     @if (User.IsInRole("Administrator") || User.IsInRole("Director") || User.IsInRole("Head of Teaching Team"))
     {
@@ -15,7 +16,7 @@
     }
     @if (!User.IsInRole("School Coordinator"))
     {
-        <li class="section hidden-xs">Summaries</li>
+        <li class="section hidden-xs">Summaries – OEG logons only</li>
         <li><a class="@Html.ActivePage("Reports", "Competency")" href="/Reports/Competency"><i class="fa fa-question"></i> Competency</a></li>
         <li><a class="@Html.ActivePage("Reports", "Duration")" href="/Reports/Duration"><i class="fa fa-clock-o"></i> Duration</a></li>
         <li><a class="@Html.ActivePage("Reports", "Item")" href="/Reports/Item"><i class="fa fa-question"></i> Item</a></li>

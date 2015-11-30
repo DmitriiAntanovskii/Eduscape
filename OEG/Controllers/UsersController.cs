@@ -647,5 +647,15 @@ namespace OEG.Controllers
                 return RedirectToAction("Index", "Reports");
             }
         }
+
+        public JsonResult GetEmployeeNumber(string firstname, string surname)
+        {
+            oeg_lookupsEntities db2 = new oeg_lookupsEntities();
+            var retset = db2.getEmployeeIDByName(firstname, surname).ToList();
+            string ret = retset.Count() > 0 ? retset.FirstOrDefault().EntityID.ToString() : "No Match Found!"; 
+
+            return Json(ret, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

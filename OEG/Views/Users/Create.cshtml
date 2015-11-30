@@ -49,8 +49,10 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.EmployeeNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EmployeeNumber, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="button" id="getEmployeeNumber" class="btn btn-success" value="Get Employee No." />
                 @Html.ValidationMessageFor(model => model.EmployeeNumber, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -83,6 +85,36 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $("#getEmployeeNumber").attr("disabled", "true");
+
+        $("#FirstName").blur(function () {
+            console.log('firstname');
+            if ($(this).val() != "" && $("#Surname").val() != "") {
+                $("#getEmployeeNumber").removeAttr("disabled");
+            } else {
+                $("#getEmployeeNumber").attr("disabled", "true");
+            }
+        });
+
+        $("#Surname").blur(function () {
+            console.log('Last name');
+            if ($(this).val() != "" && $("#FirstName").val() != "") {
+                $("#getEmployeeNumber").removeAttr("disabled");
+            } else {
+                $("#getEmployeeNumber").attr("disabled", "true");
+            }
+        });
+
+        ////get consolidation and append to select options list
+        $('#getEmployeeNumber').click(function () {
+            $.getJSON("/Users/GetEmployeeNumber/", { firstname: $("#FirstName").val(), surname: $("#Surname").val() }, function (result) {
+                console.log(result);
+                $('#EmployeeNumber').val(result);
+            });
+        })
+
+
        
         $('#SchoolsSection').hide();
         $('#JobCodesSection').hide();
