@@ -145,6 +145,9 @@ namespace OEG.Controllers
 
                 oeg_reportsEntities db = new oeg_reportsEntities();
                 oeg_lookupsEntities db2 = new oeg_lookupsEntities();
+                System.Diagnostics.Debug.WriteLine("Starting Remove unmatched");
+                db.Database.ExecuteSqlCommand("UpdatePreGroupID");
+                System.Diagnostics.Debug.WriteLine("Finished Remove unmatched");
 
                 System.Diagnostics.Debug.WriteLine("Starting Remove unmatched");
                 db.Database.ExecuteSqlCommand("RemoveIncompletes");

@@ -3,13 +3,12 @@
     <li class="section hidden-xs">Documents</li>
     <li><a href="/documents/FAQs.pdf" target="_blank"><i class="fa fa-question"></i> FAQs</a></li>
     <li><a class="@Html.ActivePage("Home", "Forms")" href="/Home/Forms"><i class="fa fa-file"></i> Forms</a></li>
-    <li class="section hidden-xs">Current Program Reports</li>
-    <li><a class="@Html.ActivePage("Reports", "JobCodeGroup")" href="/Reports/JobCodeGroup"><i class="fa fa-dashboard"></i> Current Program Reports for GL’s, PL’s SM’s and School Coordinators
-</a></li>
+    <li class="section hidden-xs">Current Program Reports for GL’s, PL’s SM’s and School Coordinators</li>
+    <li><a class="@Html.ActivePage("Reports", "JobCodeGroup")" href="/Reports/JobCodeGroup"><i class="fa fa-dashboard"></i> Quantitative</a></li>
     <li><a class="@Html.ActivePage("Reports", "SchoolQualitative")" href="/Reports/SchoolQualitative"><i class="fa fa-dashboard"></i> Qualitative</a></li>
-    @if (User.IsInRole("Administrator") || User.IsInRole("Director") || User.IsInRole("Head of Teaching Team"))
+    @if (User.IsInRole("Administrator") || User.IsInRole("Director") || User.IsInRole("Head of Teaching Team") || User.IsInRole("Group Leader"))
     {
-        <li class="section hidden-xs">Programs History for GL's</li>
+        <li class="section hidden-xs">Programs History for GL's Only</li>
         <li><a class="@Html.ActivePage("Reports", "GroupsByEmployee")" href="/Reports/GroupsByEmployee"><i class="fa fa-dashboard"></i> Programs History for GL's</a></li>
         <li><a class="@Html.ActivePage("Reports", "SchoolQuantitativeByGroup")" href="/Reports/SchoolQuantitativeByGroup"><i class="fa fa-dashboard"></i> Programs History, for GL's WITH Competencies & Total Effect Size</a></li>
         <li><a class="@Html.ActivePage("Reports", "ItemJobCode")" href="/Reports/ItemJobCode"><i class="fa fa-dashboard"></i> Programs History, for GL's WITH Items & Total Effect Size</a></li>
