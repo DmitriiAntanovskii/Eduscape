@@ -319,7 +319,24 @@ namespace OEG.Controllers
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => u.JobCodes.Contains(x.JobCode));
-                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                if (User.IsInRole("Group Leader"))
+                {
+                    EmpNo = u.EmployeeNumber;
+                    var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber);
+
+                    var groupcodes = (from f in staffdata
+                                      select new { JobCode = f.JobCode }).Distinct();
+
+                    string gc = "";
+                    foreach (string s in groupcodes.Select(o => o.JobCode))
+                    {
+                        gc += s + ",";
+                    }
+
+                    if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                    source = source.Where(x => gc.Contains(x.JobCode));
+                }
             }
 
             if (User.IsInRole("Senior Manager"))
@@ -343,6 +360,26 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
             {
                 ViewBag.Hidden_JobCodes = jc;
+            }
+
+            if (User.IsInRole("Group Leader"))
+            {
+                User u = UserHelper.getMember(db);
+                //GET GROUPS FROM STAFFDATA
+                var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber).Where(x=> jc.Contains(x.JobCode));
+
+                var groupcodes = (from f in staffdata
+                             select new { Group = f.Group }).Distinct();
+
+                string gc = "";
+                foreach (string s in groupcodes.Select(o => o.Group))
+                {
+                    gc += s + ",";
+                }
+
+                if (gc.Length > 0) gc = gc.Remove(gc.Length - 1); 
+
+                source = source.Where(x => x.Group.Contains(gc));
             }
 
             var groups = (from f in source
@@ -1057,7 +1094,28 @@ namespace OEG.Controllers
                 string[] jobCodes = options.Split(',');
 
                 source = source.Where(x => jobCodes.Contains(x.JobCode));
+
+                if (User.IsInRole("Group Leader"))
+                {
+                    User u = UserHelper.getMember(db);
+                    //GET GROUPS FROM STAFFDATA
+                    var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber).Where(x => options.Contains(x.JobCode));
+
+                    var groupcodes = (from f in staffdata
+                                      select new { Group = f.Group }).Distinct();
+
+                    string gc = "";
+                    foreach (string s in groupcodes.Select(o => o.Group))
+                    {
+                        gc += s + ",";
+                    }
+
+                    if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                    source = source.Where(x => x.Group.Contains(gc));
+                }
             }
+
             var groups = (from f in source
                           select new { Group = f.Group }).Distinct();
             
