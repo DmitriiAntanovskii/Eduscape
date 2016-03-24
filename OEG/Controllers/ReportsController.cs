@@ -101,8 +101,8 @@ namespace OEG.Controllers
             }
 
             GroupsByEmployeeViewModel vm = new GroupsByEmployeeViewModel();
-            vm.ReportData = db.GroupsByEmployee(null).ToList();
-            vm.SubTotal = db.GroupsByEmployeeSubTotal(null).FirstOrDefault();
+            vm.ReportData = db.GroupsByEmployee(EmpNo).ToList();
+            vm.SubTotal = db.GroupsByEmployeeSubTotal(EmpNo).FirstOrDefault();
  
 
             return View(vm);
@@ -420,7 +420,24 @@ namespace OEG.Controllers
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => u.JobCodes.Contains(x.JobCode));
-                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                if (User.IsInRole("Group Leader"))
+                {
+                    EmpNo = u.EmployeeNumber;
+                    var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber);
+
+                    var groupcodes = (from f in staffdata
+                                      select new { JobCode = f.JobCode }).Distinct();
+
+                    string gc = "";
+                    foreach (string s in groupcodes.Select(o => o.JobCode))
+                    {
+                        gc += s + ",";
+                    }
+
+                    if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                    source = source.Where(x => gc.Contains(x.JobCode));
+                }
             }
 
             if (User.IsInRole("Senior Manager"))
@@ -434,12 +451,12 @@ namespace OEG.Controllers
                             select new { JobCode = f.JobCode }).Distinct();
 
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
-
+            string ret = "";
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
             {
                 if (Hidden_JobCodes.Length == 0)
                 {
-                    string ret = "";
+                    
                     foreach (string s in jobcodes.Select(o => o.JobCode))
                     {
                         ret += s + ",";
@@ -451,6 +468,28 @@ namespace OEG.Controllers
             }
             ViewBag.Hidden_JobCodes = Hidden_JobCodes;
 
+
+            if (User.IsInRole("Group Leader"))
+            {
+                User u = UserHelper.getMember(db);
+                //GET GROUPS FROM STAFFDATA
+                var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber).Where(x => ret.Contains(x.JobCode));
+
+                var groupcodes = (from f in staffdata
+                                  select new { Group = f.Group }).Distinct();
+
+                string gc = "";
+                foreach (string s in groupcodes.Select(o => o.Group))
+                {
+                    gc += s + ",";
+                }
+
+                if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                source = source.Where(x => x.Group.Contains(gc));
+            }
+
+
             var groups = (from f in source
                           select new { Group = f.Group }).Distinct();
 
@@ -461,14 +500,14 @@ namespace OEG.Controllers
             {
                 if (Hidden_Groups.Length == 0)
                 {
-                    string ret = "";
+                    string ret1 = "";
                     foreach (string s in groups.Select(o => o.Group))
                     {
-                        ret += s + ",";
+                        ret1 += s + ",";
                     }
 
-                    if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
-                    Hidden_Groups = ret;
+                    if (ret1.Length > 0) ret1 = ret1.Remove(ret.Length - 1);
+                    Hidden_Groups = ret1;
                 }
             }
 
@@ -585,7 +624,24 @@ namespace OEG.Controllers
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => u.JobCodes.Contains(x.JobCode));
-                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                if (User.IsInRole("Group Leader"))
+                {
+                    EmpNo = u.EmployeeNumber;
+                    var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber);
+
+                    var groupcodes = (from f in staffdata
+                                      select new { JobCode = f.JobCode }).Distinct();
+
+                    string gc = "";
+                    foreach (string s in groupcodes.Select(o => o.JobCode))
+                    {
+                        gc += s + ",";
+                    }
+
+                    if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                    source = source.Where(x => gc.Contains(x.JobCode));
+                }
                 ViewBag.Hidden_Employees = EmpNo;
             }
             else if (User.IsInRole("Senior Manager"))
@@ -618,6 +674,26 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager")  || User.IsInRole("School Coordinator"))
             {
                 ViewBag.Hidden_JobCodes = ret;
+            }
+
+            if (User.IsInRole("Group Leader"))
+            {
+                User u = UserHelper.getMember(db);
+                //GET GROUPS FROM STAFFDATA
+                var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber).Where(x => ret.Contains(x.JobCode));
+
+                var groupcodes = (from f in staffdata
+                                  select new { Group = f.Group }).Distinct();
+
+                string gc = "";
+                foreach (string s in groupcodes.Select(o => o.Group))
+                {
+                    gc += s + ",";
+                }
+
+                if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                source = source.Where(x => x.Group.Contains(gc));
             }
 
 
@@ -657,8 +733,26 @@ namespace OEG.Controllers
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("School Coordinator"))
             {
                 User u = UserHelper.getMember(db);
-                source = source.Where(x => u.JobCodes.Contains(x.JobCode)); 
-                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                source = source.Where(x => u.JobCodes.Contains(x.JobCode));
+                if (User.IsInRole("Group Leader"))
+                {
+                    EmpNo = u.EmployeeNumber;
+                    var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber);
+
+                    var groupcodes = (from f in staffdata
+                                      select new { JobCode = f.JobCode }).Distinct();
+
+                    string gc = "";
+                    foreach (string s in groupcodes.Select(o => o.JobCode))
+                    {
+                        gc += s + ",";
+                    }
+
+                    if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                    source = source.Where(x => gc.Contains(x.JobCode));
+                }
+
                 ViewBag.Hidden_Employees = EmpNo;
             }
             else if (User.IsInRole("Senior Manager"))
@@ -682,12 +776,12 @@ namespace OEG.Controllers
                             select new { JobCode = f.JobCode }).Distinct();
 
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
-
+            string ret = "";
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager")  || User.IsInRole("School Coordinator"))
             {
                 if (Hidden_JobCodes.Length == 0)
                 {
-                    string ret = "";
+                    
                     foreach (string s in jobcodes.Select(o => o.JobCode))
                     {
                         ret += s + ",";
@@ -700,6 +794,27 @@ namespace OEG.Controllers
 
             ViewBag.Hidden_JobCodes = Hidden_JobCodes;
 
+            if (User.IsInRole("Group Leader"))
+            {
+                User u = UserHelper.getMember(db);
+                //GET GROUPS FROM STAFFDATA
+                var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber).Where(x => ret.Contains(x.JobCode));
+
+                var groupcodes = (from f in staffdata
+                                  select new { Group = f.Group }).Distinct();
+
+                string gc = "";
+                foreach (string s in groupcodes.Select(o => o.Group))
+                {
+                    gc += s + ",";
+                }
+
+                if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                source = source.Where(x => x.Group.Contains(gc));
+            }
+
+
             var groups = (from f in source
                           select new { Group = f.Group }).Distinct();
 
@@ -710,14 +825,14 @@ namespace OEG.Controllers
             {
                 if (Hidden_Groups.Length == 0)
                 {
-                    string ret = "";
+                    string ret1 = "";
                     foreach (string s in groups.Select(o => o.Group))
                     {
-                        ret += s + ",";
+                        ret1 += s + ",";
                     }
 
-                    if (ret.Length > 0)  ret = ret.Remove(ret.Length - 1);
-                    Hidden_Groups = ret;
+                    if (ret1.Length > 0)  ret1 = ret1.Remove(ret1.Length - 1);
+                    Hidden_Groups = ret1;
                 }
             }
 
@@ -744,7 +859,24 @@ namespace OEG.Controllers
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => u.JobCodes.Contains(x.JobCode));
-                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                if (User.IsInRole("Group Leader"))
+                {
+                    EmpNo = u.EmployeeNumber;
+                    var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber);
+
+                    var groupcodes = (from f in staffdata
+                                      select new { JobCode = f.JobCode }).Distinct();
+
+                    string gc = "";
+                    foreach (string s in groupcodes.Select(o => o.JobCode))
+                    {
+                        gc += s + ",";
+                    }
+
+                    if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                    source = source.Where(x => gc.Contains(x.JobCode));
+                }
             }
             else if (User.IsInRole("Senior Manager"))
             {
@@ -777,6 +909,27 @@ namespace OEG.Controllers
             {
                 ViewBag.Hidden_JobCodes = ret;
             }
+
+            if (User.IsInRole("Group Leader"))
+            {
+                User u = UserHelper.getMember(db);
+                //GET GROUPS FROM STAFFDATA
+                var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber).Where(x => ret.Contains(x.JobCode));
+
+                var groupcodes = (from f in staffdata
+                                  select new { Group = f.Group }).Distinct();
+
+                string gc = "";
+                foreach (string s in groupcodes.Select(o => o.Group))
+                {
+                    gc += s + ",";
+                }
+
+                if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                source = source.Where(x => x.Group.Contains(gc));
+            }
+
 
 
             var groups = (from f in source
@@ -815,7 +968,24 @@ namespace OEG.Controllers
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => u.JobCodes.Contains(x.JobCode));
-                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                if (User.IsInRole("Group Leader"))
+                {
+                    EmpNo = u.EmployeeNumber;
+                    var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber);
+
+                    var groupcodes = (from f in staffdata
+                                      select new { JobCode = f.JobCode }).Distinct();
+
+                    string gc = "";
+                    foreach (string s in groupcodes.Select(o => o.JobCode))
+                    {
+                        gc += s + ",";
+                    }
+
+                    if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                    source = source.Where(x => gc.Contains(x.JobCode));
+                }
             }
             else if (User.IsInRole("Senior Manager"))
             {
@@ -839,12 +1009,12 @@ namespace OEG.Controllers
                             select new { JobCode = f.JobCode }).Distinct();
 
             ViewBag.JobCodes = new SelectList(jobcodes.OrderBy(x => x.JobCode), "JobCode", "JobCode");
-
+            string ret = "";
             if (User.IsInRole("Program Leader") || User.IsInRole("Group Leader") || User.IsInRole("Senior Manager"))
             {
                 if (Hidden_JobCodes.Length == 0)
                 {
-                    string ret = "";
+                    
                     foreach (string s in jobcodes.Select(o => o.JobCode))
                     {
                         ret += s + ",";
@@ -856,6 +1026,27 @@ namespace OEG.Controllers
             }
 
             ViewBag.Hidden_JobCodes = Hidden_JobCodes;
+            if (User.IsInRole("Group Leader"))
+            {
+                User u = UserHelper.getMember(db);
+                //GET GROUPS FROM STAFFDATA
+                var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber).Where(x => ret.Contains(x.JobCode));
+
+                var groupcodes = (from f in staffdata
+                                  select new { Group = f.Group }).Distinct();
+
+                string gc = "";
+                foreach (string s in groupcodes.Select(o => o.Group))
+                {
+                    gc += s + ",";
+                }
+
+                if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                source = source.Where(x => x.Group.Contains(gc));
+            }
+
+
 
             var groups = (from f in source
                           select new { Group = f.Group }).Distinct();
@@ -867,14 +1058,14 @@ namespace OEG.Controllers
             {
                 if (Hidden_Groups.Length == 0)
                 {
-                    string ret = "";
+                    string ret1 = "";
                     foreach (string s in groups.Select(o => o.Group))
                     {
-                        ret += s + ",";
+                        ret1 += s + ",";
                     }
 
-                    if (ret.Length > 0) ret = ret.Remove(ret.Length - 1);
-                    Hidden_Groups = ret;
+                    if (ret1.Length > 0) ret1 = ret1.Remove(ret1.Length - 1);
+                    Hidden_Groups = ret1;
                 }
             }
 
@@ -898,7 +1089,25 @@ namespace OEG.Controllers
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => u.JobCodes.Contains(x.JobCode));
-                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                if (User.IsInRole("Group Leader"))
+                {
+                    EmpNo = u.EmployeeNumber;
+                    var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber);
+
+                    var groupcodes = (from f in staffdata
+                                      select new { JobCode = f.JobCode }).Distinct();
+
+                    string gc = "";
+                    foreach (string s in groupcodes.Select(o => o.JobCode))
+                    {
+                        gc += s + ",";
+                    }
+
+                    if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                    source = source.Where(x => gc.Contains(x.JobCode));
+                    
+                }
             }
             if (User.IsInRole("Senior Manager"))
             {
@@ -919,6 +1128,11 @@ namespace OEG.Controllers
             }
             if (jc.Length > 0) jc = jc.Remove(jc.Length - 1);
 
+
+            if (User.IsInRole("Group Leader"))
+            {
+                ViewBag.Hidden_JobCodes = jc;
+            }
 
             var schools = (from f in source
                            where f.School != null
@@ -978,6 +1192,28 @@ namespace OEG.Controllers
             }
             if (sd.Length > 0) sd = sd.Remove(sd.Length - 1);
 
+
+            if (User.IsInRole("Group Leader"))
+            {
+                User u = UserHelper.getMember(db);
+                //GET GROUPS FROM STAFFDATA
+                var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber).Where(x => jc.Contains(x.JobCode));
+
+                var groupcodes = (from f in staffdata
+                                  select new { Group = f.Group }).Distinct();
+
+                string gc = "";
+                foreach (string s in groupcodes.Select(o => o.Group))
+                {
+                    gc += s + ",";
+                }
+
+                if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                source = source.Where(x => x.Group.Contains(gc));
+            }
+
+
             var groups = (from f in source
                           select new { Group = f.Group }).Distinct();
 
@@ -1010,7 +1246,25 @@ namespace OEG.Controllers
             {
                 User u = UserHelper.getMember(db);
                 source = source.Where(x => u.JobCodes.Contains(x.JobCode));
-                if (User.IsInRole("Group Leader")) EmpNo = u.EmployeeNumber;
+                if (User.IsInRole("Group Leader"))
+                {
+                    EmpNo = u.EmployeeNumber;
+                    var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber);
+
+                    var groupcodes = (from f in staffdata
+                                      select new { JobCode = f.JobCode }).Distinct();
+
+                    string gc = "";
+                    foreach (string s in groupcodes.Select(o => o.JobCode))
+                    {
+                        gc += s + ",";
+                    }
+
+                    if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                    source = source.Where(x => gc.Contains(x.JobCode));
+
+                }
             }
             if (User.IsInRole("Senior Manager"))
             {
@@ -1055,6 +1309,27 @@ namespace OEG.Controllers
 
             ViewBag.StartDates = new SelectList(startdates, "Text", "Value");
             ViewBag.Hidden_StartDates = Hidden_StartDates;
+
+            if (User.IsInRole("Group Leader"))
+            {
+                User u = UserHelper.getMember(db);
+                //GET GROUPS FROM STAFFDATA
+                var staffdata = db.StaffReportData.Where(x => x.EmployeeNumber == u.EmployeeNumber).Where(x => Hidden_JobCodes.Contains(x.JobCode));
+
+                var groupcodes = (from f in staffdata
+                                  select new { Group = f.Group }).Distinct();
+
+                string gc = "";
+                foreach (string s in groupcodes.Select(o => o.Group))
+                {
+                    gc += s + ",";
+                }
+
+                if (gc.Length > 0) gc = gc.Remove(gc.Length - 1);
+
+                source = source.Where(x => x.Group.Contains(gc));
+            }
+
 
             var groups = (from f in source
                           select new { Group = f.Group }).Distinct();
